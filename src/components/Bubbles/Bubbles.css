@@ -1,0 +1,7 @@
+.value-text{
+  visibility: hidden;
+}
+
+.node{
+  cursor: pointer;
+}

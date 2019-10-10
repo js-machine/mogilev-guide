@@ -1,0 +1,32 @@
+.map {
+  /* position: relative; */
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+}
+
+.ymaps-layers-pane {
+  filter: grayscale(1);
+  -ms-filter: grayscale(1);
+  -webkit-filter: grayscale(1);
+  -moz-filter: grayscale(1);
+  -o-filter: grayscale(1);
+}
+
+.attraction-link {
+  text-decoration: none;
+}
+
+.map-container .filter {
+  position: absolute;
+  bottom: 78px;
+  z-index: 2;
+  left: 83%;
+}
+
+.map-container .navigate {
+  position: absolute;
+  top: 16px;
+  z-index: 2;
+  left: 83%;
+}

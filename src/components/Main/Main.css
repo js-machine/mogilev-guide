@@ -1,0 +1,16 @@
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.map-container {
+  z-index: 0;
+}
+
+.navigation-tabs {
+  z-index: 2;
+  bottom: 0;
+  width: 100vw;
+  position: absolute;
+}
