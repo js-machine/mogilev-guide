@@ -1,61 +1,33 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
-import styled from 'styled-components';
+import { theme } from './theme';
+import { Route, Redirect, Switch, Router } from 'react-router';
+import { ThemeProvider } from '@material-ui/styles';
 
-import { Route, Link } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { observer } from 'mobx-react-lite';
+import { syncHistoryWithStore } from 'mobx-react-router';
+import { useStores } from './stores';
+import { Main } from './scenes/main';
 
-const StyledApp = styled.div`
-`;
+const browserHistory = createBrowserHistory();
 
-export const App = () => {
-  /*
-   * Replace the elements below with your own.
-   *
-   * Note: The corresponding styles are in the ./app.styled-components file.
-   */
-  return (
-    <StyledApp>
-      <main>
-      </main>
+export const App: React.FC = observer(() => {
+  const { routerStore } = useStores();
 
-      {/* START: routes */}
-      {/* These routes and navigation have been generated for you */}
-      {/* Feel free to move and update them to fit your needs */}
-      <br />
-      <hr />
-      <br />
-      <div role="navigation">
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/page-2">Page 2</Link>
-          </li>
-        </ul>
-      </div>
-      <Route
-        path="/"
-        exact
-        render={() => (
-          <div>
-            This is the generated root route.{' '}
-            <Link to="/page-2">Click here for page 2.</Link>
-          </div>
-        )}
-      />
-      <Route
-        path="/page-2"
-        exact
-        render={() => (
-          <div>
-            <Link to="/">Click here to go back to root page.</Link>
-          </div>
-        )}
-      />
-      {/* END: routes */}
-    </StyledApp>
+  const history = useMemo(
+    () => syncHistoryWithStore(browserHistory, routerStore),
+    [routerStore]
   );
-};
 
-export default App;
+  return (
+    <ThemeProvider theme={theme}>
+      <Router history={history}>
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Redirect to="/" />
+        </Switch>
+      </Router>
+    </ThemeProvider>
+  );
+});

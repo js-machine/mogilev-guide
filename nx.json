@@ -19,6 +19,12 @@
     },
     "api": {
       "tags": []
+    },
+    "data-service": {
+      "tags": []
+    },
+    "models": {
+      "tags": []
     }
   }
 }

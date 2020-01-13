@@ -15,7 +15,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@mogilev-guide/data-service": ["libs/data-service/src/index.ts"],
+      "@mogilev-guide/models": ["libs/models/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -26,12 +26,19 @@
   },
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.8.3",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/styles": "^4.8.2",
     "document-register-element": "1.13.1",
+    "express": "4.17.1",
+    "material-ui-image": "^3.2.2",
+    "mobx": "^5.15.2",
+    "mobx-react-lite": "^1.5.2",
+    "mobx-react-router": "^4.1.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
-    "styled-components": "4.4.1",
     "react-router-dom": "5.1.2",
-    "express": "4.17.1"
+    "styled-components": "4.4.1"
   },
   "devDependencies": {
     "@babel/preset-react": "7.7.4",
