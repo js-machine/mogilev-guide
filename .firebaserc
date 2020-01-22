@@ -1,0 +1,22 @@
+{
+  "projects": {
+    "default": "mogilev-guide",
+    "staging": "mogilev-guide-dev"
+  },
+  "targets": {
+    "mogilev-guide": {
+      "hosting": {
+        "mogilev-guide": [
+          "mogilev-guide"
+        ]
+      }
+    },
+    "mogilev-guide-dev": {
+      "hosting": {
+        "mogilev-guide": [
+          "mogilev-guide-dev"
+        ]
+      }
+    }
+  }
+}
