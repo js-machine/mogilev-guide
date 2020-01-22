@@ -22,15 +22,38 @@
     "format:check": "nx format:check",
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
-    "help": "nx help"
+    "help": "nx help",
+    "build:api": "npm run tsoa:gen && nx build api",
+    "build:api:watch": "npm run tsoa:gen && nx build api --watch",
+    "build:front": "nx build frontend",
+    "build:front:staging": "nx build frontend && npm run worker:front",
+    "build:front:prod": "nx build frontend --configuration=production && npm run worker:front",
+    "worker:front": "npx workbox-cli generateSW apps/frontend/src/workbox-config.js",
+    "start:front": "nx serve frontend --port 4200",
+    "start:api": "npm run build:api && firebase serve --only functions",
+    "firebase:deploy": "firebase deploy",
+    "firebase:emulators": "firebase emulators:start",
+    "tsoa:gen": "tsoa swagger -c ./apps/api/tsoa.json && tsoa routes -c ./apps/api/tsoa.json"
+  },
+  "main": "dist/apps/api/main.js",
+  "engines": {
+    "node": "10"
   },
   "private": true,
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "dependencies": {
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.8.2",
     "document-register-element": "1.13.1",
     "express": "4.17.1",
+    "firebase": "^7.7.0",
+    "firebase-admin": "^8.9.1",
+    "firebase-functions": "^3.3.0",
     "material-ui-image": "^3.2.2",
     "mobx": "^5.15.2",
     "mobx-react-lite": "^1.5.2",
@@ -38,7 +61,9 @@
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-router-dom": "5.1.2",
-    "styled-components": "4.4.1"
+    "styled-components": "4.4.1",
+    "tsoa": "^2.5.12",
+    "typescript-ioc": "^1.2.5"
   },
   "devDependencies": {
     "@babel/preset-react": "7.7.4",
@@ -51,6 +76,7 @@
     "@nrwl/web": "8.11.0",
     "@nrwl/workspace": "8.11.0",
     "@testing-library/react": "9.4.0",
+    "@types/express": "4.17.0",
     "@types/jest": "24.0.9",
     "@types/node": "~8.9.4",
     "@types/react": "16.9.17",
@@ -72,7 +98,6 @@
     "ts-jest": "24.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.5.3",
-    "@types/express": "4.17.0"
+    "typescript": "~3.5.3"
   }
 }

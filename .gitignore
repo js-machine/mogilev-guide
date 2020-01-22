@@ -37,3 +37,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+/.firebase
+firebase-debug.log
+firestore-debug.log
+swagger.json
+routes.ts
+/.config

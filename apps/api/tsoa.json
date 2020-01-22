@@ -1,0 +1,22 @@
+{
+  "swagger": {
+    "outputDirectory": "./apps/api",
+    "entryFile": "./apps/api/src/app/server.ts",
+    "basePath": "/api",
+    "specVersion": 2
+  },
+  "routes": {
+    "basePath": "/api",
+    "entryFile": "./apps/api/src/app/server.ts",
+    "routesDir": "./apps/api/src/app",
+    "middleware": "express"
+  },
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@mogilev-guide/models": ["libs/models/src/index.ts"],
+      "@mogilev-guide/api/*": ["apps/api/src/app/*"]
+    }
+  },
+  "ignore": ["**/node_modules/**"]
+}

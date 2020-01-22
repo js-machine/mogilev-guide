@@ -16,6 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@mogilev-guide/api/*": ["apps/api/src/app/*"],
       "@mogilev-guide/data-service": ["libs/data-service/src/index.ts"],
       "@mogilev-guide/models": ["libs/models/src/index.ts"]
     }
