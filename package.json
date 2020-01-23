@@ -49,6 +49,7 @@
     "@material-ui/core": "^4.8.3",
     "@material-ui/icons": "^4.5.1",
     "@material-ui/styles": "^4.8.2",
+    "cors": "^2.8.5",
     "document-register-element": "1.13.1",
     "express": "4.17.1",
     "firebase": "^7.7.0",
@@ -61,6 +62,7 @@
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-router-dom": "5.1.2",
+    "react-spinners": "^0.8.0",
     "styled-components": "4.4.1",
     "tsoa": "^2.5.12",
     "typescript-ioc": "^1.2.5"
