@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as bodyBarser from 'body-parser';
+import * as cors from 'cors';
 
 // import all controllers before routes registration
 import '@mogilev-guide/api/controllers';
@@ -10,6 +11,7 @@ import { RegisterRoutes } from '@mogilev-guide/api/routes';
 const app = express();
 
 app
+  .use(cors({ origin: true }))
   .use(bodyBarser.json())
   .use(bodyBarser.urlencoded({ extended: false }));
 
