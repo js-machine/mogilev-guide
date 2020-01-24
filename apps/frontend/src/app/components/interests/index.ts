@@ -1,1 +1,2 @@
-export * from './interests';
+export * from './interestsGroup';
+export * from './singleInterest';

@@ -1,10 +1,9 @@
 import { action, observable } from 'mobx';
-import { RootStore } from '@mogilev-guide/frontend/stores/root.store';
 
 export class UiStore {
   @observable public isPageLoading?: boolean;
 
-  public constructor(private rootStore: RootStore) {
+  public constructor() {
   }
 
   @action public setIsLoading = (isPageLoading: boolean) => {

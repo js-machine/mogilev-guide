@@ -10,21 +10,14 @@ export class MainStore {
   public constructor(private uiStore: UiStore) {
   }
 
-  @action public getInterests = async (withCache: boolean) => {
-    let isLoading = false;
-
-    if (withCache && !this.interests.length) {
-      this.uiStore.setIsLoading(true);
-      isLoading = true;
-    }
+  @action public getInterests = async () => {
+    this.uiStore.setIsLoading(true);
 
     try {
       const interests = await getInterests();
       runInAction(() => (this.interests = interests));
     } finally {
-      if (isLoading) {
-        this.uiStore.setIsLoading(false);
-      }
+      this.uiStore.setIsLoading(false);
     }
   };
 

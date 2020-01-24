@@ -65,6 +65,7 @@
     "react-spinners": "^0.8.0",
     "styled-components": "4.4.1",
     "tsoa": "^2.5.12",
+    "typeface-roboto": "0.0.75",
     "typescript-ioc": "^1.2.5"
   },
   "devDependencies": {

@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { useStores } from '@mogilev-guide/frontend/stores';
 import { observer } from 'mobx-react-lite';
-import { Loader, Interests } from '@mogilev-guide/frontend/components';
+import { Loader, InterestsGroup } from '@mogilev-guide/frontend/components';
 
 const Greeting = styled(Typography)`
 text-align: center;
@@ -14,7 +14,9 @@ export const Main: React.FC = observer(() => {
   const { mainStore, uiStore } = useStores();
 
   useEffect(() => {
-    mainStore.getInterests(true);
+    if (!mainStore.interests.length) {
+      mainStore.getInterests();
+    }
   }, [mainStore]);
 
   return <div>
@@ -24,9 +26,10 @@ export const Main: React.FC = observer(() => {
       <>
         <GuideImg />
         <Greeting variant="h6" color="inherit">
-          Welcome to the Mogilev Guide!
+          Choose the most interesting places
+          you would like to visit:
         </Greeting>
-        <Interests data={mainStore.interests} />
+        <InterestsGroup data={mainStore.interests} />
       </>
     )}
   </div>;
