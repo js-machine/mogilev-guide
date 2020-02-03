@@ -9,6 +9,7 @@ import { observer } from 'mobx-react-lite';
 import { syncHistoryWithStore } from 'mobx-react-router';
 import { useStores } from './stores';
 import { Main } from './scenes/main';
+import { Sight } from './scenes/sight';
 
 const browserHistory = createBrowserHistory();
 
@@ -25,6 +26,7 @@ export const App: React.FC = observer(() => {
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={Main} />
+          <Route exact path="/sight/:sightId" component={Sight} />
           <Redirect to="/" />
         </Switch>
       </Router>
