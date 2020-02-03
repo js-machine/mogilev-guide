@@ -27,7 +27,7 @@ export class FirebaseService {
 
     return {
       ...(data as T),
-      id: snapshot.ref.id,
+      id: snapshot.ref.id
       // date: data.date.toDate()
     };
   }

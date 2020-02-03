@@ -6,9 +6,7 @@ import { getInterests } from '@mogilev-guide/data-service';
 export class MainStore {
   @observable public interests: Interest[] = [];
 
-
-  public constructor(private uiStore: UiStore) {
-  }
+  public constructor(private uiStore: UiStore) {}
 
   @action public getInterests = async () => {
     this.uiStore.setIsLoading(true);
@@ -20,5 +18,4 @@ export class MainStore {
       this.uiStore.setIsLoading(false);
     }
   };
-
 }
