@@ -32,9 +32,8 @@ export default class AuthorizationMiddleware{
                 if (this.errorFlag){
                     res.redirect(redirectURL);
                     return;
-                }else{
-                    next();
                 }
+                return next();
             }
     }
 
