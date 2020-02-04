@@ -9,14 +9,14 @@ export default class AuthorizationMiddleware{
     public authRoutes = express.Router();
 
     private authService: AuthService = new AuthService;
-    private rediretErrorURL = "http://localhost:5000/mogilev-guide/us-central1/api/login/google";
+    private rediretErrorURL: string = "http://localhost:5000/mogilev-guide/us-central1/api/login/google";
     private errorFlag: boolean = false;
 
     constructor(){
-        this.authRoutes.get("/api/*", this.checkCookie());
+        this.authRoutes.get("/api/*", this.checkCookie(this.rediretErrorURL));
     }
     
-    private checkCookie(){
+    private checkCookie(redirectURL: string){
         return async (
             req: express.Request,
             res: express.Response,
@@ -24,11 +24,11 @@ export default class AuthorizationMiddleware{
 
                 let token = await req.cookies.access_token;
                 if (!token){
-                    res.redirect(this.rediretErrorURL);
+                    res.redirect(redirectURL);
                 }
                 await this.sendRequestForUserID(token);
                 if (this.errorFlag){
-                    res.redirect(this.rediretErrorURL);
+                    res.redirect(redirectURL);
                 }else{
                     next();
                 }
