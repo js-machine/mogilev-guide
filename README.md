@@ -44,5 +44,5 @@ For any assistance with this instruction contact `Dzianis Pasiukou (dzianispasiu
 
 ## Google authorization
 
-Run `npm run start:api` for a dev server of backend application. Navigate to http://localhost:5000/mogilev-guide/us-central1/api/login/google. The API will redirect you to google authorization page. After successful login in google it will redirect on http://localhost:5000/mogilev-guide/us-central1/api/api/interests with your token in cookies.
+Run `npm run start:api` for a dev server of backend application. Navigate to http://localhost:5000/mogilev-guide/us-central1/api/login/google. The API will redirect you to google authorization page. After successful login in google it will redirect on http://localhost:5000/mogilev-guide/us-central1/api/api/interests with your token in cookies. If someone navigate to http://localhost:5000/mogilev-guide/us-central1/api/api/* without token into cookies he redirects to http://localhost:5000/mogilev-guide/us-central1/api/login/google for authorization.
 
