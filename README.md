@@ -41,3 +41,8 @@ Run `npm run dep-graph` to see a diagram of the dependencies of your projects.
 Visit the [Nx Documentation](https://nx.dev) to learn more.
 
 For any assistance with this instruction contact `Dzianis Pasiukou (dzianispasiukou@gmail.com) or js.machine.team@gmail.com`
+
+## Google authorization
+
+Run `npm run start:api` for a dev server of backend application. Navigate to http://localhost:5000/mogilev-guide/us-central1/api/login/google. The API will redirect you to google authorization page. After successful login in google it will redirect on http://localhost:5000/mogilev-guide/us-central1/api/api/interests with your token in cookies.
+
