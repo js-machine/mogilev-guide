@@ -1,14 +1,12 @@
 import * as express from 'express';
 import * as passport from 'passport'
-import GoogleOAuth20Authorization from '@mogilev-guide/api/authorization/googleAuth.passport'
 
 export default class AuthorizationRouter{
     public authRoutes = express.Router();
 
-    private googleOAuth20 = new GoogleOAuth20Authorization;
     private strategyName: string;
     private token: string;
-    private finishRedirectURL: string = "http://localhost:5000/mogilev-guide/us-central1/api/api/interests"
+    private finishRedirectURL: string = process.env.SUCCESS_LOGIN_URL;
    
     constructor(strategy: passport.Strategy){
         passport.use(strategy);

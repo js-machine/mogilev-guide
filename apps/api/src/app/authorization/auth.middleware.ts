@@ -1,3 +1,4 @@
+import "dotenv/config"; //for work with environment variables from .env file
 import * as express from 'express';
 import * as request from 'request';
 import { User } from '@mogilev-guide/models';
@@ -9,11 +10,11 @@ export default class AuthorizationMiddleware{
     public authRoutes = express.Router();
 
     private authService: AuthService = new AuthService;
-    private rediretErrorURL: string = "http://localhost:5000/mogilev-guide/us-central1/api/login/google";
+    private redirectFailURL: string = process.env.REDIRECT_IF_FAIL_URL;
     private errorFlag: boolean = false;
 
     constructor(){
-        this.authRoutes.get("/api/*", this.checkCookie(this.rediretErrorURL));
+        this.authRoutes.get("/api/*", this.checkCookie(this.redirectFailURL));
     }
     
     private checkCookie(redirectURL: string){
@@ -25,10 +26,12 @@ export default class AuthorizationMiddleware{
                 let token = await req.cookies.access_token;
                 if (!token){
                     res.redirect(redirectURL);
+                    return;
                 }
                 await this.sendRequestForUserID(token);
                 if (this.errorFlag){
                     res.redirect(redirectURL);
+                    return;
                 }else{
                     next();
                 }
@@ -38,7 +41,7 @@ export default class AuthorizationMiddleware{
     private async sendRequestForUserID(token: string){
             request({
                 method: 'GET',
-                url: "https://www.googleapis.com/oauth2/v1/userinfo",
+                url: process.env.GOOGLE_INFO_URL,
                 qs: {
                     alt: 'json',
                     access_token: token
