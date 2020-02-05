@@ -2,10 +2,12 @@ import "dotenv/config"; //for work with environment variables from .env file
 import * as passport from 'passport'
 import * as passportStrategy from 'passport-google-oauth20'
 import { AuthService } from '@mogilev-guide/api/services/authorization';
+import { Inject } from '@mogilev-guide/api/ioc';
 import { User } from '@mogilev-guide/models';
 
-export default class GoogleOAuth20Authorization{
-    private authService: AuthService = new AuthService;
+export class GoogleOAuth20Authorization{
+    @Inject() private authService!: AuthService;
+
     private GoogleStrategy = passportStrategy.Strategy;
 
     private googleStrategy = new this.GoogleStrategy({
@@ -16,7 +18,7 @@ export default class GoogleOAuth20Authorization{
       
     constructor(){  
         this.serialize();
-        this.init();
+        this.init(); 
     }
 
     public getStrategy(): passport.Strategy{
@@ -25,7 +27,7 @@ export default class GoogleOAuth20Authorization{
     
     private init(){
         passport.use(this.googleStrategy);
-    }
+    } 
 
     private  serialize() {
         passport.serializeUser((user: User, done) => {

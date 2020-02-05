@@ -2,21 +2,21 @@ import "dotenv/config"; //for work with environment variables from .env file
 import * as express from 'express';
 import * as request from 'request';
 import { User } from '@mogilev-guide/models';
+import { Inject, Injectable } from '@mogilev-guide/api/ioc';
 import { AuthService } from '@mogilev-guide/api/services/authorization';
 
+export class AuthorizationMiddleware{
+    @Inject() private authService!: AuthService;
 
-export default class AuthorizationMiddleware{
-
-    public authRoutes = express.Router();
-
-    private authService: AuthService = new AuthService;
+    private authRoutes = express.Router();
     private redirectFailURL: string = process.env.REDIRECT_IF_FAIL_URL;
     private errorFlag: boolean = false;
-
-    constructor(){
+  
+    public getMiddlewareRoutes(): express.Router{
         this.authRoutes.get("/api/*", this.checkCookie(this.redirectFailURL));
+        return this.authRoutes;
     }
-    
+
     private checkCookie(redirectURL: string){
         return async (
             req: express.Request,

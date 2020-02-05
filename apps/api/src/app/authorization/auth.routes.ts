@@ -1,39 +1,33 @@
 import * as express from 'express';
 import * as passport from 'passport'
 
-export default class AuthorizationRouter{
-    public authRoutes = express.Router();
+
+export class AuthorizationRouter{
+    private authRoutes = express.Router();
 
     private strategyName: string;
     private token: string;
     private finishRedirectURL: string = process.env.SUCCESS_LOGIN_URL;
    
-    constructor(strategy: passport.Strategy){
+    public getAuthRoutes(strategy: passport.Strategy): express.Router{
         passport.use(strategy);
         this.strategyName=strategy.name;
 
         this.authRoutes.get(
             `/login/${strategy.name}`
-            , this.loginUser());
+            , passport.authenticate(this.strategyName, { scope: ['profile','email'] })
+            );
         
-        // define the about route
         this.authRoutes.get(
             `/login/${strategy.name}/callback`
-            , this.loginUser()
+            , passport.authenticate(this.strategyName, { scope: ['profile','email'] })
             , (req, res) => {
                 this.token = req.authInfo as string;
                 res.cookie('access_token', this.token, {
-                    expires: new Date(Date.now() + 1 * 3600000) // cookie will be removed after 1 hours
+                    expires: new Date(Date.now() + 30 * 60000) // cookie will be removed after 30 minutes
                   });
                 res.redirect(this.finishRedirectURL);
         });
+        return this.authRoutes;
     }
-    
-    private loginUser(): any{
-       return passport.authenticate(this.strategyName, { scope: ['profile','email'] });
-    }
-
-    public getCookie(): any{
-        return this.token;
-     }
 }
