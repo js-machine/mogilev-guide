@@ -1,14 +1,9 @@
-import React, { useLayoutEffect, useState } from 'react'
+import React, { useLayoutEffect, useState, useCallback } from 'react'
 import { Loader } from '@mogilev-guide/frontend/components'
 import { getSight } from '@mogilev-guide/data-service'
 import { Sight as ISight } from '@mogilev-guide/models'
+import { Tabs } from './constants'
 import { SightView } from './sightView'
-
-export enum Tabs {
-    HISTORY,
-    PHOTOS,
-    REVIEWS,
-}
 
 interface Props {
     match: {
@@ -38,10 +33,14 @@ export const Sight: React.FC<Props> = props => {
         }
     }, [id])
 
+    const handleViewAllPhotos = useCallback(() => {
+        setSight(sight => ({ ...sight, photos: [...sight.photos, 'https://planetabelarus.by/upload/resize_cache/iblock/95a/1330_887_18e21fe612b4afb807a26ecc22279a1d9/95af5cc42e396e28a0e909fae9e75ca0.jpg'] }))
+    }, [])
+
     if (isLoading) {
         return <Loader isLoading={true} />
     }
 
-    return <SightView sight={sight} activeTab={activeTab} onChangeTab={setActiveTab} />
+    return <SightView sight={sight} activeTab={activeTab} onChangeTab={setActiveTab} onViewAllPhotos={handleViewAllPhotos} />
 }
 Sight.displayName = 'Sight'

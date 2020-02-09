@@ -1,6 +1,7 @@
 import React from 'react'
 import { Sight } from '@mogilev-guide/models'
 import { SightReview } from './sightReview'
+import { SightRating } from './sightRating'
 
 interface Props {
     reviews: Sight['reviews']
@@ -9,12 +10,9 @@ interface Props {
 }
 
 export const SightReviews: React.FC<Props> = ({ reviews, reviewsTotalCount, rating }) => {
-    const totalRating = rating.reduce((average, i) => (average + i / rating.length), 0)
     return (
         <div>
-            <div>
-                <div>Total Rating: {totalRating}</div>
-            </div>
+            <SightRating rating={rating} />
             <div>
                 {reviews.map(review => <SightReview user={{ id: Math.random().toString(), name: 'Lorem Ipsum' }} date={review.date} rating={review.rating} message={review.message} key={review.id} />)}
             </div>

@@ -1,6 +1,11 @@
-html, body, #root {
+html, body {
     height: 100%;
     overflow: hidden;
+}
+
+#root {
+    height: 100%;
+    overflow: auto;
 }
 
 body {

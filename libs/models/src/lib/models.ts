@@ -1,8 +1,8 @@
 export interface Interest {
-  id: string;
-  label: string;
-  description: string;
-  size: string;
+  id: string
+  label: string
+  description: string
+  size: string
 }
 
 export interface User {

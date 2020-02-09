@@ -1,18 +1,20 @@
 import React from 'react'
 import { SightTabs } from '../sightTabs'
-import { Tabs } from '../sight'
+import { Tabs } from '../constants'
 import { Sight } from '@mogilev-guide/models'
-import { _TabId } from '../sightTabs'
 import { SightReviews } from '../sightReviews'
-import { SightContainer, SightContent, SightName, SightAddressTimeIcon, SightAddress, SightTime } from './styles'
+import { SightPhotos } from '../sightPhotos'
+import { SightContainer, SightContent, SightHistory, SightName, SightAddressTimeIcon, SightAddress, SightTime } from './styles'
 
 interface Props {
     sight: Sight
     activeTab: Tabs
     onChangeTab: (id: Tabs) => any
+    onViewAllPhotos: () => any
 }
 
-export const SightView: React.FC<Props> = ({ sight, activeTab, onChangeTab }) => {
+export const SightView: React.FC<Props> = ({ sight, activeTab, onChangeTab, onViewAllPhotos }) => {
+    const isMorePhotos = sight.photos.length < sight.photosTotalCount
     return (
         <SightContainer background={sight.background}>
             <SightContent>
@@ -26,8 +28,12 @@ export const SightView: React.FC<Props> = ({ sight, activeTab, onChangeTab }) =>
                     {sight.accessTime.from} - {sight.accessTime.to}
                 </SightTime>
                 <SightTabs activeTab={activeTab} onChangeTab={(id) => onChangeTab(id)}>
-                    <SightTabs.Tab id={Tabs.HISTORY} title='History'>{sight.history}</SightTabs.Tab>
-                    <SightTabs.Tab id={Tabs.PHOTOS} title='Photos'>{sight.photos}</SightTabs.Tab>
+                    <SightTabs.Tab id={Tabs.HISTORY} title='History'>
+                        <SightHistory>{sight.history}</SightHistory>
+                    </SightTabs.Tab>
+                    <SightTabs.Tab id={Tabs.PHOTOS} title='Photos'>
+                        <SightPhotos photos={sight.photos} isViewAll={isMorePhotos} onViewAll={onViewAllPhotos} />
+                    </SightTabs.Tab>
                     <SightTabs.Tab id={Tabs.REVIEWS} title='Reviews'>
                         <SightReviews reviews={sight.reviews} reviewsTotalCount={sight.reviewsTotalCount} rating={sight.rating} />
                     </SightTabs.Tab>

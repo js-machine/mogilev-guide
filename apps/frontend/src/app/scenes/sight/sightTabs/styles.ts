@@ -6,13 +6,13 @@ export const SightTabsHeader = styled.div`
     display: flex;
     margin-top: 31px;
     margin-bottom: 24px;
-    background-color: rgba(46,46,46,0.05);
+    background-color: #E0E0E0;
     border-radius: 99999px;
 `
 
 export const SightTabsHeaderButton = styled.div<{ active: boolean }>`
     flex-grow: 1;
-    padding: 7px;
+    padding: 5px 7px;
     font-family: Arial;
     font-size: 16px;
     font-weight: bold;

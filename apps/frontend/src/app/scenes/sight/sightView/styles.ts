@@ -1,11 +1,13 @@
 import styled from 'styled-components'
-import Typography from '@material-ui/core/Typography'
 
+const sightContainerConsts = {
+    paddingTop: 300,
+}
 export const SightContainer = styled.div<{ background: string }>`
     display: flex;
     flex-direction: column;
-    height: 100%;
-    padding-top: 160px;
+    min-height: calc(100% - ${sightContainerConsts.paddingTop}px);
+    padding-top: ${sightContainerConsts.paddingTop}px;
     background: url(${({ background }) => background}) no-repeat center / cover;
 `
 SightContainer.displayName = 'SightContainer'
@@ -14,9 +16,14 @@ export const SightContent = styled.div`
     flex-grow: 1;
     padding: 25px;
     background-color: white;
-    border-radius: 40px;
+    border-radius: 40px 40px 0 0;
 `
 SightContent.displayName = 'SightContent'
+
+export const SightHistory = styled.div`
+    white-space: pre-wrap;
+`
+SightHistory.displayName = 'SightHistory'
 
 export const SightName = styled.div`
     margin-bottom: 14px;

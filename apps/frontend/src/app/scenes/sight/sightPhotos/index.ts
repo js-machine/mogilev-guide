@@ -1,0 +1,1 @@
+export { SightPhotos } from './sightPhotos'

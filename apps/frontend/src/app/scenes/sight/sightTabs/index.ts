@@ -1,1 +1,1 @@
-export { SightTabs, _TabId } from './sightTabs'
+export { SightTabs } from './sightTabs'

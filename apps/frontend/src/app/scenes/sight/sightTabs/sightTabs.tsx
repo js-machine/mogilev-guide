@@ -1,7 +1,7 @@
 import React from 'react'
 import { SightTabsContainer, SightTabsHeader, SightTabsHeaderButton, SightTabsBody } from './styles'
 
-export type _TabId = string | number
+type _TabId = string | number
 
 interface SightTabProps<TabId> {
     id: TabId
