@@ -1,4 +1,5 @@
 import React from 'react'
+import { SightTabsContainer, SightTabsHeader, SightTabsHeaderButton, SightTabsBody } from './styles'
 
 export type _TabId = string | number
 
@@ -19,17 +20,17 @@ interface Props<TabId> {
 
 export const SightTabs = <TabId extends _TabId>({ children, activeTab, onChangeTab }: Props<TabId>): React.ReactElement => {
     return (
-        <div>
-            <div style={{ display: 'flex' }}>
+        <SightTabsContainer>
+            <SightTabsHeader>
                 {children.map(tab => {
                     const { id, title } = tab.props
-                    return <div style={{ flexGrow: 1, background: activeTab === id ? 'green': 'transparent' }} onClick={() => onChangeTab(id)} key={id}>{title}</div>
+                    return <SightTabsHeaderButton active={activeTab === id} onClick={() => onChangeTab(id)} key={id}>{title}</SightTabsHeaderButton>
                 })}
-            </div>
-            <div>
+            </SightTabsHeader>
+            <SightTabsBody>
                 {children.find(tab => tab.props.id === activeTab).props.children}
-            </div>
-        </div>
+            </SightTabsBody>
+        </SightTabsContainer>
     )
 }
 SightTabs.displayName = 'SightTabs'

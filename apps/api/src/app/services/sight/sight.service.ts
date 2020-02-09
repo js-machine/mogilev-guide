@@ -22,6 +22,7 @@ export class SightService {
             background: 'https://www.belarus.by/nimages/s002333_205230.jpg',
             reviews: [
                 {
+                    id: 'reviewId',
                     userId: 'userId',
                     sightId: 'sightId',
                     date: new Date(),
@@ -31,7 +32,6 @@ export class SightService {
             ],
             reviewsTotalCount: 1,
             rating: [5],
-            isFavourite: false,
         }))
     })
   }

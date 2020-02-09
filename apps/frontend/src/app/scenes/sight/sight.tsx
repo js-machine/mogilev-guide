@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useState } from 'react'
 import { Loader } from '@mogilev-guide/frontend/components'
 import { getSight } from '@mogilev-guide/data-service'
 import { Sight as ISight } from '@mogilev-guide/models'
-import { SightView } from './view/sightView'
+import { SightView } from './sightView'
 
 export enum Tabs {
     HISTORY,

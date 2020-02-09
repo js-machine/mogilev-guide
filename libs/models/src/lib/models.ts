@@ -11,6 +11,7 @@ export interface User {
 }
 
 export interface SightReview {
+  id: string
   userId: string
   sightId: string
   date: Date
@@ -33,5 +34,4 @@ export interface Sight {
   reviews: SightReview[]
   reviewsTotalCount: number
   rating: number[]
-  isFavourite: boolean
 }
