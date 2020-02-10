@@ -41,3 +41,23 @@ Run `npm run dep-graph` to see a diagram of the dependencies of your projects.
 Visit the [Nx Documentation](https://nx.dev) to learn more.
 
 For any assistance with this instruction contact `Dzianis Pasiukou (dzianispasiukou@gmail.com) or js.machine.team@gmail.com`
+
+## Google authorization
+
+Run `npm run start:api` for a dev server of backend application. Navigate to http://localhost:5000/mogilev-guide/us-central1/api/login/google. The API will redirect you to google authorization page. After successful login in google it will redirect on http://localhost:5000/mogilev-guide/us-central1/api/api/interests with your token in cookies. If someone navigate to http://localhost:5000/mogilev-guide/us-central1/api/api/* without token into cookies he redirects to http://localhost:5000/mogilev-guide/us-central1/api/login/google for authorization.
+
+For run (on localhost:5000) you need follows in environment variables:
+
+1 - GOOGLE_APPLICATION_CREDENTIALS - path to mogilev-guide-dev-key.json;
+
+2 - CLIENT_ID - client's id from cloud project;
+
+3 - CLIENT_SECRET - client's secret from cloud project;
+
+4 - REDIRECT_URL="http://localhost:5000/mogilev-guide/us-central1/api/login/google/callback" - for return after google login;
+
+5 - REDIRECT_IF_FAIL_URL="http://localhost:5000/mogilev-guide/us-central1/api/login/google" - for redirect users without right cookies;
+
+6 - GOOGLE_INFO_URL="https://www.googleapis.com/oauth2/v1/userinfo" - for get user information to check cookies;
+
+7 - SUCCESS_LOGIN_URL="http://localhost:5000/mogilev-guide/us-central1/api/api/interests" - first endpoint after successful authorization;

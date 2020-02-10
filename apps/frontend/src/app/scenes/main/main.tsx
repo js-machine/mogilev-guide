@@ -7,7 +7,7 @@ import { observer } from 'mobx-react-lite';
 import { Loader, InterestsGroup } from '@mogilev-guide/frontend/components';
 
 const Greeting = styled(Typography)`
-text-align: center;
+  text-align: center;
 `;
 
 export const Main: React.FC = observer(() => {
@@ -19,18 +19,19 @@ export const Main: React.FC = observer(() => {
     }
   }, [mainStore]);
 
-  return <div>
-    {uiStore.isPageLoading ? (
-      <Loader isLoading={uiStore.isPageLoading} />
-    ) : (
-      <>
-        <GuideImg />
-        <Greeting variant="h6" color="inherit">
-          Choose the most interesting places
-          you would like to visit:
-        </Greeting>
-        <InterestsGroup data={mainStore.interests} />
-      </>
-    )}
-  </div>;
+  return (
+    <div>
+      {uiStore.isPageLoading ? (
+        <Loader isLoading={uiStore.isPageLoading} />
+      ) : (
+        <>
+          <GuideImg />
+          <Greeting variant="h6" color="inherit">
+            Choose the most interesting places you would like to visit:
+          </Greeting>
+          <InterestsGroup data={mainStore.interests} />
+        </>
+      )}
+    </div>
+  );
 });
