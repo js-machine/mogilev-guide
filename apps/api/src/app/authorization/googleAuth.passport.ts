@@ -28,6 +28,10 @@ export class GoogleOAuth20Authorization {
     return this.googleStrategy;
   }
 
+  public getUserInfoURL(): string {
+    return process.env.GOOGLE_INFO_URL;
+  }
+
   private init() {
     passport.use(this.googleStrategy);
   }

@@ -9,10 +9,12 @@ export class AuthorizationMiddleware {
   @Inject() private authService!: AuthService;
 
   private authRoutes = express.Router();
+  private userInfoURL: string;
   private redirectFailURL: string = process.env.REDIRECT_IF_FAIL_URL;
   private errorFlag: boolean = false;
 
-  public getMiddlewareRoutes(): express.Router {
+  public getMiddlewareRoutes(userInfoURL: string): express.Router {
+    this.userInfoURL = userInfoURL;
     this.authRoutes.get('/api/*', this.checkCookie(this.redirectFailURL));
     return this.authRoutes;
   }
@@ -41,7 +43,7 @@ export class AuthorizationMiddleware {
     request(
       {
         method: 'GET',
-        url: process.env.GOOGLE_INFO_URL,
+        url: this.userInfoURL,
         qs: {
           alt: 'json',
           access_token: token
