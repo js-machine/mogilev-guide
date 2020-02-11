@@ -8,7 +8,7 @@ export const SightContainer = styled.div<{ background: string }>`
     flex-direction: column;
     min-height: calc(100% - ${sightContainerConsts.paddingTop}px);
     padding-top: ${sightContainerConsts.paddingTop}px;
-    background: url(${({ background }) => background}) no-repeat center / cover;
+    background: url(${({ background }) => background}) no-repeat top / 100%;
 `
 SightContainer.displayName = 'SightContainer'
 

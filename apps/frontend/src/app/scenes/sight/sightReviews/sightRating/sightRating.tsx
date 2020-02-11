@@ -25,7 +25,7 @@ export const SightRating: React.FC<Props> = ({ rating }) => {
             <SightRatingHeader>
                 <SightRatingHeaderNum>{displayAverageRating}</SightRatingHeaderNum>
                 <SightRatingHeaderStars>
-                    <StarsRating value={averageRating / 5} />
+                    <StarsRating value={averageRating} />
                 </SightRatingHeaderStars>
             </SightRatingHeader>
             <SightRatingBars>

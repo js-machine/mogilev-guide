@@ -11,9 +11,17 @@ interface Props {
     activeTab: Tabs
     onChangeTab: (id: Tabs) => any
     onViewAllPhotos: () => any
+    onViewAllReviews: () => any
 }
 
-export const SightView: React.FC<Props> = ({ sight, activeTab, onChangeTab, onViewAllPhotos }) => {
+const hoursToAmPm = hours => {
+    if (hours === 0 || hours === 24) {
+        return `${hours}AM`
+    }
+    return hours < 12 ? `${hours}AM` : `${hours - 12}PM`
+}
+
+export const SightView: React.FC<Props> = ({ sight, activeTab, onChangeTab, onViewAllPhotos, onViewAllReviews }) => {
     const isMorePhotos = sight.photos.length < sight.photosTotalCount
     return (
         <SightContainer background={sight.background}>
@@ -25,7 +33,7 @@ export const SightView: React.FC<Props> = ({ sight, activeTab, onChangeTab, onVi
                 </SightAddress>
                 <SightTime>
                     <SightAddressTimeIcon>🕒</SightAddressTimeIcon>
-                    {sight.accessTime.from} - {sight.accessTime.to}
+                    {hoursToAmPm(sight.accessTime.from)} - {hoursToAmPm(sight.accessTime.to)}
                 </SightTime>
                 <SightTabs activeTab={activeTab} onChangeTab={(id) => onChangeTab(id)}>
                     <SightTabs.Tab id={Tabs.HISTORY} title='History'>
@@ -35,7 +43,7 @@ export const SightView: React.FC<Props> = ({ sight, activeTab, onChangeTab, onVi
                         <SightPhotos photos={sight.photos} isViewAll={isMorePhotos} onViewAll={onViewAllPhotos} />
                     </SightTabs.Tab>
                     <SightTabs.Tab id={Tabs.REVIEWS} title='Reviews'>
-                        <SightReviews reviews={sight.reviews} reviewsTotalCount={sight.reviewsTotalCount} rating={sight.rating} />
+                        <SightReviews reviews={sight.reviews} reviewsTotalCount={sight.reviewsTotalCount} rating={sight.rating} onViewAll={onViewAllReviews} />
                     </SightTabs.Tab>
                 </SightTabs>
             </SightContent>

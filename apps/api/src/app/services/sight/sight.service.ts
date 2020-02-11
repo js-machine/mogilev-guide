@@ -10,7 +10,7 @@ export class SightService {
     return new Promise(resolve => {
         setTimeout(() => resolve({
             id: 'sightId',
-            name: 'Ratusha',
+            name: 'Mogilev Town Hall',
             address: 'Leninskaya St. 1a',
             accessTime: {
                 from: 10,
@@ -51,21 +51,27 @@ Visit the Nx Documentation to learn more.
 For any assistance with this instruction contact Dzianis Pasiukou (dzianispasiukou@gmail.com) or js.machine.team@gmail.com`,
             photos: ['https://www.belarus.by/nimages/s002333_205230.jpg', 'https://www.fotex.biz/images/foto/3752200020.jpg', 'https://lh3.googleusercontent.com/p/AF1QipNjd4bWZC1YNkzXvHBGjA6qfkVTJzs8Q6oT7JHv=w660-h440-c', 'https://media-cdn.tripadvisor.com/media/photo-s/0e/31/46/63/city-hall-in-mogilev.jpg'],
             photosTotalCount: 5,
-            background: 'https://www.belarus.by/nimages/s002333_205230.jpg',
+            background: 'https://4.bp.blogspot.com/-aNVzeUaeE7c/UAklcoZGc_I/AAAAAAAABGQ/rlGcFCzz3ZY/s1600/P1100055.jpg',
             reviews: [
                 {
                     id: 'reviewId',
-                    userId: 'userId',
-                    sightId: 'sightId',
-                    date: new Date(),
+                    user: {
+                        id: 'user1',
+                        name: 'Donald Tramp',
+                        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxbJ-KNiELvIR_0q42fjBldG89LLI6869wq_hmVVmccZN3BDn4',
+                    },
+                    date: Date.now(),
                     rating: 5,
                     message: 'Lorem ipsum dolro sit amet. Consectetur adipiscin elit. Lorem ipsum dolro sit amet. Consectetur adipiscin elit.\nLorem ipsum dolro sit amet. Consectetur adipiscin elit.',
                 },
                 {
                     id: 'reviewId1',
-                    userId: 'userId1',
-                    sightId: 'sightId1',
-                    date: new Date(),
+                    user: {
+                        id: 'user2',
+                        name: 'Lorem Ipsum',
+                        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSCQPCSEaefh55a1bFOnjNhY6SLPM_TsPVjq56FWm0U9s7s-44k',
+                    },
+                    date: Date.now(),
                     rating: 4,
                     message: `Run npm run start:front for a dev server of frontend application. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
 
@@ -73,15 +79,18 @@ Install firebase CLI to run server locally: npm install -g firebase-tools and th
                 },
                 {
                     id: 'reviewId2',
-                    userId: 'userId1',
-                    sightId: 'sightId1',
-                    date: new Date(),
+                    user: {
+                        id: 'user3',
+                        name: 'Blinking Guy',
+                        avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSc1q756xV7_9onWCEXfDvUbp7MIsYfjqSQsPsxyIxRqYiL7BMU',
+                    },
+                    date: Date.now(),
                     rating: 4,
                     message: 'ео я расскажу о своём опыте обучения в Hellscream Academy, перечислю преимущества и недостатки, а также проведу анализ чистого вокала Леоса. Приглашаю к обсуждению в ком',
                 },
             ],
-            reviewsTotalCount: 3,
-            rating: [5, 4, 4],
+            reviewsTotalCount: 5,
+            rating: [5, 4, 4, 3, 4],
         }))
     })
   }

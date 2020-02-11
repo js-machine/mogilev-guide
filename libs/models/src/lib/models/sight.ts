@@ -1,23 +1,4 @@
-export interface Interest {
-  id: string
-  label: string
-  description: string
-  size: string
-}
-
-export interface User {
-  id: string
-  name: string
-}
-
-export interface SightReview {
-  id: string
-  userId: string
-  sightId: string
-  date: Date
-  rating: number
-  message: string
-}
+import { User } from './user'
 
 export interface Sight {
   id: string
@@ -34,4 +15,12 @@ export interface Sight {
   reviews: SightReview[]
   reviewsTotalCount: number
   rating: number[]
+}
+
+export interface SightReview {
+  id: string
+  user: User
+  date: number
+  rating: number
+  message: string
 }

@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
 export const StarsRatingContainer = styled.div`
+    display: flex;
+`
+
+export const StarsRatingContent = styled.div`
     position: relative;
     display: flex;
 `
