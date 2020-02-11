@@ -1,3 +1,5 @@
+import Moment from 'moment';
+
 export interface Interest {
   id: string;
   label: string;
@@ -12,4 +14,15 @@ export interface User {
   firstName?: string;
   lastName?: string;
   rights?: string;
+}
+
+export interface Route {
+  id: string;
+  title: string;
+  duration: Moment.Duration;
+  distance: number;
+  rating: number;
+  reviews: number;
+  places: number;
+  image?: string;
 }
