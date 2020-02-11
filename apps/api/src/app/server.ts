@@ -1,6 +1,13 @@
 import * as express from 'express';
 import * as bodyBarser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
+
+//import passport module for OAuth2
+import * as passport from 'passport';
+import { AuthorizationRouter } from '@mogilev-guide/api/authorization/auth.routes';
+import { GoogleOAuth20Authorization } from '@mogilev-guide/api/authorization/googleAuth.passport';
+import { AuthorizationMiddleware } from '@mogilev-guide/api/authorization/auth.middleware';
 
 // import all controllers before routes registration
 import '@mogilev-guide/api/controllers';
@@ -10,10 +17,19 @@ import { RegisterRoutes } from '@mogilev-guide/api/routes';
 
 const app = express();
 
+const googleStrategy = new GoogleOAuth20Authorization();
+const authRout = new AuthorizationRouter();
+const authMiddleware = new AuthorizationMiddleware();
+
 app
   .use(cors({ origin: true }))
   .use(bodyBarser.json())
-  .use(bodyBarser.urlencoded({ extended: false }));
+  .use(cookieParser())
+  .use(passport.initialize())
+  .use(passport.session())
+  .use(bodyBarser.urlencoded({ extended: false }))
+  .use(authMiddleware.getMiddlewareRoutes(googleStrategy.getUserInfoURL()))
+  .use(authRout.getAuthRoutes(googleStrategy.getStrategy()));
 
 RegisterRoutes(app);
 

@@ -44,3 +44,4 @@ firestore-debug.log
 swagger.json
 routes.ts
 /.config
+.env

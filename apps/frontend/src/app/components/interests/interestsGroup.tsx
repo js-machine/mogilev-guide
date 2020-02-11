@@ -7,9 +7,11 @@ interface Props {
 }
 
 export const InterestsGroup = memo(({ data }: Props) => {
-  return <div>
-    {data.map(interest =>
-      <SingleInterest key={interest.id} data={interest} />
-    )}
-  </div>;
+  return (
+    <div>
+      {data.map(interest => (
+        <SingleInterest key={interest.id} data={interest} />
+      ))}
+    </div>
+  );
 });

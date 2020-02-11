@@ -21,7 +21,7 @@ export const SightReview: React.FC<ISightReview> = ({ date: dateMs, rating, mess
             <SightReviewHeader>
                 <SightReviewAvatar url={user.avatar} />
                 <SightReviewNameRating>
-                    <SightReviewName>{user.name}</SightReviewName>
+                    <SightReviewName>{user.firstName} {user.lastName}</SightReviewName>
                     <SightReviewRating>
                         <StarsRating value={rating} />
                     </SightReviewRating>

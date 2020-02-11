@@ -46,7 +46,10 @@ export const Sight: React.FC<Props> = props => {
                     id: 'review228',
                     user: {
                         id: 'user228',
-                        name: 'Foo Bar',
+                        login: 'foo',
+                        email: 'foo',
+                        firstName: 'Foo',
+                        lastName: 'Bar',
                         avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxbJ-KNiELvIR_0q42fjBldG89LLI6869wq_hmVVmccZN3BDn4',
                     },
                     date: Date.now(),
@@ -57,7 +60,10 @@ export const Sight: React.FC<Props> = props => {
                     id: 'review322',
                     user: {
                         id: 'user322',
-                        name: 'Bar Foo',
+                        login: 'bar',
+                        email: 'bar',
+                        firstName: 'Bar',
+                        lastName: 'Foo',
                         avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSxbJ-KNiELvIR_0q42fjBldG89LLI6869wq_hmVVmccZN3BDn4',
                     },
                     date: Date.now(),
