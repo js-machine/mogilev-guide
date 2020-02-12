@@ -12,7 +12,7 @@ const HeaderStyle = styled.div`
   padding: 10px 0px;
   padding-top: 17px;
 
-  .title {
+  .header-title {
     text-align: center;
     font-family: Roboto;
     font-weight: 600;
@@ -23,9 +23,9 @@ const HeaderStyle = styled.div`
 export const Header = memo(({ title }: Props) => {
   return (
     <HeaderStyle>
-      <Icon name={'menu'}/>
-      <div className={'title'}>{title}</div>
-      <Icon name={'search'}/>
+      <Icon name={'header-menu'}/>
+      <div className={'header-title'}>{title}</div>
+      <Icon name={'header-search'}/>
     </HeaderStyle>
   );
 });

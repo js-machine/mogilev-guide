@@ -18,7 +18,7 @@ const CardStyle = styled.div`
   margin-left: 10px;
   margin-right: 10px;
 
-  .image {
+  .route-card__image {
       overflow-y: hidden;
     img {
       width: 100%;
@@ -26,7 +26,7 @@ const CardStyle = styled.div`
       border-top-right-radius: 20px;
     }
   }
-  .title {
+  .route-card__title {
     display: flex;
     justify-content: space-between;
     font-weight: 600;
@@ -34,7 +34,7 @@ const CardStyle = styled.div`
     font-size: 18px;
   }
 
-  .info {
+  .route-card__info {
     font-family: Roboto;
     font-size: 16px;
     display: grid;
@@ -42,7 +42,7 @@ const CardStyle = styled.div`
     color: #B1B1B1;
     padding: 0px 10px;
 
-    .rating {
+    .route-card__rating {
      text-align: right;
     }
   }
@@ -50,18 +50,18 @@ const CardStyle = styled.div`
 
 export const RouteCard = memo(({ route }: Props) => {
   return (
-    <CardStyle>
-      <div className={'image'}>
+    <CardStyle className={'route-card'}>
+      <div className={'route-card__image'}>
         <img src={route.image}/>
       </div>
-      <div className={'title'}>
+      <div className={'route-card__title'}>
         <div>{route.title}</div>
         <div>{route.duration.asHours()} h</div>
       </div>
-      <div className={'info'}>
-        <div className={'places'}>{route.places} places</div>
-        <div className={'distance'}>{Math.round(route.distance / 1000).toFixed(1)}km</div>
-        <div className={'rating'}>{route.rating} rating</div>
+      <div className={'route-card__info'}>
+        <div className={'route-card__places'}>{route.places} places</div>
+        <div className={'route-card__distance'}>{Math.round(route.distance / 1000).toFixed(1)}km</div>
+        <div className={'route-card__rating'}>{route.rating} rating</div>
       </div>
     </CardStyle>
   );
