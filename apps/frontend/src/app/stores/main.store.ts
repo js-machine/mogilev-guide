@@ -1,8 +1,7 @@
 import { action, observable, runInAction } from 'mobx';
 import { UiStore } from '@mogilev-guide/frontend/stores/ui.store';
 import { Interest, Route } from '@mogilev-guide/models';
-import { getInterests } from '@mogilev-guide/data-service';
-import { getRoutes } from '../../../../../libs/data-service/src/lib/api/routes.api';
+import { getInterests, getRoutes } from '@mogilev-guide/data-service';
 
 export class MainStore {
   @observable public interests: Interest[] = [];

@@ -46,13 +46,13 @@ const CardStyle = styled.div`
      text-align: right;
     }
   }
-`
+`;
 
 export const RouteCard = memo(({ route }: Props) => {
   return (
     <CardStyle className={'route-card'}>
       <div className={'route-card__image'}>
-        <img src={route.image}/>
+        <img src={route.image} alt={'City View'}/>
       </div>
       <div className={'route-card__title'}>
         <div>{route.title}</div>

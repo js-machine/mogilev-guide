@@ -18,7 +18,7 @@ const HeaderStyle = styled.div`
     font-weight: 600;
     padding-top: 2px;
   }
-`
+`;
 
 export const Header = memo(({ title }: Props) => {
   return (
