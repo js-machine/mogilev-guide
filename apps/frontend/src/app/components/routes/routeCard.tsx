@@ -9,11 +9,14 @@ interface Props {
 const CardStyle = styled.div`
   display: grid;
   height: 240px;
+  max-width: 300px;
   grid-template-rows: 150px 50px 50px;
   border-radius: 20px;
   border: 1px solid #B1B1B1;
   margin-bottom: 10px;
   font-family: Roboto;
+  margin-left: 10px;
+  margin-right: 10px;
 
   .image {
       overflow-y: hidden;

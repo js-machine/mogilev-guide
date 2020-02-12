@@ -31,7 +31,7 @@ export async function getRoutes(): Promise<Route[]> {
         rating: 3.5,
         reviews: 14,
         places: 3,
-        image: 'https://lh3.googleusercontent.com/proxy/0oiaIWak_vEo9H26T4axP_0tVypqiteJxF_CSaUqc18FNRHXzlKPV6jFz2rO-pJEBVndf84WI-gveal_kZuUXqspzIvd6HS64cpc-SWcnWxGRUFFZpCkq41RC-wgnGLW',
+        image: 'https://previews.123rf.com/images/notsuperstar/notsuperstar1612/notsuperstar161200027/69963578-bishop-s-palace-in-the-baroque-style-and-early-classicism-in-mogilev-built-according-to-the-project-.jpg',
       },
   ];
   return Promise.resolve(routes);
