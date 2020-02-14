@@ -17,7 +17,6 @@ export class SightsService {
   }
 
   public async getSightByID(id: string): Promise<Sight> {
-    console.log("");
     const snapshot = await this.firebaseService.firestore
       .collection(this.collectionName)
       .where('id', '==', id)
