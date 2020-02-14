@@ -16,6 +16,8 @@ interface Props {
     rating: Sight['rating']
 }
 
+const RATING_POINTS = [5, 4, 3, 2, 1]
+
 export const SightRating: React.FC<Props> = ({ rating }) => {
     const averageRating = useMemo(() => rating.reduce((average, i) => (average + i / rating.length), 0), [rating])
     const displayAverageRating = useMemo(() => Math.round(averageRating * 10) / 10, [averageRating])
@@ -29,7 +31,7 @@ export const SightRating: React.FC<Props> = ({ rating }) => {
                 </SightRatingHeaderStars>
             </SightRatingHeader>
             <SightRatingBars>
-                {[5, 4, 3, 2, 1].map(value => (
+                {RATING_POINTS.map(value => (
                     <SightRatingBarContainer key={value}>
                         <SightRatingBarNum>{value}</SightRatingBarNum>
                         <SightRatingBar value={rating.reduce((sum, rate) => rate === value ? sum + 1 : sum, 0) / rating.length} />

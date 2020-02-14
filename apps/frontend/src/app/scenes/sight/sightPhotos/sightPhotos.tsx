@@ -4,7 +4,7 @@ import { SightPhotosContainer, SightPhotosPhoto, SightPhotosPhotoViewAll } from 
 interface Props {
     photos: string[]
     isViewAll: boolean
-    onViewAll: () => any
+    onViewAll: () => void
 }
 
 export const SightPhotos: React.FC<Props> = ({ photos, isViewAll, onViewAll }) => {

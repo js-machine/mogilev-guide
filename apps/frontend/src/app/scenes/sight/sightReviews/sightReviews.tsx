@@ -8,7 +8,7 @@ interface Props {
     reviews: Sight['reviews']
     reviewsTotalCount: Sight['reviewsTotalCount']
     rating: Sight['rating']
-    onViewAll: () => any
+    onViewAll: () => void
 }
 
 export const SightReviews: React.FC<Props> = ({ reviews, reviewsTotalCount, rating, onViewAll }) => {

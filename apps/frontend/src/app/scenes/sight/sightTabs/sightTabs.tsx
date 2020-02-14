@@ -15,7 +15,7 @@ SightTab.displayName = 'SightTab'
 interface Props<TabId> {
     activeTab: TabId
     children: (React.ReactElement<SightTabProps<TabId>>)[]
-    onChangeTab: (id: TabId) => any
+    onChangeTab: (id: TabId) => void
 }
 
 export const SightTabs = <TabId extends _TabId>({ children, activeTab, onChangeTab }: Props<TabId>): React.ReactElement => {

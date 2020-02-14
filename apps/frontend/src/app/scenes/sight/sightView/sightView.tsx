@@ -9,9 +9,9 @@ import { SightContainer, SightContent, SightHistory, SightName, SightAddressTime
 interface Props {
     sight: Sight
     activeTab: Tabs
-    onChangeTab: (id: Tabs) => any
-    onViewAllPhotos: () => any
-    onViewAllReviews: () => any
+    onChangeTab: (id: Tabs) => void
+    onViewAllPhotos: () => void
+    onViewAllReviews: () => void
 }
 
 const hoursToAmPm = hours => {
