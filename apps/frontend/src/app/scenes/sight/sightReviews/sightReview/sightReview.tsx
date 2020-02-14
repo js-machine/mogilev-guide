@@ -1,6 +1,6 @@
+import moment from 'moment'
 import React from 'react'
 import { SightReview as ISightReview, User } from '@mogilev-guide/models'
-import { Months } from '../../constants'
 import { StarsRating } from '../starsRating'
 import {
     SightReviewContainer,
@@ -13,9 +13,7 @@ import {
     SightReviewDate,
 } from './styles'
 
-export const SightReview: React.FC<ISightReview> = ({ date: dateMs, rating, message, user }) => {
-    const date = new Date(dateMs)
-    const displayDate = `${date.getDate()} ${Months[date.getMonth()]}, ${date.getFullYear()}`
+export const SightReview: React.FC<ISightReview> = ({ date, rating, message, user }) => {
     return (
         <SightReviewContainer>
             <SightReviewHeader>
@@ -27,7 +25,7 @@ export const SightReview: React.FC<ISightReview> = ({ date: dateMs, rating, mess
                     </SightReviewRating>
                 </SightReviewNameRating>
                 <SightReviewDate>
-                    {displayDate}
+                    {moment(date).format('D MMM, YYYY')}
                 </SightReviewDate>
             </SightReviewHeader>
             <SightReviewBody>{message}</SightReviewBody>
