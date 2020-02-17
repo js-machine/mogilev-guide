@@ -24,17 +24,11 @@ export interface Sight {
     from: number;
     to: number;
   };
-<<<<<<< HEAD
   interest: Interest;
   coordinates: {
     latitude: number;
     longitude: number;
-=======
-  interestsLabel: string;
-  coordinates: {
-    latitude: number; //Широта
-    longitude: number; //Долгота
->>>>>>> feat:  Page of sights (BE) initial
+  interest: Interest;
   };
 
   history?: string;
