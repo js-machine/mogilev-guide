@@ -16,21 +16,25 @@ export class SightsService {
     return this.firebaseService.mapCollectionFromSnapshot(snapshot);
   }
 
-  public async getSightsByID(id: string): Promise<Sight[]> {
+  public async getSightByID(id: string): Promise<Sight> {
+    console.log("");
     const snapshot = await this.firebaseService.firestore
       .collection(this.collectionName)
       .where('id', '==', id)
       .get();
-    return this.firebaseService.mapCollectionFromSnapshot(snapshot);
+    if (!snapshot.docs[0]){
+      return Promise.resolve(snapshot[0]);
+    }
+    return Promise.resolve(snapshot.docs[0].data() as Sight);
   }
 
-  public async addSight(place: Sight): Promise<FirebaseFirestore.WriteResult> {
+  public async addSight(place: Sight): Promise<string> {
     let newPlaceRef = await this.firebaseService.firestore
       .collection(this.collectionName)
       .doc();
     place.id = newPlaceRef.id; //Sight's ID is equal DB's ID
     const doc = await newPlaceRef.set(place);
-    return Promise.resolve(doc);
+    return Promise.resolve(newPlaceRef.id);
   }
 
   public async updateSightByID(id: string, sight: Sight): Promise<Sight> {
@@ -39,8 +43,8 @@ export class SightsService {
       .doc(id);
     sight.id = id; //ID will never change
     let updateSingleSights = await sightsRef.update(sight);
-    let sights = await this.getSightsByID(id);
-    return Promise.resolve(sights[0]);
+    let sights = await this.getSightByID(id);
+    return Promise.resolve(sights);
   }
 
   public async deleteSightByID(id: string): Promise<boolean> {

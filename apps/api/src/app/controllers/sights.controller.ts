@@ -13,15 +13,14 @@ export class SightsController extends Controller {
   }
 
   @Post()
-  public async addSight(@Body() place: Sight): Promise<Date> {
-    let insertDoc = await this.sightsService.addSight(place);
-    return insertDoc.writeTime.toDate();
+  public async addSight(@Body() place: Sight): Promise<string> {
+    let newPlaceID = await this.sightsService.addSight(place);
+    return newPlaceID;
   }
 
   @Get('{id}')
   public async getOneSight(id: string): Promise<Sight> {
-    const sights: Sight[] = await this.sightsService.getSightsByID(id);
-    return sights[0];
+    return await this.sightsService.getSightByID(id);
   }
 
   @Put('{id}')

@@ -24,10 +24,10 @@ export interface Sight {
     from: number;
     to: number;
   };
-  interestsLabel: string;
+  interest: Interest;
   coordinates: {
-    latitude: number; //Широта
-    longitude: number; //Долгота
+    latitude: number;
+    longitude: number;
   };
 
   history?: string;
