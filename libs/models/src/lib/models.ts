@@ -16,6 +16,34 @@ export interface User {
   rights?: string;
 }
 
+export interface Sight {
+  id: string;
+  name: string;
+  adress: string;
+  accessTime: {
+    from: number;
+    to: number;
+  };
+  interest: Interest;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+
+  history?: string;
+  photos?: string[];
+  reviews?: SightReview[];
+  rating?: number[];
+}
+
+export interface SightReview {
+  id: string;
+  user: User;
+  date: Date;
+  rating: number;
+  message?: string;
+}
+
 export interface Route {
   id: string;
   title: string;

@@ -15,7 +15,11 @@ export class AuthorizationMiddleware {
 
   public getMiddlewareRoutes(userInfoURL: string): express.Router {
     this.userInfoURL = userInfoURL;
-    this.authRoutes.get('/api/*', this.checkCookie(this.redirectFailURL));
+    this.authRoutes
+      .post('/api/*', this.checkCookie(this.redirectFailURL))
+      .put('/api/*', this.checkCookie(this.redirectFailURL))
+      .delete('/api/*', this.checkCookie(this.redirectFailURL));
+
     return this.authRoutes;
   }
 
