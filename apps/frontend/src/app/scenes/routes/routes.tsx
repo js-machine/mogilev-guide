@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
 import { useStores } from '@mogilev-guide/frontend/stores';
 import { observer } from 'mobx-react-lite';
-import { Footer, Header, Loader, RouteList } from '@mogilev-guide/frontend/components';
+import {
+  Footer,
+  Header,
+  Loader,
+  RouteList
+} from '@mogilev-guide/frontend/components';
 import styled from 'styled-components';
 
-import { createGlobalStyle  } from 'styled-components';
+import { createGlobalStyle } from 'styled-components';
 
 const RootStyle = createGlobalStyle`
   html, body, #root {
@@ -19,7 +24,7 @@ const Container = styled.div`
   grid-template-rows: 50px 1fr 50px;
 
   .route-list {
-     overflow-y: scroll;
+    overflow-y: scroll;
   }
 `;
 
@@ -38,12 +43,12 @@ export const Routes: React.FC = observer(() => {
         <Loader isLoading={uiStore.isPageLoading} />
       ) : (
         <>
-          <RootStyle/>
-          <Header title={`Routes (${mainStore.routes.length})`}/>
+          <RootStyle />
+          <Header title={`Routes (${mainStore.routes.length})`} />
           <div className={'route-list'}>
-            <RouteList data={mainStore.routes}/>
+            <RouteList data={mainStore.routes} />
           </div>
-          <Footer/>
+          <Footer />
         </>
       )}
     </Container>

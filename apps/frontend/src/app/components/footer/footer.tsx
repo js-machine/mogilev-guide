@@ -11,9 +11,9 @@ const Container = styled.div`
 export const Footer = memo(() => {
   return (
     <Container>
-      <Icon name={'heart'}/>
-      <Icon name={'folder'}/>
-      <Icon name={'route'}/>
+      <Icon name={'heart'} />
+      <Icon name={'folder'} />
+      <Icon name={'route'} />
     </Container>
   );
 });
