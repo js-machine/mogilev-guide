@@ -25,12 +25,7 @@ export interface Sight {
     to: number;
   };
   interest: Interest;
-  coordinates: {
-    latitude: number;
-    longitude: number;
-  interest: Interest;
-  };
-
+  coordinates: Coordinates;
   history?: string;
   photos?: string[];
   reviews?: SightReview[];
@@ -43,6 +38,11 @@ export interface SightReview {
   date: Date;
   rating: number;
   message?: string;
+}
+
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
 }
 
 export interface Route {

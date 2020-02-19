@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@mogilev-guide/api/ioc';
-import { Sight } from '@mogilev-guide/models';
+import { Sight, Coordinates } from '@mogilev-guide/models';
 import { FirebaseService } from '@mogilev-guide/api/services/firebase';
 import * as admin from 'firebase-admin';
 
@@ -55,5 +55,19 @@ export class SightsService {
       return Promise.resolve(false);
     }
     return Promise.resolve(true);
+  }
+
+
+
+
+  public async getSightByCoordinates(coordinate: Coordinates): Promise<Sight> {
+    const snapshot = await this.firebaseService.firestore
+      .collection(this.collectionName)
+      .where('coordinates', '==', coordinate)
+      .get();
+    if (!snapshot.docs[0]){
+      return Promise.resolve(snapshot[0]);
+    }
+    return Promise.resolve(snapshot.docs[0].data() as Sight);
   }
 }
