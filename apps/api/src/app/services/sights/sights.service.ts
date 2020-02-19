@@ -21,7 +21,7 @@ export class SightsService {
       .collection(this.collectionName)
       .where('id', '==', id)
       .get();
-    if (!snapshot.docs[0]){
+    if (!snapshot.docs[0]) {
       return Promise.resolve(snapshot[0]);
     }
     return Promise.resolve(snapshot.docs[0].data() as Sight);
@@ -57,15 +57,12 @@ export class SightsService {
     return Promise.resolve(true);
   }
 
-
-
-
   public async getSightByCoordinates(coordinate: Coordinates): Promise<Sight> {
     const snapshot = await this.firebaseService.firestore
       .collection(this.collectionName)
       .where('coordinates', '==', coordinate)
       .get();
-    if (!snapshot.docs[0]){
+    if (!snapshot.docs[0]) {
       return Promise.resolve(snapshot[0]);
     }
     return Promise.resolve(snapshot.docs[0].data() as Sight);

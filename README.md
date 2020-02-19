@@ -61,3 +61,4 @@ For run (on localhost:5000) you need follows in environment variables:
 6 - GOOGLE_INFO_URL="https://www.googleapis.com/oauth2/v1/userinfo" - for get user information to check cookies;
 
 7 - SUCCESS_LOGIN_URL="http://localhost:5000/mogilev-guide/us-central1/api/api/interests" - first endpoint after successful authorization;
+
