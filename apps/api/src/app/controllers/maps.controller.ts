@@ -15,17 +15,17 @@ export class MapController extends Controller {
   ): Promise<Sight> {
     //point relative to which the nearest points are searched
     const coordinate: Coordinates = request.body;
-    const nearPoints: Coordinates[] = await this.getAllCoordinates();
+    const allPoints: Coordinates[] = await this.getAllCoordinates();
 
     //find only one the nearest point from array of points
-    const nearestPoint = geolib.findNearest(coordinate, nearPoints);
+    const nearestPoint = geolib.findNearest(coordinate, allPoints);
     return await this.sightsService.getSightByCoordinates(
       nearestPoint as Coordinates
     );
   }
 
   @Get('nearest/{amount}')
-  public async getSomeNearestPlaces(
+  public async getNearestPlacesByAmount(
     amount: number,
     @Request() request: express.Request
   ): Promise<Sight[]> {
