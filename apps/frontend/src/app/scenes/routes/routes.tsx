@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useStores } from '@mogilev-guide/frontend/stores';
 import { observer } from 'mobx-react-lite';
-import { Footer, Header, Loader, RouteList } from '@mogilev-guide/frontend/components';
+import { ButtonPanel, Header, Loader, RouteList } from '@mogilev-guide/frontend/components';
 import styled from 'styled-components';
 
 import { createGlobalStyle  } from 'styled-components';
@@ -43,7 +43,7 @@ export const Routes: React.FC = observer(() => {
           <div className={'route-list'}>
             <RouteList data={mainStore.routes}/>
           </div>
-          <Footer/>
+          <ButtonPanel/>
         </>
       )}
     </Container>
