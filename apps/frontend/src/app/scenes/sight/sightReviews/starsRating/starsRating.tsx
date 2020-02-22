@@ -1,24 +1,22 @@
 import React from 'react'
-import { RatingStar } from './ratingStar'
-import { StarsRatingContainer, StarsRatingContent, StarsRatingValue } from './styles'
+import Rating from '@material-ui/lab/Rating'
+import { makeStyles } from '@material-ui/core/styles'
 
 interface Props {
     value: number
 }
 
-const STARS_NUMBER = 5
+const useStyles = makeStyles({
+    root: {
+        display: 'flex',
+    },
+    iconFilled: {
+        color: '#09DDDF',
+    },
+})
 
 export const StarsRating: React.FC<Props> = ({ value }) => {
-    const percentValue = value / STARS_NUMBER
-    return (
-        <StarsRatingContainer>
-            <StarsRatingContent>
-                {Array(STARS_NUMBER).fill(null).map((_, i) => <RatingStar color="#E0E0E0" key={i} />)}
-                <StarsRatingValue value={percentValue}>
-                    {Array(STARS_NUMBER).fill(null).map((_, i) => <RatingStar color="#09DDDF" key={i} />)}
-                </StarsRatingValue>
-            </StarsRatingContent>
-        </StarsRatingContainer>
-    )
+    const classes = (useStyles as any)()
+    return <Rating value={value} precision={0.5} readOnly={true} size={'small'} classes={classes} />
 }
 StarsRating.displayName = 'StarsRating'
