@@ -1,6 +1,6 @@
 import React from 'react'
 import { SightTabs } from '../sightTabs'
-import { Tabs } from '../constants'
+import { Tabs } from '@mogilev-guide/frontend/stores/sight/sight.constants'
 import { Sight } from '@mogilev-guide/models'
 import { SightReviews } from '../sightReviews'
 import { SightPhotos } from '../sightPhotos'
