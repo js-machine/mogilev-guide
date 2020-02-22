@@ -11,6 +11,7 @@ import { useStores } from './stores';
 import { Main } from './scenes/main';
 import { Sight } from './scenes/sight';
 import { Routes } from '@mogilev-guide/frontend/scenes/routes';
+import { Map } from './scenes/map';
 
 const browserHistory = createBrowserHistory();
 
@@ -29,6 +30,7 @@ export const App: React.FC = observer(() => {
           <Route exact path="/" component={Main} />
           <Route exact path="/sight/:sightId" component={Sight} />
           <Route exact path="/routes" component={Routes} />
+          <Route exact path="/map" component={Map} />
           <Redirect to="/" />
         </Switch>
       </Router>

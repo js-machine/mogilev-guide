@@ -23,6 +23,8 @@ font-size: 10px;
 line-height: 12px;
 color:  ${props => (props.isClicked ? '#FFFFFF' : '#09DDDF')};
 
+margin: 10px;
+
 &:hover {
   background-color: ${props => (props.isClicked ? '#09DDDF' : '#FFFFFF')};
 }

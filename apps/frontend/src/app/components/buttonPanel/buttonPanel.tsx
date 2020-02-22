@@ -4,16 +4,17 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
-  padding-top: 10px;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
 `;
 
-export const Footer = memo(() => {
+export const ButtonPanel = memo(() => {
   return (
     <Container>
-      <Icon name={'heart'}/>
-      <Icon name={'folder'}/>
-      <Icon name={'route'}/>
+      <Icon name={'heart'} />
+      <Icon name={'folder'} />
+      <Icon name={'route'} />
     </Container>
   );
 });

@@ -1,4 +1,5 @@
 import { User } from './user'
+import { Interest } from './interest'
 
 export interface Sight {
   id: string
@@ -8,6 +9,11 @@ export interface Sight {
     from: number
     to: number
   }
+  coordinates: {
+    latitude: number
+    longitude: number
+  }
+  interest: Interest
   history: string
   photos: string[]
   photosTotalCount: number
@@ -22,5 +28,5 @@ export interface SightReview {
   user: User
   date: number
   rating: number
-  message: string
+  message?: string
 }

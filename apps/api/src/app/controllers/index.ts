@@ -1,2 +1,2 @@
-export * from './interests.controller';
-export { SightController } from './sight.controller'
+export * from './interests.controller'
+export * from './sights.controller';
