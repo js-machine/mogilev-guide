@@ -9,7 +9,7 @@ export class SightService {
 
   public getSight(id: string): Promise<Sight> {
     return new Promise(resolve => {
-        setTimeout(() => resolve())
+        setTimeout(() => resolve(sightMock))
     })
   }
 }

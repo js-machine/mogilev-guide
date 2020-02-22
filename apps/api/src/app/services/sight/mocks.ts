@@ -90,4 +90,14 @@ Install firebase CLI to run server locally: npm install -g firebase-tools and th
     ],
     reviewsTotalCount: 5,
     rating: [5, 4, 4, 3, 4],
+    coordinates: {
+        latitude: 0,
+        longitude: 0,
+    },
+    interest: {
+        id: '23123',
+        label: 'SomeInterest',
+        description: 'Some desscription of interest',
+        size: 'BIG',
+    }
 }
