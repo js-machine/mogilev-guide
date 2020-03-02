@@ -1,5 +1,5 @@
 import { Controller, Get, Route, Post, Body, Put, Delete } from 'tsoa';
-import { Sight, SightReview } from '@mogilev-guide/models';
+import { Sight } from '@mogilev-guide/models';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { SightsService } from '@mogilev-guide/api/services/sights';
 
@@ -14,7 +14,7 @@ export class SightsController extends Controller {
 
   @Post()
   public async addSight(@Body() place: Sight): Promise<string> {
-    let newPlaceID = await this.sightsService.addSight(place);
+    const newPlaceID = await this.sightsService.addSight(place);
     return newPlaceID;
   }
 
@@ -30,7 +30,7 @@ export class SightsController extends Controller {
 
   @Delete('{id}')
   public async deleteSights(id: string): Promise<string> {
-    let isDeleted = await this.sightsService.deleteSightByID(id);
+    await this.sightsService.deleteSightByID(id);
     return `Success delete ${id}`;
   }
 }

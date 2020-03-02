@@ -8,6 +8,7 @@
     "build": "nx build",
     "test": "nx test",
     "lint": "nx workspace-lint && nx lint",
+    "lint-api": "nx workspace-lint && nx lint api",
     "e2e": "nx e2e",
     "affected:apps": "nx affected:apps",
     "affected:libs": "nx affected:libs",
@@ -98,19 +99,21 @@
     "@types/styled-components": "4.4.1",
     "@typescript-eslint/eslint-plugin": "2.3.2",
     "@typescript-eslint/parser": "2.3.2",
+    "babel-eslint": "^10.1.0",
     "cypress": "3.6.1",
     "dotenv": "6.2.0",
-    "eslint": "6.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-prettier": "6.0.0",
-    "eslint-plugin-import": "2.19.1",
+    "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-react": "7.17.0",
     "eslint-plugin-react-hooks": "2.3.0",
     "jest": "24.1.0",
-    "prettier": "1.18.2",
+    "prettier": "^1.19.1",
     "ts-jest": "24.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.5.3"
+    "typescript": "^3.8.3"
   }
 }

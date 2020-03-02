@@ -5,7 +5,9 @@ export class AuthorizationRouter {
   private authRoutes = express.Router();
 
   private strategyName: string;
+
   private token: string;
+
   private finishRedirectURL: string = process.env.SUCCESS_LOGIN_URL;
 
   public getAuthRoutes(strategy: passport.Strategy): express.Router {
