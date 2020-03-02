@@ -1,1 +1,1 @@
-export { SightRating } from './sightRating'
+export { SightRating } from './sightRating';

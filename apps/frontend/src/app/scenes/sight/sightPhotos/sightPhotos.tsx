@@ -1,10 +1,10 @@
-import React from 'react'
-import { SightPhotosContainer, SightPhotosPhoto, SightPhotosPhotoViewAll } from './styles'
+import React from 'react';
+import { SightPhotosContainer, SightPhotosPhoto, SightPhotosPhotoViewAll } from './styles';
 
 interface Props {
-    photos: string[]
-    isViewAll: boolean
-    onViewAll: () => void
+    photos: string[];
+    isViewAll: boolean;
+    onViewAll: () => void;
 }
 
 export const SightPhotos: React.FC<Props> = ({ photos, isViewAll, onViewAll }) => {
@@ -16,6 +16,6 @@ export const SightPhotos: React.FC<Props> = ({ photos, isViewAll, onViewAll }) =
                 </SightPhotosPhoto>
             ))}
         </SightPhotosContainer>
-    )
-}
-SightPhotos.displayName = 'SightPhotos'
+    );
+};
+SightPhotos.displayName = 'SightPhotos';

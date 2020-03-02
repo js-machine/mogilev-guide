@@ -1,1 +1,1 @@
-export { SightView } from './sightView'
+export { SightView } from './sightView';

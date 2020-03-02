@@ -1,1 +1,1 @@
-export { Sight } from './sight'
+export { Sight } from './sight';

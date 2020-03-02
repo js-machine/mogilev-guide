@@ -1,7 +1,7 @@
-import moment from 'moment'
-import React from 'react'
-import { SightReview as ISightReview, User } from '@mogilev-guide/models'
-import { StarsRating } from '../starsRating'
+import moment from 'moment';
+import React from 'react';
+import { SightReview as ISightReview } from '@mogilev-guide/models';
+import { StarsRating } from '../starsRating';
 import {
     SightReviewContainer,
     SightReviewHeader,
@@ -11,7 +11,7 @@ import {
     SightReviewName,
     SightReviewRating,
     SightReviewDate,
-} from './styles'
+} from './styles';
 
 export const SightReview: React.FC<ISightReview> = ({ date, rating, message, user }) => {
     return (
@@ -30,6 +30,6 @@ export const SightReview: React.FC<ISightReview> = ({ date, rating, message, use
             </SightReviewHeader>
             <SightReviewBody>{message}</SightReviewBody>
         </SightReviewContainer>
-    )
-}
-SightReview.displayName = 'SightReview'
+    );
+};
+SightReview.displayName = 'SightReview';

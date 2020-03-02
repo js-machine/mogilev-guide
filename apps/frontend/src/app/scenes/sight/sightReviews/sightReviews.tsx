@@ -1,18 +1,18 @@
-import React from 'react'
-import { Sight } from '@mogilev-guide/models'
-import { SightReview } from './sightReview'
-import { SightRating } from './sightRating'
-import { SightReviewsContainer, SightReviewsViewAll } from './styles'
+import React from 'react';
+import { Sight } from '@mogilev-guide/models';
+import { SightReview } from './sightReview';
+import { SightRating } from './sightRating';
+import { SightReviewsContainer, SightReviewsViewAll } from './styles';
 
 interface Props {
-    reviews: Sight['reviews']
-    reviewsTotalCount: Sight['reviewsTotalCount']
-    rating: Sight['rating']
-    onViewAll: () => void
+    reviews: Sight['reviews'];
+    reviewsTotalCount: Sight['reviewsTotalCount'];
+    rating: Sight['rating'];
+    onViewAll: () => void;
 }
 
 export const SightReviews: React.FC<Props> = ({ reviews, reviewsTotalCount, rating, onViewAll }) => {
-    const isShowViewAllBtn = reviews.length < reviewsTotalCount
+    const isShowViewAllBtn = reviews.length < reviewsTotalCount;
     return (
         <>
             <SightRating rating={rating} />
@@ -21,6 +21,6 @@ export const SightReviews: React.FC<Props> = ({ reviews, reviewsTotalCount, rati
             </SightReviewsContainer>
             {isShowViewAllBtn && <SightReviewsViewAll onClick={onViewAll}>View All ({reviewsTotalCount})</SightReviewsViewAll>}
         </>
-    )
-}
-SightReviews.displayName = 'SightReviews'
+    );
+};
+SightReviews.displayName = 'SightReviews';

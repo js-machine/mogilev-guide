@@ -1,18 +1,18 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export const SightPhotosContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-`
-SightPhotosContainer.displayName = 'SightPhotosContainer'
+`;
+SightPhotosContainer.displayName = 'SightPhotosContainer';
 
 export const SightPhotosPhoto = styled.div<{ photo: string }>`
     position: relative;
     flex-basis: 50%;
     padding-bottom: 50%;
     background: url(${({ photo }) => photo}) no-repeat center/cover;
-`
-SightPhotosPhoto.displayName = 'SightPhotosPhoto'
+`;
+SightPhotosPhoto.displayName = 'SightPhotosPhoto';
 
 export const SightPhotosPhotoViewAll = styled.div`
     position: absolute;
@@ -26,5 +26,5 @@ export const SightPhotosPhotoViewAll = styled.div`
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
     cursor: pointer;
-`
-SightPhotosPhotoViewAll.displayName = 'SightPhotosPhotoViewAll'
+`;
+SightPhotosPhotoViewAll.displayName = 'SightPhotosPhotoViewAll';

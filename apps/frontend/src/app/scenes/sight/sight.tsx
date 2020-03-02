@@ -1,25 +1,25 @@
-import React, { useEffect, useCallback } from 'react'
-import { runInAction } from 'mobx'
-import { observer } from 'mobx-react-lite'
-import { useStores } from '@mogilev-guide/frontend/stores'
-import { Loader } from '@mogilev-guide/frontend/components'
-import { SightView } from './sightView'
+import React, { useEffect, useCallback } from 'react';
+import { runInAction } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import { useStores } from '@mogilev-guide/frontend/stores';
+import { Loader } from '@mogilev-guide/frontend/components';
+import { SightView } from './sightView';
 
 interface Props {
     match: {
         params: {
-            sightId: string
+            sightId: string;
         }
     }
 }
 
 export const SightRaw: React.FC<Props> = props => {
-    const id = props.match.params.sightId
-    const { sightStore, uiStore } = useStores()
+    const id = props.match.params.sightId;
+    const { sightStore, uiStore } = useStores();
 
     useEffect(() => {
-        sightStore.getSight(id)
-    }, [id])
+        sightStore.getSight(id);
+    }, [id, sightStore]);
 
     const handleViewAllPhotos = useCallback(() => {
         // TODO: Mock
@@ -30,9 +30,9 @@ export const SightRaw: React.FC<Props> = props => {
                     ...sightStore.sight.photos,
                     'https://planetabelarus.by/upload/resize_cache/iblock/95a/1330_887_18e21fe612b4afb807a26ecc22279a1d9/95af5cc42e396e28a0e909fae9e75ca0.jpg',
                 ],
-            })
-        })
-    }, [])
+            });
+        });
+    }, [sightStore.sight]);
 
     const handleViewAllReviews = useCallback(() => {
         // TODO: Mock
@@ -70,12 +70,12 @@ export const SightRaw: React.FC<Props> = props => {
                         message: 'Dolor sit amet consectetur. Dolor sit amet consectetur. Dolor sit amet consectetur. Dolor sit amet consectetur. Dolor sit amet consectetur. Dolor sit amet consectetur. Dolor sit amet consectetur.',
                     }
                 ]
-            })
-        })
-    }, [])
+            });
+        });
+    }, [sightStore.sight]);
 
     if (uiStore.isPageLoading) {
-        return <Loader isLoading={true} />
+        return <Loader isLoading={true} />;
     }
 
     return (
@@ -86,8 +86,8 @@ export const SightRaw: React.FC<Props> = props => {
             onViewAllPhotos={handleViewAllPhotos}
             onViewAllReviews={handleViewAllReviews}
         />
-    )
-}
-SightRaw.displayName = 'Sight'
+    );
+};
+SightRaw.displayName = 'Sight';
 
-export const Sight = observer(SightRaw)
+export const Sight = observer(SightRaw);

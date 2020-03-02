@@ -1,1 +1,1 @@
-export { SightReview } from './sightReview'
+export { SightReview } from './sightReview';

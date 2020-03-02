@@ -1,24 +1,24 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const SightRatingContainer = styled.div``
+export const SightRatingContainer = styled.div``;
 
 export const SightRatingHeader = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-`
+`;
 
 export const SightRatingHeaderNum = styled.div`
     font-size: 28px;
     font-weight: bold;
-`
+`;
 
 export const SightRatingHeaderStars = styled.div`
     margin-left: 10px;
     padding-top: 3px;
-`
+`;
 
-export const SightRatingBars = styled.div``
+export const SightRatingBars = styled.div``;
 
 export const SightRatingBarContainer = styled.div`
     display: flex;
@@ -27,12 +27,12 @@ export const SightRatingBarContainer = styled.div`
     &:not(:last-child) {
         margin-bottom: 4px;
     }
-` 
+`;
 
 export const SightRatingBarNum = styled.div`
     flex-shrink: 0;
     margin-right: 9px;
-`
+`;
 
 export const SightRatingBar = styled.div<{ value: number }>`
     position: relative;
@@ -51,4 +51,4 @@ export const SightRatingBar = styled.div<{ value: number }>`
         background-color: #09DDDF;
         border-radius: inherit;
     }
-`
+`;

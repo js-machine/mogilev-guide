@@ -1,1 +1,1 @@
-export { SightTabs } from './sightTabs'
+export { SightTabs } from './sightTabs';

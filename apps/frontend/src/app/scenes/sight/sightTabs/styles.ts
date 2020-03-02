@@ -1,6 +1,6 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
-export const SightTabsContainer = styled.div``
+export const SightTabsContainer = styled.div``;
 
 export const SightTabsHeader = styled.div`
     display: flex;
@@ -8,7 +8,7 @@ export const SightTabsHeader = styled.div`
     margin-bottom: 24px;
     background-color: #E0E0E0;
     border-radius: 99999px;
-`
+`;
 
 export const SightTabsHeaderButton = styled.div<{ active: boolean }>`
     flex-grow: 1;
@@ -24,6 +24,6 @@ export const SightTabsHeaderButton = styled.div<{ active: boolean }>`
         background-color: #09DDDF;
         color: #fff;
     ` : null}
-`
+`;
 
-export const SightTabsBody = styled.div``
+export const SightTabsBody = styled.div``;

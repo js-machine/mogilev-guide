@@ -1,1 +1,1 @@
-export { SightPhotos } from './sightPhotos'
+export { SightPhotos } from './sightPhotos';
