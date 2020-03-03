@@ -1,9 +1,9 @@
-import 'dotenv/config'; //for work with environment variables from .env file
 import * as passport from 'passport';
 import * as passportStrategy from 'passport-google-oauth20';
 import { AuthService } from '@mogilev-guide/api/services/authorization';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { User } from '@mogilev-guide/models';
+import { GUIDE_ENV_CONFIG } from '../../config/env';
 
 export class GoogleOAuth20Authorization {
   @Inject() private authService!: AuthService;
@@ -12,9 +12,9 @@ export class GoogleOAuth20Authorization {
 
   private googleStrategy = new this.GoogleStrategy(
     {
-      clientID: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: process.env.REDIRECT_URL
+      clientID: GUIDE_ENV_CONFIG.CLIENT_ID,
+      clientSecret: GUIDE_ENV_CONFIG.CLIENT_SECRET,
+      callbackURL: GUIDE_ENV_CONFIG.REDIRECT_URL
     },
     this.getLoginCallback(this.authService)
   );
@@ -29,7 +29,7 @@ export class GoogleOAuth20Authorization {
   }
 
   public getUserInfoURL(): string {
-    return process.env.GOOGLE_INFO_URL;
+    return GUIDE_ENV_CONFIG.GOOGLE_INFO_URL;
   }
 
   private init() {
@@ -49,7 +49,7 @@ export class GoogleOAuth20Authorization {
       profile: passportStrategy.Profile,
       done: passportStrategy.VerifyCallback
     ) => {
-      let loginUser: User = {
+      const loginUser: User = {
         id: profile.id,
         login: profile.displayName,
         email: profile.emails[0].value,
@@ -57,7 +57,7 @@ export class GoogleOAuth20Authorization {
         lastName: profile.name.familyName
       };
 
-      let currentUser: User[] = await authServ.getUsersByID(loginUser.id);
+      const currentUser: User[] = await authServ.getUsersByID(loginUser.id);
       if (!currentUser[0]) {
         authServ.addUsers(loginUser);
         done(null, loginUser, accessToken);

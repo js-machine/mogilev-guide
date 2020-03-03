@@ -1,12 +1,13 @@
 import * as express from 'express';
 import * as passport from 'passport';
+import { GUIDE_ENV_CONFIG } from '../../config/env';
 
 export class AuthorizationRouter {
   private authRoutes = express.Router();
 
   private strategyName: string;
   private token: string;
-  private finishRedirectURL: string = process.env.SUCCESS_LOGIN_URL;
+  private finishRedirectURL: string = GUIDE_ENV_CONFIG.SUCCESS_LOGIN_URL;
 
   public getAuthRoutes(strategy: passport.Strategy): express.Router {
     passport.use(strategy);
