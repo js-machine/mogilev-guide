@@ -5,6 +5,7 @@ import * as cors from 'cors';
 
 //import passport module for OAuth2
 import * as passport from 'passport';
+
 import { AuthorizationRouter } from '@mogilev-guide/api/authorization/auth.routes';
 import { GoogleOAuth20Authorization } from '@mogilev-guide/api/authorization/googleAuth.passport';
 import { AuthorizationMiddleware } from '@mogilev-guide/api/authorization/auth.middleware';

@@ -34,7 +34,7 @@ export class AuthorizationMiddleware {
         res.redirect(redirectURL);
         return;
       }
-      await this.sendRequestForUserID(token);
+      this.sendRequestForUserID(token);
       if (this.errorFlag) {
         res.redirect(redirectURL);
         return;
@@ -43,7 +43,7 @@ export class AuthorizationMiddleware {
     };
   }
 
-  private async sendRequestForUserID(token: string) {
+  private sendRequestForUserID(token: string) {
     request(
       {
         method: 'GET',
@@ -59,11 +59,11 @@ export class AuthorizationMiddleware {
   }
 
   private getUserID(authServ: AuthService) {
-    return async (error: Error, response: express.Response, body: any) => {
+    return async (error: Error, response: express.Response, body) => {
       if (!error && response.statusCode == 200) {
         const user = JSON.parse(body);
-        const currentUser: User[] = await authServ.getUsersByID(user.id);
-        if (!currentUser[0]) {
+        const currentUser: User = await authServ.getUsersByID(user.id);
+        if (!currentUser) {
           this.errorFlag = true;
         }
       }

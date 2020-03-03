@@ -6,6 +6,7 @@ export class AuthorizationRouter {
   private authRoutes = express.Router();
 
   private strategyName: string;
+
   private token: string;
   private finishRedirectURL: string = GUIDE_ENV_CONFIG.SUCCESS_LOGIN_URL;
 

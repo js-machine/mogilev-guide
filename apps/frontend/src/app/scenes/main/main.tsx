@@ -8,15 +8,15 @@ import { Loader, InterestsGroup } from '@mogilev-guide/frontend/components';
 import { NavLink } from 'react-router-dom';
 
 const Greeting = styled(Typography)`
-text-align: center;
+  text-align: center;
 `;
 
 const NextButton = styled(NavLink)`
-float: right;
-font-size: 18px;
-line-height: 24px;
-color: #09DDDF;
-text-decoration: none;
+  float: right;
+  font-size: 18px;
+  line-height: 24px;
+  color: #09dddf;
+  text-decoration: none;
 `;
 
 export const Main: React.FC = observer(() => {
@@ -28,22 +28,23 @@ export const Main: React.FC = observer(() => {
     }
   }, [mainStore]);
 
-  return <div>
-    {uiStore.isPageLoading ? (
-      <Loader isLoading={uiStore.isPageLoading} />
-    ) : (
-      <>
-        <GuideImg />
-        <Greeting variant="h6" color="inherit">
-          Choose the most interesting places
-          you would like to visit:
-        </Greeting>
-        <InterestsGroup data={mainStore.interests} />
+  return (
+    <div>
+      {uiStore.isPageLoading ? (
+        <Loader isLoading={uiStore.isPageLoading} />
+      ) : (
+        <>
+          <GuideImg />
+          <Greeting variant="h6" color="inherit">
+            Choose the most interesting places you would like to visit:
+          </Greeting>
+          <InterestsGroup data={mainStore.interests} />
 
-        <NextButton exact to="/map">
-          Next
-        </NextButton>
-      </>
-    )}
-  </div>;
+          <NextButton exact to="/map">
+            Next
+          </NextButton>
+        </>
+      )}
+    </div>
+  );
 });

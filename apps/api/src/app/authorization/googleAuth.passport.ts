@@ -16,6 +16,7 @@ export class GoogleOAuth20Authorization {
       clientSecret: GUIDE_ENV_CONFIG.CLIENT_SECRET,
       callbackURL: GUIDE_ENV_CONFIG.REDIRECT_URL
     },
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     this.getLoginCallback(this.authService)
   );
 
@@ -57,13 +58,13 @@ export class GoogleOAuth20Authorization {
         lastName: profile.name.familyName
       };
 
-      const currentUser: User[] = await authServ.getUsersByID(loginUser.id);
-      if (!currentUser[0]) {
+      const currentUser: User = await authServ.getUsersByID(loginUser.id);
+      if (!currentUser) {
         authServ.addUsers(loginUser);
         done(null, loginUser, accessToken);
         return;
       }
-      done(null, currentUser[0], accessToken);
+      done(null, currentUser, accessToken);
     };
   }
 }
