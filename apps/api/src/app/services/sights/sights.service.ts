@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@mogilev-guide/api/ioc';
-import { Sight } from '@mogilev-guide/models';
+import { Sight, Coordinates } from '@mogilev-guide/models';
 import { FirebaseService } from '@mogilev-guide/api/services/firebase';
-import * as admin from 'firebase-admin';
 
 @Injectable()
 export class SightsService {
@@ -17,33 +16,30 @@ export class SightsService {
   }
 
   public async getSightByID(id: string): Promise<Sight> {
-    console.log("");
     const snapshot = await this.firebaseService.firestore
       .collection(this.collectionName)
       .where('id', '==', id)
       .get();
-    if (!snapshot.docs[0]){
-      return Promise.resolve(snapshot[0]);
-    }
-    return Promise.resolve(snapshot.docs[0].data() as Sight);
+    const doc = snapshot.docs[0]?.data() || snapshot[0];
+    return Promise.resolve(doc as Sight);
   }
 
   public async addSight(place: Sight): Promise<string> {
-    let newPlaceRef = await this.firebaseService.firestore
+    const newPlaceRef = this.firebaseService.firestore
       .collection(this.collectionName)
       .doc();
     place.id = newPlaceRef.id; //Sight's ID is equal DB's ID
-    const doc = await newPlaceRef.set(place);
+    await newPlaceRef.set(place);
     return Promise.resolve(newPlaceRef.id);
   }
 
   public async updateSightByID(id: string, sight: Sight): Promise<Sight> {
-    const sightsRef = await this.firebaseService.firestore
+    const sightsRef = this.firebaseService.firestore
       .collection(this.collectionName)
       .doc(id);
     sight.id = id; //ID will never change
-    let updateSingleSights = await sightsRef.update(sight);
-    let sights = await this.getSightByID(id);
+    await sightsRef.update(sight);
+    const sights = await this.getSightByID(id);
     return Promise.resolve(sights);
   }
 
@@ -52,9 +48,16 @@ export class SightsService {
       .collection(this.collectionName)
       .doc(id)
       .delete();
-    if (!snapshot) {
-      return Promise.resolve(false);
-    }
-    return Promise.resolve(true);
+    return Promise.resolve(!!snapshot);
+  }
+
+  public async getSightByCoordinates(coordinate: Coordinates): Promise<Sight> {
+    const snapshot = await this.firebaseService.firestore
+      .collection(this.collectionName)
+      .where('coordinates', '==', coordinate)
+      .get();
+
+    const doc = snapshot.docs[0]?.data() || snapshot[0];
+    return Promise.resolve(doc as Sight);
   }
 }

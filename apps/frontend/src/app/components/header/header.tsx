@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Icon } from './../icon/icon';
 
 interface Props {
-  title: string
+  title: string;
 }
 
 const HeaderStyle = styled.div`
@@ -23,9 +23,9 @@ const HeaderStyle = styled.div`
 export const Header = memo(({ title }: Props) => {
   return (
     <HeaderStyle>
-      <Icon name={'header-menu'}/>
+      <Icon name={'header-menu'} />
       <div className={'header-title'}>{title}</div>
-      <Icon name={'header-search'}/>
+      <Icon name={'header-search'} />
     </HeaderStyle>
   );
 });
