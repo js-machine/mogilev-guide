@@ -11,7 +11,8 @@ export class AuthService {
       .collection('users')
       .where('id', '==', id)
       .get();
-    return Promise.resolve(snapshot.docs[0].data() as User);
+    const doc = snapshot.docs[0]?.data() || snapshot[0];
+    return Promise.resolve(doc as User);
   }
 
   public async addUsers(user: User): Promise<FirebaseFirestore.WriteResult> {
