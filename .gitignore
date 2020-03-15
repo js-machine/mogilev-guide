@@ -46,3 +46,4 @@ swagger.json
 routes.ts
 /.config
 .env
+/.runtimeconfig.json
