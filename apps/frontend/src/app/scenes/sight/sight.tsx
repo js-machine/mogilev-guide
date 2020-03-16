@@ -1,5 +1,4 @@
 import React, { useEffect, useCallback } from 'react';
-import { runInAction } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { useStores } from '@mogilev-guide/frontend/stores';
 import { Loader } from '@mogilev-guide/frontend/components';
@@ -23,11 +22,11 @@ export const SightRaw: React.FC<Props> = props => {
 
     const handleViewAllPhotos = useCallback(() => {
         console.log('view all photos');
-    }, [sightStore.sight]);
+    }, []);
 
     const handleViewAllReviews = useCallback(() => {
-        console.log('view all reviews')
-    }, [sightStore.sight]);
+        console.log('view all reviews');
+    }, []);
 
     if (uiStore.isPageLoading) {
         return <Loader isLoading={true} />;
