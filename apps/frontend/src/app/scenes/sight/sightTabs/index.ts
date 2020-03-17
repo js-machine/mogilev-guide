@@ -1,0 +1,1 @@
+export { SightTabs } from './sightTabs';

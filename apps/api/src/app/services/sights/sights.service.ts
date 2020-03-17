@@ -29,7 +29,7 @@ export class SightsService {
   }
 
   public async addSight(place: Sight): Promise<string> {
-    let newPlaceRef = await this.firebaseService.firestore
+    const newPlaceRef = await this.firebaseService.firestore
       .collection(this.collectionName)
       .doc();
     place.id = newPlaceRef.id; //Sight's ID is equal DB's ID
@@ -42,8 +42,8 @@ export class SightsService {
       .collection(this.collectionName)
       .doc(id);
     sight.id = id; //ID will never change
-    let updateSingleSights = await sightsRef.update(sight);
-    let sights = await this.getSightByID(id);
+    const updateSingleSights = await sightsRef.update(sight);
+    const sights = await this.getSightByID(id);
     return Promise.resolve(sights);
   }
 
