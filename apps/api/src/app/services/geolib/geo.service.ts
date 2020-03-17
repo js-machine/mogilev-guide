@@ -59,17 +59,14 @@ export class GeoService {
       amount = points.length;
     }
 
-    const someSights: Sight[] = await points.reduce(
-      async (sights, point, index) => {
-        if (index < amount) {
-          const sight: Sight = await this.sightsService.getSightByCoordinates(point);
-          (await sights).push(sight);
-        }
-        return sights;
-      },
-      Promise.resolve([])
-    );
+    const sightPromises = points.reduce((promises, point, index) => {
+      if (index < amount) {
+        promises.push(this.sightsService.getSightByCoordinates(point));
+      }
+      return promises;
+    }, []);
 
-    return someSights;
+    const sights = await Promise.all(sightPromises);
+    return sights;
   }
 }
