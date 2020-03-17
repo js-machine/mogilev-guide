@@ -18,6 +18,7 @@
     "paths": {
       "@mogilev-guide/frontend/*": ["apps/frontend/src/app/*"],
       "@mogilev-guide/api/*": ["apps/api/src/app/*"],
+      "@mogilev-guide/api/src/*": ["apps/api/src/*"],
       "@mogilev-guide/data-service": ["libs/data-service/src/index.ts"],
       "@mogilev-guide/models": ["libs/models/src/index.ts"]
     }

@@ -12,7 +12,7 @@ export class AuthService {
       .where('id', '==', id)
       .get();
     const doc = snapshot.docs[0]?.data() || snapshot[0];
-    return Promise.resolve(doc as User);
+    return doc as User;
   }
 
   public async addUsers(user: User): Promise<FirebaseFirestore.WriteResult> {
@@ -21,6 +21,6 @@ export class AuthService {
       .doc()
       .set(user);
 
-    return Promise.resolve(doc);
+    return doc;
   }
 }

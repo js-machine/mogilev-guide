@@ -16,21 +16,16 @@ export class SightsService {
   }
 
   public async getSightByID(id: string): Promise<Sight> {
-    const snapshot = await this.firebaseService.firestore
-      .collection(this.collectionName)
-      .where('id', '==', id)
-      .get();
-    const doc = snapshot.docs[0]?.data() || snapshot[0];
-    return Promise.resolve(doc as Sight);
+    return await this.getSigthByField('id', id);
   }
 
   public async addSight(place: Sight): Promise<string> {
-    const newPlaceRef = this.firebaseService.firestore
+    const newPlaceRef = await this.firebaseService.firestore
       .collection(this.collectionName)
       .doc();
     place.id = newPlaceRef.id; //Sight's ID is equal DB's ID
     await newPlaceRef.set(place);
-    return Promise.resolve(newPlaceRef.id);
+    return newPlaceRef.id;
   }
 
   public async updateSightByID(id: string, sight: Sight): Promise<Sight> {
@@ -40,7 +35,7 @@ export class SightsService {
     sight.id = id; //ID will never change
     await sightsRef.update(sight);
     const sights = await this.getSightByID(id);
-    return Promise.resolve(sights);
+    return sights;
   }
 
   public async deleteSightByID(id: string): Promise<boolean> {
@@ -48,16 +43,23 @@ export class SightsService {
       .collection(this.collectionName)
       .doc(id)
       .delete();
-    return Promise.resolve(!!snapshot);
+    return !!snapshot;
   }
 
   public async getSightByCoordinates(coordinate: Coordinates): Promise<Sight> {
+    return await this.getSigthByField('coordinates', coordinate);
+  }
+
+  private async getSigthByField(
+    fieldName: string,
+    fieldValue: string | Coordinates
+  ): Promise<Sight> {
     const snapshot = await this.firebaseService.firestore
       .collection(this.collectionName)
-      .where('coordinates', '==', coordinate)
+      .where(fieldName, 'in', [fieldValue])
       .get();
 
     const doc = snapshot.docs[0]?.data() || snapshot[0];
-    return Promise.resolve(doc as Sight);
+    return doc as Sight;
   }
 }

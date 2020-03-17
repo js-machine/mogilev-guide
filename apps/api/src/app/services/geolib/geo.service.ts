@@ -7,7 +7,7 @@ import * as geolib from 'geolib';
 export class GeoService {
   @Inject() private sightsService!: SightsService;
 
-  public async getOneSightsFromPoints(startPoint: Coordinates): Promise<Sight> {
+  public async getSightFromPoints(startPoint: Coordinates): Promise<Sight> {
     const allPoints: Coordinates[] = await this.getAllCoordinates();
 
     //find only one the nearest point from array of points
@@ -20,7 +20,7 @@ export class GeoService {
     return nearestSight;
   }
 
-  public async getAmountSightsFromPoints(
+  public async getSightsFromPoints(
     startPoint: Coordinates,
     amount: number
   ): Promise<Sight[]> {
@@ -46,10 +46,7 @@ export class GeoService {
   // getPointsFromSights(sights: Sight[]) returns array of sights coordinates
   // using sight entity from entered array.
   private getPointsFromSights(sights: Sight[]): Coordinates[] {
-    const points: Coordinates[] = sights.map(
-      (sight: Sight) => sight.coordinates
-    );
-    return points;
+    return sights.map(sight => sight.coordinates);
   }
 
   // getSightsFromPoints(points: Coordinates[], amount?: number) returns exact amount of sights
@@ -62,19 +59,16 @@ export class GeoService {
       amount = points.length;
     }
 
-    const allights: Sight[] = await this.sightsService.getAllSights();
-
-    const someSights: Sight[] = points.reduce((sights, point, index) => {
-      if (index < amount) {
-        const sight: Sight = allights.find(
-          sght =>
-            sght.coordinates.latitude === point.latitude &&
-            sght.coordinates.longitude === point.longitude
-        );
-        sights.push(sight);
-      }
-      return sights;
-    }, []);
+    const someSights: Sight[] = await points.reduce(
+      async (sights, point, index) => {
+        if (index < amount) {
+          const sight: Sight = await this.sightsService.getSightByCoordinates(point);
+          (await sights).push(sight);
+        }
+        return sights;
+      },
+      Promise.resolve([])
+    );
 
     return someSights;
   }

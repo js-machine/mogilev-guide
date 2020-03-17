@@ -3,7 +3,7 @@ import * as request from 'request';
 import { User } from '@mogilev-guide/models';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { AuthService } from '@mogilev-guide/api/services/authorization';
-import { GUIDE_ENV_CONFIG } from '../../config/env';
+import { GUIDE_ENV_CONFIG } from '@mogilev-guide/api/src/config/env';
 
 export class AuthorizationMiddleware {
   @Inject() private authService!: AuthService;
@@ -34,7 +34,7 @@ export class AuthorizationMiddleware {
         res.redirect(redirectURL);
         return;
       }
-      this.sendRequestForUserID(token);
+      await this.sendRequestForUserID(token);
       if (this.errorFlag) {
         res.redirect(redirectURL);
         return;
@@ -43,7 +43,7 @@ export class AuthorizationMiddleware {
     };
   }
 
-  private sendRequestForUserID(token: string) {
+  private async sendRequestForUserID(token: string) {
     request(
       {
         method: 'GET',
@@ -54,13 +54,13 @@ export class AuthorizationMiddleware {
           access_token: token
         }
       },
-      this.getUserID(this.authService)
+      await this.getUserID(this.authService)
     );
   }
 
-  private getUserID(authServ: AuthService) {
+  private async getUserID(authServ: AuthService) {
     return async (error: Error, response: express.Response, body) => {
-      if (!error && response.statusCode == 200) {
+      if (!error && response.statusCode === 200) {
         const user = JSON.parse(body);
         const currentUser: User = await authServ.getUsersByID(user.id);
         if (!currentUser) {

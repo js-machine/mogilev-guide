@@ -14,23 +14,26 @@ export class SightsController extends Controller {
 
   @Post()
   public async addSight(@Body() place: Sight): Promise<string> {
-    const newPlaceID = await this.sightsService.addSight(place);
-    return newPlaceID;
+    return this.sightsService.addSight(place);
   }
 
   @Get('{id}')
   public async getOneSight(id: string): Promise<Sight> {
-    return await this.sightsService.getSightByID(id);
+    return this.sightsService.getSightByID(id);
   }
 
   @Put('{id}')
   public async updateSights(id: string, @Body() place: Sight): Promise<Sight> {
-    return await this.sightsService.updateSightByID(id, place);
+    return this.sightsService.updateSightByID(id, place);
   }
 
   @Delete('{id}')
   public async deleteSights(id: string): Promise<string> {
-    await this.sightsService.deleteSightByID(id);
-    return `Success delete ${id}`;
+    let message = '';
+    const deleteResult: boolean = await this.sightsService.deleteSightByID(id);
+    deleteResult
+      ? (message = `Success delete ${id}`)
+      : (message = `Something went wrong with delete ${id}`);
+    return message;
   }
 }

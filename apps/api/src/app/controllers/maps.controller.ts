@@ -19,7 +19,7 @@ export class MapController extends Controller {
     };
 
     //find only one the nearest point from array of points
-    const nearestPoint = this.geoService.getOneSightsFromPoints(startPoint);
+    const nearestPoint = await this.geoService.getSightFromPoints(startPoint);
     return nearestPoint;
   }
 
@@ -36,7 +36,7 @@ export class MapController extends Controller {
     };
 
     //find only one the nearest point from array of points
-    const nearestPoints = this.geoService.getAmountSightsFromPoints(
+    const nearestPoints = await this.geoService.getSightsFromPoints(
       startPoint,
       amount
     );

@@ -3,7 +3,7 @@ import * as passportStrategy from 'passport-google-oauth20';
 import { AuthService } from '@mogilev-guide/api/services/authorization';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { User } from '@mogilev-guide/models';
-import { GUIDE_ENV_CONFIG } from '../../config/env';
+import { GUIDE_ENV_CONFIG } from '@mogilev-guide/api/src/config/env';
 
 export class GoogleOAuth20Authorization {
   @Inject() private authService!: AuthService;
