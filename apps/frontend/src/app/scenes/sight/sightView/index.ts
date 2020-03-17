@@ -1,0 +1,1 @@
+export { SightView } from './sightView';

@@ -9,6 +9,7 @@ import { observer } from 'mobx-react-lite';
 import { syncHistoryWithStore } from 'mobx-react-router';
 import { useStores } from './stores';
 import { Main } from './scenes/main';
+import { Sight } from './scenes/sight';
 import { Routes } from '@mogilev-guide/frontend/scenes/routes';
 import { Map } from './scenes/map';
 
@@ -27,6 +28,7 @@ export const App: React.FC = observer(() => {
       <Router history={history}>
         <Switch>
           <Route exact path="/" component={Main} />
+          <Route exact path="/sight/:sightId" component={Sight} />
           <Route exact path="/routes" component={Routes} />
           <Route exact path="/map" component={Map} />
           <Redirect to="/" />
