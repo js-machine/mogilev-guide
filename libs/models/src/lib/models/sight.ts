@@ -9,10 +9,7 @@ export interface Sight {
     from: number
     to: number
   }
-  coordinates: {
-    latitude: number
-    longitude: number
-  }
+  coordinates: Coordinates
   interest: Interest
   history: string
   photos: string[]
@@ -21,6 +18,11 @@ export interface Sight {
   reviews: SightReview[]
   reviewsTotalCount: number
   rating: number[]
+}
+
+export interface Coordinates {
+  latitude: number;
+  longitude: number;
 }
 
 export interface SightReview {
