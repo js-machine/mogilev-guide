@@ -19,7 +19,7 @@ export class MapController extends Controller {
     };
 
     //find only one the nearest sight from array of points
-    return await this.geoService.getSightFromPoint(startPoint);
+    return this.geoService.getSightFromPoint(startPoint);
   }
 
   @Get('nearest/{amount}')
@@ -35,6 +35,6 @@ export class MapController extends Controller {
     };
 
     //find amount of the nearest point from array of points
-    return await this.geoService.getSightsFromPoint(startPoint, amount);
+    return this.geoService.getSightsFromPoint(startPoint, amount);
   }
 }

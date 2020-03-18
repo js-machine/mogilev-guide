@@ -13,11 +13,9 @@ export class GeoService {
     //find only one the nearest point from array of points
     const nearestPoint = geolib.findNearest(startPoint, allPoints);
 
-    const nearestSight: Sight = await this.sightsService.getSightByCoordinates(
+    return this.sightsService.getSightByCoordinates(
       nearestPoint as Coordinates
     );
-
-    return nearestSight;
   }
 
   public async getSightsFromPoint(
@@ -29,11 +27,7 @@ export class GeoService {
     //Sorted array of points by distance to a reference coordinate.
     const nearestPoints = geolib.orderByDistance(startPoint, allPoints);
 
-    const nearestSights: Sight[] = await this.getSomeSightsFromPoints(
-      nearestPoints as Coordinates[],
-      amount
-    );
-    return nearestSights;
+    return this.getSomeSightsFromPoints(nearestPoints as Coordinates[], amount);
   }
 
   // getAllCoordinates() returns array of all sights coordinates
@@ -66,7 +60,6 @@ export class GeoService {
       return promises;
     }, []);
 
-    const sights = await Promise.all(sightPromises);
-    return sights;
+    return await Promise.all(sightPromises);
   }
 }
