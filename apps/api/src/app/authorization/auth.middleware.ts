@@ -54,15 +54,15 @@ export class AuthorizationMiddleware {
           access_token: token
         }
       },
-      await this.getUserID(this.authService)
+      this.getUserID(this.authService)
     );
   }
 
-  private async getUserID(authServ: AuthService) {
+  private getUserID(authServ: AuthService) {
     return async (error: Error, response: express.Response, body) => {
       if (!error && response.statusCode === 200) {
         const user = JSON.parse(body);
-        const currentUser: User = await authServ.getUsersByID(user.id);
+        const currentUser: User = await authServ.getUserByID(user.id);
         if (!currentUser) {
           this.errorFlag = true;
         }

@@ -6,7 +6,7 @@ import { FirebaseService } from '@mogilev-guide/api/services/firebase';
 export class AuthService {
   @Inject() private firebaseService!: FirebaseService;
 
-  public async getUsersByID(id: string): Promise<User> {
+  public async getUserByID(id: string): Promise<User> {
     const snapshot = await this.firebaseService.firestore
       .collection('users')
       .where('id', '==', id)

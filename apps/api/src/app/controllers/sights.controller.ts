@@ -29,11 +29,9 @@ export class SightsController extends Controller {
 
   @Delete('{id}')
   public async deleteSights(id: string): Promise<string> {
-    let message = '';
     const deleteResult: boolean = await this.sightsService.deleteSightByID(id);
-    deleteResult
-      ? (message = `Success delete ${id}`)
-      : (message = `Something went wrong with delete ${id}`);
-    return message;
+    return deleteResult
+      ? `Success delete ${id}`
+      : `Something went wrong with delete ${id}`;
   }
 }

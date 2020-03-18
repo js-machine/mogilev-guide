@@ -16,11 +16,11 @@ export class SightsService {
   }
 
   public async getSightByID(id: string): Promise<Sight> {
-    return await this.getSigthByField('id', id);
+    return this.getSightByField('id', id);
   }
 
   public async addSight(place: Sight): Promise<string> {
-    const newPlaceRef = await this.firebaseService.firestore
+    const newPlaceRef = this.firebaseService.firestore
       .collection(this.collectionName)
       .doc();
     place.id = newPlaceRef.id; //Sight's ID is equal DB's ID
@@ -34,8 +34,7 @@ export class SightsService {
       .doc(id);
     sight.id = id; //ID will never change
     await sightsRef.update(sight);
-    const sights = await this.getSightByID(id);
-    return sights;
+    return await this.getSightByID(id);
   }
 
   public async deleteSightByID(id: string): Promise<boolean> {
@@ -47,10 +46,10 @@ export class SightsService {
   }
 
   public async getSightByCoordinates(coordinate: Coordinates): Promise<Sight> {
-    return await this.getSigthByField('coordinates', coordinate);
+    return await this.getSightByField('coordinates', coordinate);
   }
 
-  private async getSigthByField(
+  private async getSightByField(
     fieldName: string,
     fieldValue: string | Coordinates
   ): Promise<Sight> {

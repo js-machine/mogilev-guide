@@ -7,7 +7,7 @@ import * as geolib from 'geolib';
 export class GeoService {
   @Inject() private sightsService!: SightsService;
 
-  public async getSightFromPoints(startPoint: Coordinates): Promise<Sight> {
+  public async getSightFromPoint(startPoint: Coordinates): Promise<Sight> {
     const allPoints: Coordinates[] = await this.getAllCoordinates();
 
     //find only one the nearest point from array of points
@@ -20,7 +20,7 @@ export class GeoService {
     return nearestSight;
   }
 
-  public async getSightsFromPoints(
+  public async getSightsFromPoint(
     startPoint: Coordinates,
     amount: number
   ): Promise<Sight[]> {
