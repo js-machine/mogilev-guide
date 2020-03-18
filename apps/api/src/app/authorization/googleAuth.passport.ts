@@ -58,7 +58,7 @@ export class GoogleOAuth20Authorization {
         lastName: profile.name.familyName
       };
 
-      const currentUser: User = await authServ.getUsersByID(loginUser.id);
+      const currentUser: User = await authServ.getUserByID(loginUser.id);
       if (!currentUser) {
         authServ.addUsers(loginUser);
         done(null, loginUser, accessToken);
