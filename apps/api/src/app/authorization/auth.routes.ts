@@ -1,11 +1,12 @@
 import * as express from 'express';
 import * as passport from 'passport';
-import { GUIDE_ENV_CONFIG } from '../../config/env';
+import { GUIDE_ENV_CONFIG } from '@mogilev-guide/api/src/config/env';
 
 export class AuthorizationRouter {
   private authRoutes = express.Router();
 
   private strategyName: string;
+
   private token: string;
   private finishRedirectURL: string = GUIDE_ENV_CONFIG.SUCCESS_LOGIN_URL;
 

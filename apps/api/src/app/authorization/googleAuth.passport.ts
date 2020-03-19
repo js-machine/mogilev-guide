@@ -3,7 +3,7 @@ import * as passportStrategy from 'passport-google-oauth20';
 import { AuthService } from '@mogilev-guide/api/services/authorization';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { User } from '@mogilev-guide/models';
-import { GUIDE_ENV_CONFIG } from '../../config/env';
+import { GUIDE_ENV_CONFIG } from '@mogilev-guide/api/src/config/env';
 
 export class GoogleOAuth20Authorization {
   @Inject() private authService!: AuthService;
@@ -16,6 +16,7 @@ export class GoogleOAuth20Authorization {
       clientSecret: GUIDE_ENV_CONFIG.CLIENT_SECRET,
       callbackURL: GUIDE_ENV_CONFIG.REDIRECT_URL
     },
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     this.getLoginCallback(this.authService)
   );
 
@@ -57,13 +58,13 @@ export class GoogleOAuth20Authorization {
         lastName: profile.name.familyName
       };
 
-      const currentUser: User[] = await authServ.getUsersByID(loginUser.id);
-      if (!currentUser[0]) {
+      const currentUser: User = await authServ.getUserByID(loginUser.id);
+      if (!currentUser) {
         authServ.addUsers(loginUser);
         done(null, loginUser, accessToken);
         return;
       }
-      done(null, currentUser[0], accessToken);
+      done(null, currentUser, accessToken);
     };
   }
 }
