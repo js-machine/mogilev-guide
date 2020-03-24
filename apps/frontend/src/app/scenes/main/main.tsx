@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import { useStores } from '@mogilev-guide/frontend/stores';
 import { observer } from 'mobx-react-lite';
-import { Loader, InterestsGroup } from '@mogilev-guide/frontend/components';
+import { Loader, InterestsGroupBubbles } from '@mogilev-guide/frontend/components';
 import { NavLink } from 'react-router-dom';
 
 const Greeting = styled(Typography)`
@@ -38,7 +38,7 @@ export const Main: React.FC = observer(() => {
           Choose the most interesting places
           you would like to visit:
         </Greeting>
-        <InterestsGroup data={mainStore.interests} />
+        <InterestsGroupBubbles data={mainStore.interests} />
 
         <NextButton exact to="/map">
           Next
