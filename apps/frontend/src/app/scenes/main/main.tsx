@@ -46,5 +46,4 @@ export const Main: React.FC = observer(() => {
         </>
       )}
     </div>
-  );
 });

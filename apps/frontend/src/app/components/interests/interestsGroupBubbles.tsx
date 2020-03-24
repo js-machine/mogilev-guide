@@ -1,8 +1,8 @@
 import React, { memo, useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
+import { SimulationNodeDatum } from 'd3';
 import { Interest } from '@mogilev-guide/models';
 import styled from 'styled-components';
-import { SimulationNodeDatum } from 'd3';
 
 interface Props {
   data: Interest[];
