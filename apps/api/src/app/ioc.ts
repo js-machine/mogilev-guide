@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import { Inject as _Inject, Provides } from 'typescript-ioc';
 
 export function Injectable(): (target: Function) => void {

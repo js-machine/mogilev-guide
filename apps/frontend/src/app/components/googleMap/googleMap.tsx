@@ -1,5 +1,9 @@
 import React, { memo, useEffect, useRef } from 'react';
-import { GOOGLE_MAP_API_KEY, GOOGLE_MAP_CONTENT_ID, GOOGLE_MAP_SCRIPT_ID } from '@mogilev-guide/frontend/components/googleMap/config';
+import {
+  GOOGLE_MAP_API_KEY,
+  GOOGLE_MAP_CONTENT_ID,
+  GOOGLE_MAP_SCRIPT_ID
+} from '@mogilev-guide/frontend/components/googleMap/config';
 import styled from 'styled-components';
 
 interface Props {
@@ -7,10 +11,9 @@ interface Props {
 }
 
 const StyledContainer = styled.div`
-min-height: 300px;
-height: 100%;
+  min-height: 300px;
+  height: 100%;
 `;
-
 
 export const GoogleMap = memo(({ onInit }: Props) => {
   const googleMapRef = useRef(null);
@@ -22,26 +25,32 @@ export const GoogleMap = memo(({ onInit }: Props) => {
     window.document.body.appendChild(googleMapScript);
 
     googleMapScript.addEventListener('load', () => {
-      navigator.geolocation.getCurrentPosition(position => {
-        const googleMap = new google.maps.Map(googleMapRef.current, {
-          zoom: 16,
-          center: {
-            lng: position.coords.longitude,
-            lat: position.coords.latitude
-          },
-          disableDefaultUI: false
-        });
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const googleMap = new google.maps.Map(googleMapRef.current, {
+            zoom: 16,
+            center: {
+              lng: position.coords.longitude,
+              lat: position.coords.latitude
+            },
+            disableDefaultUI: false
+          });
 
-        const myPosition = new google.maps.Marker({
-          position: { lng: position.coords.longitude, lat: position.coords.latitude },
-          map: googleMap
-        });
+          const myPosition = new google.maps.Marker({
+            position: {
+              lng: position.coords.longitude,
+              lat: position.coords.latitude
+            },
+            map: googleMap
+          });
 
-        onInit(googleMap, myPosition);
-      }, () => {
-        console.error('geo location is not supported');
-        onInit(undefined, undefined);
-      });
+          onInit(googleMap, myPosition);
+        },
+        () => {
+          console.error('geo location is not supported');
+          onInit(undefined, undefined);
+        }
+      );
     });
 
     return () => {
@@ -49,7 +58,10 @@ export const GoogleMap = memo(({ onInit }: Props) => {
     };
   });
 
-  return <StyledContainer id={GOOGLE_MAP_CONTENT_ID} ref={googleMapRef}>
-  </StyledContainer>;
+  return (
+    <StyledContainer
+      id={GOOGLE_MAP_CONTENT_ID}
+      ref={googleMapRef}
+    ></StyledContainer>
+  );
 });
-

@@ -5,14 +5,16 @@ export class MapStore {
   @observable public map: google.maps.Map;
   @observable public myPosition: google.maps.Marker;
 
-  public constructor(private uiStore: UiStore) {
-  }
+  public constructor(private uiStore: UiStore) {}
 
   @action public initStarted = () => {
     this.uiStore.setIsLoading(true);
   };
 
-  @action public initCompleted = (map: google.maps.Map, myPosition: google.maps.Marker) => {
+  @action public initCompleted = (
+    map: google.maps.Map,
+    myPosition: google.maps.Marker
+  ) => {
     this.uiStore.setIsLoading(false);
 
     this.map = map;

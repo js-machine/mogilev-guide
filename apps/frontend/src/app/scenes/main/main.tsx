@@ -8,15 +8,15 @@ import { Loader, InterestsGroupBubbles } from '@mogilev-guide/frontend/component
 import { NavLink } from 'react-router-dom';
 
 const Greeting = styled(Typography)`
-text-align: center;
+  text-align: center;
 `;
 
 const NextButton = styled(NavLink)`
-float: right;
-font-size: 18px;
-line-height: 24px;
-color: #09DDDF;
-text-decoration: none;
+  float: right;
+  font-size: 18px;
+  line-height: 24px;
+  color: #09dddf;
+  text-decoration: none;
 `;
 
 export const Main: React.FC = observer(() => {
@@ -40,10 +40,11 @@ export const Main: React.FC = observer(() => {
         </Greeting>
         <InterestsGroupBubbles data={mainStore.interests} />
 
-        <NextButton exact to="/map">
-          Next
-        </NextButton>
-      </>
-    )}
-  </div>;
+          <NextButton exact to="/map">
+            Next
+          </NextButton>
+        </>
+      )}
+    </div>
+  );
 });

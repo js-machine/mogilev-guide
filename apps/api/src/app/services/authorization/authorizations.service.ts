@@ -6,14 +6,13 @@ import { FirebaseService } from '@mogilev-guide/api/services/firebase';
 export class AuthService {
   @Inject() private firebaseService!: FirebaseService;
 
-  public async getUsersByID(id: string): Promise<User[]> {
+  public async getUserByID(id: string): Promise<User> {
     const snapshot = await this.firebaseService.firestore
       .collection('users')
       .where('id', '==', id)
       .get();
-
-    return this.firebaseService.mapCollectionFromSnapshot(snapshot);
-    /* return this.firebaseService.mapEntityFromSnapshot(snapshot.docs[0]); */
+    const doc = snapshot.docs[0]?.data() || snapshot[0];
+    return doc as User;
   }
 
   public async addUsers(user: User): Promise<FirebaseFirestore.WriteResult> {
@@ -22,6 +21,6 @@ export class AuthService {
       .doc()
       .set(user);
 
-    return Promise.resolve(doc);
+    return doc;
   }
 }

@@ -8,13 +8,15 @@ interface Props {
 }
 
 const StyledGroup = styled.div`
-text-align: center;
+  text-align: center;
 `;
 
 export const InterestsGroup = memo(({ data }: Props) => {
-  return <StyledGroup>
-    {data.map(interest =>
-      <SingleInterest key={interest.id} data={interest} />
-    )}
-  </StyledGroup>;
+  return (
+    <StyledGroup>
+      {data.map(interest => (
+        <SingleInterest key={interest.id} data={interest} />
+      ))}
+    </StyledGroup>
+  );
 });
