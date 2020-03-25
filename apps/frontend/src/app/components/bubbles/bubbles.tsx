@@ -5,7 +5,7 @@ import React, {
 } from 'react';
 import { Interest } from '@mogilev-guide/models';
 import styled from 'styled-components';
-import { createD3Bubbles } from './services';
+import { createBubbles } from './services';
 
 interface Props {
   data: Interest[];
@@ -21,7 +21,7 @@ export const Bubbles = memo(({ data }: Props) => {
   const svgRef = useRef<SVGSVGElement>();
 
   useEffect(() => {
-    createD3Bubbles(svgRef, data);
+    createBubbles(svgRef, data);
   }, [data]);
 
   return <StyledGroup ref={svgRef} />;
