@@ -28,17 +28,17 @@ export const Main: React.FC = observer(() => {
     }
   }, [mainStore]);
 
-  return <div>
-    {uiStore.isPageLoading ? (
-      <Loader isLoading={uiStore.isPageLoading} />
-    ) : (
-      <>
-        <GuideImg />
-        <Greeting variant="h6" color="inherit">
-          Choose the most interesting places
-          you would like to visit:
-        </Greeting>
-        <Bubbles data={mainStore.interests} />
+  return (
+    <div>
+      {uiStore.isPageLoading ? (
+        <Loader isLoading={uiStore.isPageLoading} />
+      ) : (
+        <>
+          <GuideImg />
+          <Greeting variant="h6" color="inherit">
+            Choose the most interesting places you would like to visit:
+          </Greeting>
+          <Bubbles data={mainStore.interests} />
 
           <NextButton exact to="/map">
             Next
@@ -46,4 +46,5 @@ export const Main: React.FC = observer(() => {
         </>
       )}
     </div>
+  );
 });
