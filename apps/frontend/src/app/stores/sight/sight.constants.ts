@@ -1,5 +1,5 @@
 export enum Tabs {
-    HISTORY,
-    PHOTOS,
-    REVIEWS,
+  HISTORY,
+  PHOTOS,
+  REVIEWS
 }

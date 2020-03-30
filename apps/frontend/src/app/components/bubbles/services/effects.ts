@@ -67,7 +67,8 @@ export function simulateCollectBubblesInCenter(
         .attr('cy', d => d.y + height / 2)
         .on('click', (b, i, circles) => {
           Array.from(circles).map((circle, idx) => {
-            circle.style.transition = EFFECTS_SIMULATION_TO_CENTER.FILL_CIRCLE_TRANSITION;
+            circle.style.transition =
+              EFFECTS_SIMULATION_TO_CENTER.FILL_CIRCLE_TRANSITION;
             const text = document.body.querySelectorAll('text')[idx];
             if (idx === i) {
               if (

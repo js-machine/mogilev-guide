@@ -1,4 +1,4 @@
-import { Interest } from "@mogilev-guide/models";
+import { Interest } from '@mogilev-guide/models';
 import { D3InterestData, D3_INTERESTS_DATA } from '../models';
 
 export function getD3FormattedInterestsData(
