@@ -1,9 +1,10 @@
 import * as Moment from 'moment';
 import { Sight } from './sight';
+import { Language } from './language';
 
 export interface Route {
   id: string;
-  title: string;
+  title: Language;
   duration: Moment.Duration;
   distance: number;
   rating: number;
