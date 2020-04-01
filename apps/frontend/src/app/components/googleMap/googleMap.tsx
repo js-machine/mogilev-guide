@@ -6,8 +6,7 @@ import {
 } from '@mogilev-guide/frontend/components/googleMap/config';
 import styled from 'styled-components';
 import { Place } from '@mogilev-guide/models';
-import { createPopupClass } from './services/popup';
-import './googleMap.css';
+import { createPopupClass } from './models/popup';
 import { createPlaceMarkers, createPopupView } from './services';
 import { Popup } from './models';
 
@@ -24,6 +23,40 @@ interface Props {
 const StyledContainer = styled.div`
   min-height: 300px;
   height: 100%;
+
+  .popup-bubble {
+    position: absolute;
+    top: -35px;
+    left: 0;
+    transform: translate(-50%, -100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row-reverse;
+    background-color: white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-family: sans-serif;
+    overflow-y: auto;
+    max-height: 60px;
+    box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.5);
+  }
+
+  .popup-container {
+    cursor: auto;
+    height: 0;
+    position: absolute;
+    width: 200px;
+  }
+
+  #to-sight-button {
+    background: none;
+    border: none;
+    width: 10%;
+    height: 10%;
+    margin: 10px;
+    cursor: pointer;
+  }
 `;
 
 export const GoogleMap = memo(
@@ -64,11 +97,11 @@ export const GoogleMap = memo(
               map: googleMap
             });
 
-            const contentPopup = createPopupView();
-            const Popup = createPopupClass();
-            const popup = new Popup(
+            const contentPopupView = createPopupView();
+            const PopupOverlayView = createPopupClass();
+            const popup = new PopupOverlayView(
               new google.maps.LatLng(0, 0),
-              contentPopup,
+              contentPopupView,
               '',
               null
             );
@@ -96,6 +129,10 @@ export const GoogleMap = memo(
           selectedPlaceId,
           placePopup,
           handlePopupClick
+        });
+        map.addListener('click', () => {
+          placePopup.setMap(null);
+          handleSelectedPlace('');
         });
       }
     }, [

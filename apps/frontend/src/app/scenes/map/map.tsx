@@ -42,13 +42,6 @@ export const Map: React.FC = observer(() => {
     }
   }, [mapStore, mapStore.myPosition]);
 
-  // useEffect(() => {
-  //   const arrowBtnElement = document.querySelector('#to-sight-button');
-  //   if (mapStore.selectedPlaceId && arrowBtnElement) {
-  //     arrowBtnElement.addEventListener('click', onPopupClick);
-  //   }
-  // }, [mapStore.selectedPlaceId, onPopupClick]);
-
   const onMapInit = useCallback(
     (map, myPosition, popup) => {
       mapStore.initCompleted(map, myPosition, popup);

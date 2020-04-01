@@ -1,6 +1,16 @@
-import { CreatePlaceMarkerProps } from '../models/popup';
+import { Popup } from '../models/popup';
 import { createMarkerIcon } from './createPlaceMarker';
 import { MARKER_SIZE } from '../models';
+import { Place } from '@mogilev-guide/models';
+
+interface CreatePlaceMarkerProps {
+  map: google.maps.Map;
+  placePopup: Popup;
+  places: Place[];
+  selectedPlaceId: string;
+  handleSelectedPlace: (id: string) => void;
+  handlePopupClick: () => void;
+}
 
 export function createPlaceMarkers(props: CreatePlaceMarkerProps): void {
   const {
