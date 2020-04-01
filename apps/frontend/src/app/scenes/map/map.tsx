@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from 'react';
-
 import { observer } from 'mobx-react-lite';
 import { useStores } from '@mogilev-guide/frontend/stores';
 import { GoogleMap } from '@mogilev-guide/frontend/components/googleMap';
 import { Loader, ButtonPanel } from '@mogilev-guide/frontend/components';
 import styled, { css } from 'styled-components';
+import { useHistory } from 'react-router-dom';
 
 const MapComponent = styled.div`
   height: calc(100vh - 16px);
@@ -30,24 +30,47 @@ const ButtonPanelContainer = styled.div`
 
 export const Map: React.FC = observer(() => {
   const { mapStore, uiStore } = useStores();
+  const history = useHistory();
 
   useEffect(() => {
     mapStore.initStarted();
   }, [mapStore]);
 
+  useEffect(() => {
+    if (mapStore.myPosition) {
+      mapStore.getNearestPlaces(10);
+    }
+  }, [mapStore, mapStore.myPosition]);
+
   const onMapInit = useCallback(
-    (map, myPosition) => {
-      mapStore.initCompleted(map, myPosition);
+    (map, myPosition, popup) => {
+      mapStore.initCompleted(map, myPosition, popup);
     },
     [mapStore]
   );
+
+  const onSelectPlace = useCallback((id: string) => {
+    mapStore.setSelectedPlaceId(id);
+  }, [mapStore]);
+
+  const onPopupClick = useCallback(() => {
+    history.push(`/sight/${mapStore.selectedPlaceId}`);
+  }, [history, mapStore.selectedPlaceId]);
 
   return (
     <MapComponent>
       {uiStore.isPageLoading && <Loader isLoading={uiStore.isPageLoading} />}
       <MapContent hidden={uiStore.isPageLoading}>
         <MapPanel>
-          <GoogleMap onInit={onMapInit} />
+          <GoogleMap
+            onInit={onMapInit}
+            map={mapStore.map}
+            places={mapStore.nearestPlaces}
+            handleSelectedPlace={onSelectPlace}
+            selectedPlaceId={mapStore.selectedPlaceId}
+            placePopup={mapStore.placePopup}
+            handlePopupClick={onPopupClick}
+          />
         </MapPanel>
         <ButtonPanelContainer>
           <ButtonPanel />
