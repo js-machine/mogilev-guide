@@ -16,6 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@mogilev-guide/admin/*": ["apps/admin/src/app/*"],
       "@mogilev-guide/frontend/*": ["apps/frontend/src/app/*"],
       "@mogilev-guide/api/*": ["apps/api/src/app/*"],
       "@mogilev-guide/api/src/*": ["apps/api/src/*"],

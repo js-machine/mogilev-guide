@@ -1,23 +1,27 @@
-import { SightV2, Language } from '@mogilev-guide/models';
+import { SightDto, Language } from '@mogilev-guide/models';
 import { SightModel } from '@mogilev-guide/api/models';
 import { InterestsConverter } from './interestConverter';
 import { LanguageService } from '@mogilev-guide/api/services/language';
 import { InterestsService } from '@mogilev-guide/api/services/interests';
 import { LanguagesConverter } from './languageConverter';
 import { Inject, Injectable } from '@mogilev-guide/api/ioc';
+import { ReviewsConverter } from '@mogilev-guide/api/helpers/reviewConverter';
+import { ReviewService } from '@mogilev-guide/api/services/review';
 
 @Injectable()
 export class SightsConverter {
   @Inject() private languageService: LanguageService;
   @Inject() private interestsService: InterestsService;
   @Inject() private interestsConverter: InterestsConverter;
+  @Inject() private reviewService: ReviewService;
+  @Inject() private reviewsConverter: ReviewsConverter;
 
-  public async fromDBToFront(dbSight: SightModel): Promise<SightV2> {
+  public async fromDBToFront(dbSight: SightModel): Promise<SightDto> {
     //prepare languages fields
     const [nameLang, addressLang, historyLang] = await Promise.all([
       this.languageService.getLangRecordByID(dbSight.nameID),
       this.languageService.getLangRecordByID(dbSight.addressID),
-      this.languageService.getLangRecordByID(dbSight.historyID),
+      this.languageService.getLangRecordByID(dbSight.historyID)
     ]);
 
     //prepare another fields
@@ -48,7 +52,7 @@ export class SightsConverter {
     };
   }
 
-  public async fromFrontToDB(frontSight: SightV2): Promise<SightModel> {
+  public async fromFrontToDB(frontSight: SightDto): Promise<SightModel> {
     //prepare languages fields
     const [nameLangID, addressLangID, historyLangID] = await Promise.all([
       this.insertLangRecord(frontSight.name),
@@ -77,13 +81,15 @@ export class SightsConverter {
     };
   }
 
-  public async fromDBToFrontArray(dbSight: SightModel[]): Promise<SightV2[]> {
-    const dbSightArr = dbSight.map((Sight) => this.fromDBToFront(Sight));
+  public async fromDBToFrontArray(dbSight: SightModel[]): Promise<SightDto[]> {
+    const dbSightArr = dbSight.map(Sight => this.fromDBToFront(Sight));
     return Promise.all(dbSightArr);
   }
 
-  public async fromFrontToDBArray(frontSight: SightV2[]): Promise<SightModel[]> {
-    const dbSightArr = frontSight.map((langRec) => this.fromFrontToDB(langRec));
+  public async fromFrontToDBArray(
+    frontSight: SightDto[]
+  ): Promise<SightModel[]> {
+    const dbSightArr = frontSight.map(langRec => this.fromFrontToDB(langRec));
     return Promise.all(dbSightArr);
   }
 

@@ -4,3 +4,8 @@ export interface Language {
   en: string;
   ru: string;
 }
+
+export enum LanguageList {
+  ru = 'ru',
+  en = 'en'
+}

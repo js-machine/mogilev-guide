@@ -9,3 +9,5 @@ export const theme: Theme = {
   },
   overrides: {}
 };
+
+theme.palette.primary.main = '#09DDDF';

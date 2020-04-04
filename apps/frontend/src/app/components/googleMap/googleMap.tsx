@@ -5,6 +5,7 @@ import {
   GOOGLE_MAP_SCRIPT_ID
 } from '@mogilev-guide/frontend/components/googleMap/config';
 import styled from 'styled-components';
+import { MAP_STYLES } from './mapStyles';
 
 interface Props {
   onInit: (map, marker) => void;
@@ -33,7 +34,8 @@ export const GoogleMap = memo(({ onInit }: Props) => {
               lng: position.coords.longitude,
               lat: position.coords.latitude
             },
-            disableDefaultUI: false
+            disableDefaultUI: true,
+            styles: MAP_STYLES as google.maps.MapTypeStyle[]
           });
 
           const myPosition = new google.maps.Marker({
@@ -58,10 +60,5 @@ export const GoogleMap = memo(({ onInit }: Props) => {
     };
   });
 
-  return (
-    <StyledContainer
-      id={GOOGLE_MAP_CONTENT_ID}
-      ref={googleMapRef}
-    ></StyledContainer>
-  );
+  return <StyledContainer id={GOOGLE_MAP_CONTENT_ID} ref={googleMapRef} />;
 });
