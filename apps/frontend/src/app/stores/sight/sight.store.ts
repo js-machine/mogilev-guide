@@ -5,28 +5,28 @@ import { UiStore } from '../ui.store';
 import { Tabs } from './sight.constants';
 
 export class SightStore {
-    @observable
-    sight: Sight;
+  @observable
+  sight: Sight;
 
-    @observable
-    activeTab: Tabs = Tabs.HISTORY;
+  @observable
+  activeTab: Tabs = Tabs.HISTORY;
 
-    constructor(private uiStore: UiStore) {}
+  constructor(private uiStore: UiStore) {}
 
-    @action
-    getSight = async (id: Sight['id']) => {
-        this.uiStore.setIsLoading(true);
+  @action
+  getSight = async (id: Sight['id']) => {
+    this.uiStore.setIsLoading(true);
 
-        try {
-            const sight = await getSight(id);
-            runInAction(() => (this.sight = sight));
-        } finally {
-            this.uiStore.setIsLoading(false);
-        }
+    try {
+      const sight = await getSight(id);
+      runInAction(() => (this.sight = sight));
+    } finally {
+      this.uiStore.setIsLoading(false);
     }
+  };
 
-    @action
-    setActiveTab = (tab: Tabs) => {
-        this.activeTab = tab;
-    }
+  @action
+  setActiveTab = (tab: Tabs) => {
+    this.activeTab = tab;
+  };
 }

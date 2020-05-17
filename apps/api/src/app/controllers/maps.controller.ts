@@ -1,5 +1,6 @@
 import { Controller, Get, Route, Query } from 'tsoa';
-import { Sight, Coordinates } from '@mogilev-guide/models';
+import { Sight } from '@mogilev-guide/models';
+import { Coordinates } from '@mogilev-guide/api/models';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { GeoService } from '@mogilev-guide/api/services/geolib';
 

@@ -1,6 +1,8 @@
+import { Language } from './language';
+
 export interface Interest {
-  id: string
-  label: string
-  description: string
-  size: string
+  id: string;
+  label: Language;
+  description: Language;
+  size: string;
 }

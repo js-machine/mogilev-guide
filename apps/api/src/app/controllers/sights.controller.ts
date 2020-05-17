@@ -14,6 +14,7 @@ export class SightsController extends Controller {
 
   @Post()
   public async addSight(@Body() place: Sight): Promise<string> {
+    console.dir(place);
     return this.sightsService.addSight(place);
   }
 

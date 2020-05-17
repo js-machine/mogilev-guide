@@ -5,42 +5,42 @@ import { Loader } from '@mogilev-guide/frontend/components';
 import { SightView } from './sightView';
 
 interface Props {
-    match: {
-        params: {
-            sightId: string;
-        }
-    }
+  match: {
+    params: {
+      sightId: string;
+    };
+  };
 }
 
 export const SightRaw: React.FC<Props> = props => {
-    const id = props.match.params.sightId;
-    const { sightStore, uiStore } = useStores();
+  const id = props.match.params.sightId;
+  const { sightStore, uiStore } = useStores();
 
-    useEffect(() => {
-        sightStore.getSight(id);
-    }, [id, sightStore]);
+  useEffect(() => {
+    sightStore.getSight(id);
+  }, [id, sightStore]);
 
-    const handleViewAllPhotos = useCallback(() => {
-        console.log('view all photos');
-    }, []);
+  const handleViewAllPhotos = useCallback(() => {
+    console.log('view all photos');
+  }, []);
 
-    const handleViewAllReviews = useCallback(() => {
-        console.log('view all reviews');
-    }, []);
+  const handleViewAllReviews = useCallback(() => {
+    console.log('view all reviews');
+  }, []);
 
-    if (uiStore.isPageLoading) {
-        return <Loader isLoading={true} />;
-    }
+  if (uiStore.isPageLoading) {
+    return <Loader isLoading={true} />;
+  }
 
-    return (
-        <SightView
-            sight={sightStore.sight}
-            activeTab={sightStore.activeTab}
-            onChangeTab={sightStore.setActiveTab}
-            onViewAllPhotos={handleViewAllPhotos}
-            onViewAllReviews={handleViewAllReviews}
-        />
-    );
+  return (
+    <SightView
+      sight={sightStore.sight}
+      activeTab={sightStore.activeTab}
+      onChangeTab={sightStore.setActiveTab}
+      onViewAllPhotos={handleViewAllPhotos}
+      onViewAllReviews={handleViewAllReviews}
+    />
+  );
 };
 SightRaw.displayName = 'Sight';
 

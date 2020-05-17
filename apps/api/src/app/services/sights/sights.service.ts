@@ -1,5 +1,6 @@
 import { Injectable, Inject } from '@mogilev-guide/api/ioc';
-import { Sight, Coordinates } from '@mogilev-guide/models';
+import { Sight } from '@mogilev-guide/models';
+import { Coordinates } from '@mogilev-guide/api/models';
 import { FirebaseService } from '@mogilev-guide/api/services/firebase';
 
 @Injectable()
