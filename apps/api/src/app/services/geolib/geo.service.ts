@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@mogilev-guide/api/ioc';
+/* import { Injectable, Inject } from '@mogilev-guide/api/ioc';
 import { Sight } from '@mogilev-guide/models';
 import { Coordinates } from '@mogilev-guide/api/models';
 import { SightsService } from '@mogilev-guide/api/services/sights';
@@ -64,3 +64,4 @@ export class GeoService {
     return await Promise.all(sightPromises);
   }
 }
+ */

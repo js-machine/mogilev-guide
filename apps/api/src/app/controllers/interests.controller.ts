@@ -2,12 +2,15 @@ import { Controller, Get, Route, Post, Put, Delete, Body } from 'tsoa';
 import { Interest } from '@mogilev-guide/models';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { InterestsService } from '@mogilev-guide/api/services/interests';
+import { LanguageService } from '@mogilev-guide/api/services/language';
 import { InterestsConverter } from '@mogilev-guide/api/helpers';
+
 
 @Route('interests')
 export class InterestsController extends Controller {
   @Inject() private interestsService!: InterestsService;
   @Inject() private interestsConverter!: InterestsConverter;
+  @Inject() private languageService: LanguageService;
 
   @Get()
   public async getInterests(): Promise<Interest[]> {

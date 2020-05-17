@@ -2,30 +2,39 @@ import { Controller, Get, Route, Post, Body, Put, Delete } from 'tsoa';
 import { Sight } from '@mogilev-guide/models';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { SightsService } from '@mogilev-guide/api/services/sights';
+import { SightsConverter } from '@mogilev-guide/api/helpers';
 
 @Route('sights')
 export class SightsController extends Controller {
   @Inject() private sightsService!: SightsService;
+  @Inject() private sightsConverter!: SightsConverter;
 
   @Get()
   public async getSights(): Promise<Sight[]> {
-    return this.sightsService.getAllSights();
-  }
-
-  @Post()
-  public async addSight(@Body() place: Sight): Promise<string> {
-    console.dir(place);
-    return this.sightsService.addSight(place);
+    const dbSights = await this.sightsService.getAllSights();
+    return this.sightsConverter.fromDBToFrontArray(dbSights);
   }
 
   @Get('{id}')
   public async getOneSight(id: string): Promise<Sight> {
-    return this.sightsService.getSightByID(id);
+    const dbSight = await this.sightsService.getSightByID(id);
+    return this.sightsConverter.fromDBToFront(dbSight);
+  }
+
+  @Post()
+  public async addSight(@Body() place: Sight): Promise<string> {
+    const dbSight = await this.sightsConverter.fromFrontToDB(place);
+    return this.sightsService.addSight(dbSight);
   }
 
   @Put('{id}')
   public async updateSights(id: string, @Body() place: Sight): Promise<Sight> {
-    return this.sightsService.updateSightByID(id, place);
+    const dbSight = await this.sightsConverter.fromFrontToDB(place);
+    const updatedSight = await this.sightsService.updateSightByID(
+      id,
+      dbSight
+    );
+    return this.sightsConverter.fromDBToFront(updatedSight);
   }
 
   @Delete('{id}')

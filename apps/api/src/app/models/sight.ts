@@ -1,5 +1,3 @@
-import { InterestModel } from '@mogilev-guide/api/models';
-
 export interface SightModel {
   id: string;
   nameID: string;
@@ -9,7 +7,7 @@ export interface SightModel {
     to: number;
   };
   coordinates: Coordinates;
-  interest: InterestModel;
+  interestID: string;
   historyID: string;
   photos: string[];
   background: string;

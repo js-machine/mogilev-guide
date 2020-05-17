@@ -1,4 +1,4 @@
-import { Controller, Get, Route, Query } from 'tsoa';
+/* import { Controller, Get, Route, Query } from 'tsoa';
 import { Sight } from '@mogilev-guide/models';
 import { Coordinates } from '@mogilev-guide/api/models';
 import { Inject } from '@mogilev-guide/api/ioc';
@@ -39,3 +39,4 @@ export class MapController extends Controller {
     return this.geoService.getSightsFromPoint(startPoint, amount);
   }
 }
+ */

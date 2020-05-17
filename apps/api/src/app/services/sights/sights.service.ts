@@ -1,14 +1,17 @@
 import { Injectable, Inject } from '@mogilev-guide/api/ioc';
-import { Sight } from '@mogilev-guide/models';
+import { SightModel } from '@mogilev-guide/api/models';
 import { Coordinates } from '@mogilev-guide/api/models';
 import { FirebaseService } from '@mogilev-guide/api/services/firebase';
+import { LanguageService } from '@mogilev-guide/api/services/language';
 
 @Injectable()
 export class SightsService {
   @Inject() private firebaseService!: FirebaseService;
+  @Inject() private languageService!: LanguageService;
+
   private collectionName = 'sights';
 
-  public async getAllSights(): Promise<Sight[]> {
+  public async getAllSights(): Promise<SightModel[]> {
     const snapshot = await this.firebaseService.firestore
       .collection(this.collectionName)
       .get();
@@ -16,11 +19,11 @@ export class SightsService {
     return this.firebaseService.mapCollectionFromSnapshot(snapshot);
   }
 
-  public async getSightByID(id: string): Promise<Sight> {
+  public async getSightByID(id: string): Promise<SightModel> {
     return this.getSightByField('id', id);
   }
 
-  public async addSight(place: Sight): Promise<string> {
+  public async addSight(place: SightModel): Promise<string> {
     const newPlaceRef = this.firebaseService.firestore
       .collection(this.collectionName)
       .doc();
@@ -29,7 +32,7 @@ export class SightsService {
     return newPlaceRef.id;
   }
 
-  public async updateSightByID(id: string, sight: Sight): Promise<Sight> {
+  public async updateSightByID(id: string, sight: SightModel): Promise<SightModel> {
     const sightsRef = this.firebaseService.firestore
       .collection(this.collectionName)
       .doc(id);
@@ -39,6 +42,14 @@ export class SightsService {
   }
 
   public async deleteSightByID(id: string): Promise<boolean> {
+    const sight = await this.getSightByID(id);
+
+    //delete language records which connect with sigth
+    await this.languageService.deleteLanguageRecordByID(sight.nameID);
+    await this.languageService.deleteLanguageRecordByID(sight.addressID);
+    await this.languageService.deleteLanguageRecordByID(sight.historyID);
+
+    //delete sigth
     const snapshot = await this.firebaseService.firestore
       .collection(this.collectionName)
       .doc(id)
@@ -46,20 +57,20 @@ export class SightsService {
     return !!snapshot;
   }
 
-  public async getSightByCoordinates(coordinate: Coordinates): Promise<Sight> {
+  public async getSightByCoordinates(coordinate: Coordinates): Promise<SightModel> {
     return await this.getSightByField('coordinates', coordinate);
   }
 
   private async getSightByField(
     fieldName: string,
     fieldValue: string | Coordinates
-  ): Promise<Sight> {
+  ): Promise<SightModel> {
     const snapshot = await this.firebaseService.firestore
       .collection(this.collectionName)
       .where(fieldName, 'in', [fieldValue])
       .get();
 
     const doc = snapshot.docs[0]?.data() || snapshot[0];
-    return doc as Sight;
+    return doc as SightModel;
   }
 }
