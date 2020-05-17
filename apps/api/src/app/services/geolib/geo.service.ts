@@ -1,6 +1,5 @@
-/* import { Injectable, Inject } from '@mogilev-guide/api/ioc';
-import { Sight } from '@mogilev-guide/models';
-import { Coordinates } from '@mogilev-guide/api/models';
+import { Injectable, Inject } from '@mogilev-guide/api/ioc';
+import { Coordinates, SightModel } from '@mogilev-guide/api/models';
 import { SightsService } from '@mogilev-guide/api/services/sights';
 import * as geolib from 'geolib';
 
@@ -8,7 +7,7 @@ import * as geolib from 'geolib';
 export class GeoService {
   @Inject() private sightsService!: SightsService;
 
-  public async getSightFromPoint(startPoint: Coordinates): Promise<Sight> {
+  public async getSightFromPoint(startPoint: Coordinates): Promise<SightModel> {
     const allPoints: Coordinates[] = await this.getAllCoordinates();
 
     //find only one the nearest point from array of points
@@ -22,7 +21,7 @@ export class GeoService {
   public async getSightsFromPoint(
     startPoint: Coordinates,
     amount: number
-  ): Promise<Sight[]> {
+  ): Promise<SightModel[]> {
     const allPoints: Coordinates[] = await this.getAllCoordinates();
 
     //Sorted array of points by distance to a reference coordinate.
@@ -40,7 +39,7 @@ export class GeoService {
 
   // getPointsFromSights(sights: Sight[]) returns array of sights coordinates
   // using sight entity from entered array.
-  private getPointsFromSights(sights: Sight[]): Coordinates[] {
+  private getPointsFromSights(sights: SightModel[]): Coordinates[] {
     return sights.map(sight => sight.coordinates);
   }
 
@@ -49,7 +48,7 @@ export class GeoService {
   private async getSomeSightsFromPoints(
     points: Coordinates[],
     amount: number
-  ): Promise<Sight[]> {
+  ): Promise<SightModel[]> {
     if (amount > points.length || !amount) {
       amount = points.length;
     }
@@ -64,4 +63,3 @@ export class GeoService {
     return await Promise.all(sightPromises);
   }
 }
- */
