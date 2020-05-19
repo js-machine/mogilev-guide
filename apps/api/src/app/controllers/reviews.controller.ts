@@ -1,7 +1,7 @@
 import { SightReview } from '@mogilev-guide/models';
 import { ReviewsConverter } from '@mogilev-guide/api/helpers';
 import { Inject, Injectable } from '@mogilev-guide/api/ioc';
-import { ReviewService } from '@mogilev-guide/api/services/Review';
+import { ReviewService } from '@mogilev-guide/api/services/review';
 import { ReviewModel } from '@mogilev-guide/api/models';
 
 @Injectable()
@@ -29,9 +29,7 @@ export class ReviewsController {
     return resultRec;
   }
 
-  public async addReviewRecord(
-    sightReview: SightReview
-  ): Promise<string> {
+  public async addReviewRecord(sightReview: SightReview): Promise<string> {
     const newReviewRec = await this.reviewsConverter.fromFrontToDB(sightReview);
     return await this.reviewService.addReview(newReviewRec);
   }
