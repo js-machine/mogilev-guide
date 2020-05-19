@@ -1,13 +1,16 @@
 import { Controller, Get, Route, Post, Body, Put, Delete } from 'tsoa';
 import { Sight } from '@mogilev-guide/models';
+import { SightReview } from '@mogilev-guide/models';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { SightsService } from '@mogilev-guide/api/services/sights';
 import { SightsConverter } from '@mogilev-guide/api/helpers';
+import { ReviewsController } from './reviews.controller';
 
 @Route('sights')
 export class SightsController extends Controller {
   @Inject() private sightsService!: SightsService;
   @Inject() private sightsConverter!: SightsConverter;
+  @Inject() private reviewsController!: ReviewsController;
 
   @Get()
   public async getSights(): Promise<Sight[]> {
@@ -43,5 +46,43 @@ export class SightsController extends Controller {
     return deleteResult
       ? `Success delete ${id}`
       : `Something went wrong with delete ${id}`;
+  }
+
+  ///////   Sight reviews methods
+
+  @Get('{id}/reviews')
+  public async getSightReviews(id: string): Promise<SightReview[]> {
+    const dbSight = await this.sightsService.getSightByID(id);
+    return this.reviewsController.getReviewRecordsByID(dbSight.reviewsID);
+  }
+
+  @Get('{id}/reviews/{reviewID}')
+  public async getSightReview(reviewID: string): Promise<SightReview> {
+    return this.reviewsController.getReviewRecordByID(reviewID);
+  }
+
+  @Post('{id}/reviews')
+  public async addSightReview(id: string, @Body() review: SightReview): Promise<SightReview[]> {
+    const reviewID = await this.reviewsController.addReviewRecord(review);
+    const sight = await this.getOneSight(id);
+    sight.reviews.push(reviewID);
+    await this.updateSights(id, sight);
+    return this.getSightReviews(id);
+  }
+
+  @Put('{id}/reviews/{reviewID}')
+  public async updateSightReview(reviewID: string, @Body() newReview: SightReview): Promise<SightReview> {
+    await this.reviewsController.updateReviewRecords(reviewID, newReview);
+    return this.getSightReview(reviewID);
+  }
+
+
+  @Delete('{id}/reviews/{reviewID}')
+  public async deleteSightReview(id: string, reviewID: string): Promise<string> {
+    const sight = await this.getOneSight(id);
+    const indexReview = sight.reviews.indexOf(reviewID);
+    sight.reviews.splice(indexReview, 1);
+    await this.updateSights(id, sight);
+    return await this.reviewsController.deleteReviewRecord(reviewID);
   }
 }

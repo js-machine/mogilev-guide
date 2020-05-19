@@ -1,9 +1,11 @@
 import { SightReview } from '@mogilev-guide/models';
 import { ReviewModel } from '@mogilev-guide/api/models';
 import { UsersConverter } from './userConverter';
+import { Injectable } from '@mogilev-guide/api/ioc';
 
+@Injectable()
 export class ReviewsConverter {
-  public static async fromDBToFront(
+  public async fromDBToFront(
     dbReview: ReviewModel
   ): Promise<SightReview> {
     const frontUser = await UsersConverter.fromDBToFront(dbReview.user);
@@ -18,7 +20,7 @@ export class ReviewsConverter {
     return frontReview;
   }
 
-  public static async fromFrontToDB(
+  public async fromFrontToDB(
     frontReview: SightReview
   ): Promise<ReviewModel> {
     const dbUser = await UsersConverter.fromFrontToDB(frontReview.user);
@@ -32,7 +34,7 @@ export class ReviewsConverter {
     return dbReview;
   }
 
-  public static async fromDBToFrontArray(
+  public async fromDBToFrontArray(
     langRecs: ReviewModel[]
   ): Promise<SightReview[]> {
     const langRecArr = langRecs.reduce((langArr, langRec) => {
@@ -44,7 +46,7 @@ export class ReviewsConverter {
     return await Promise.all(langRecArr);
   }
 
-  public static async fromFrontToDBArray(
+  public async fromFrontToDBArray(
     langRecs: SightReview[]
   ): Promise<ReviewModel[]> {
     const langRecArr = langRecs.reduce((langArr, langRec) => {

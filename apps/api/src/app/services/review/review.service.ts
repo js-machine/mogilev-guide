@@ -28,7 +28,7 @@ export class ReviewService {
     const newReviewRec = this.firebaseService.firestore
       .collection(this.collectionName)
       .doc();
-    record.id = newReviewRec.id;
+    record.id = newReviewRec.id; //ID will be the same
     await newReviewRec.set(record);
     return newReviewRec.id;
   }
@@ -40,6 +40,7 @@ export class ReviewService {
     const reviewRecRef = this.firebaseService.firestore
       .collection(this.collectionName)
       .doc(id);
+    newReviewRec.id = id; //ID will never change
     await reviewRecRef.update(newReviewRec);
     return await this.getReviewByID(id);
   }
