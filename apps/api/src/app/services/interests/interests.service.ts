@@ -51,12 +51,27 @@ export class InterestsService {
 
   public async deleteInterestByID(id: string): Promise<boolean> {
     const interest = await this.getInterestByID(id);
-    await this.languageService.deleteLanguageRecordByID(interest.labelID);
-    await this.languageService.deleteLanguageRecordByID(interest.descriptionID);
-    const snapshot = await this.firebaseService.firestore
+
+    const ref = this.firebaseService.firestore
       .collection(this.collectionName)
-      .doc(id)
-      .delete();
-    return !!snapshot;
+      .doc(id);
+
+    const db = this.firebaseService.firestore;
+
+    // Run transaction
+    const res = db.runTransaction(async (t) => {
+
+      //delete language records which connect with interest
+      await this.languageService.deleteLanguageRecordsByID([
+        interest.descriptionID,
+        interest.labelID
+      ]);
+
+      //delete interest
+      const doc = t.delete(ref);
+      return doc;
+    });
+
+    return !!res;
   }
 }

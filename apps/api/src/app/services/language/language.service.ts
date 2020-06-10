@@ -58,4 +58,20 @@ export class LanguageService {
       .delete();
     return !!snapshot;
   }
+
+  public async deleteLanguageRecordsByID(idArray: string[]): Promise<boolean> {
+    try {
+      const allResults = idArray.map(async (id) => {
+        await this.firebaseService.firestore
+          .collection(this.collectionName)
+          .doc(id)
+          .delete();
+      })
+
+      return !!allResults;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
 }

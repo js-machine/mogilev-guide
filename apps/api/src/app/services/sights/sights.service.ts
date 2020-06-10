@@ -44,20 +44,31 @@ export class SightsService {
     return this.getSightByID(id);
   }
 
-  public async deleteSightByID(id: string): Promise<boolean> {
+  public async deleteSightByID(id: string): Promise<boolean>{
     const sight = await this.getSightByID(id);
 
-    //delete language records which connect with sigth
-    await this.languageService.deleteLanguageRecordByID(sight.nameID);
-    await this.languageService.deleteLanguageRecordByID(sight.addressID);
-    await this.languageService.deleteLanguageRecordByID(sight.historyID);
-
-    //delete sigth
-    const snapshot = await this.firebaseService.firestore
+    const ref = this.firebaseService.firestore
       .collection(this.collectionName)
-      .doc(id)
-      .delete();
-    return !!snapshot;
+      .doc(id);
+
+    const db = this.firebaseService.firestore;
+
+    // Run transaction
+    const res = db.runTransaction(async(t)=>{
+
+      //delete language records which connect with sigth
+      await this.languageService.deleteLanguageRecordsByID([
+        sight.nameID,
+        sight.addressID,
+        sight.historyID
+      ]);
+
+      //delete sigth
+      const doc = t.delete(ref);
+      return doc;
+    });
+
+    return !!res;
   }
 
   public async getSightByCoordinates(
