@@ -5,9 +5,7 @@ import { Injectable } from '@mogilev-guide/api/ioc';
 
 @Injectable()
 export class ReviewsConverter {
-  public async fromDBToFront(
-    dbReview: ReviewModel
-  ): Promise<SightReview> {
+  public async fromDBToFront(dbReview: ReviewModel): Promise<SightReview> {
     const frontUser = await UsersConverter.fromDBToFront(dbReview.user);
 
     const frontReview: SightReview = {
@@ -20,9 +18,7 @@ export class ReviewsConverter {
     return frontReview;
   }
 
-  public async fromFrontToDB(
-    frontReview: SightReview
-  ): Promise<ReviewModel> {
+  public async fromFrontToDB(frontReview: SightReview): Promise<ReviewModel> {
     const dbUser = await UsersConverter.fromFrontToDB(frontReview.user);
     const dbReview: ReviewModel = {
       id: frontReview.id,
@@ -43,7 +39,7 @@ export class ReviewsConverter {
       return langArr;
     }, []);
 
-    return await Promise.all(langRecArr);
+    return Promise.all(langRecArr);
   }
 
   public async fromFrontToDBArray(
@@ -55,6 +51,6 @@ export class ReviewsConverter {
       return langArr;
     }, []);
 
-    return await Promise.all(langRecArr);
+    return Promise.all(langRecArr);
   }
 }

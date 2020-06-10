@@ -46,7 +46,7 @@ export class InterestsService {
       .doc(id);
     interest.id = id; //ID will never change
     await interestsRef.update(interest);
-    return await this.getInterestByID(id);
+    return this.getInterestByID(id);
   }
 
   public async deleteInterestByID(id: string): Promise<boolean> {

@@ -31,7 +31,7 @@ export class ReviewsController {
 
   public async addReviewRecord(sightReview: SightReview): Promise<string> {
     const newReviewRec = await this.reviewsConverter.fromFrontToDB(sightReview);
-    return await this.reviewService.addReview(newReviewRec);
+    return this.reviewService.addReview(newReviewRec);
   }
 
   public async updateReviewRecords(

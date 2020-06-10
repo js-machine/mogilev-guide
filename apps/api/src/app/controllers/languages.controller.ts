@@ -17,12 +17,7 @@ export class LanguagesController extends Controller {
   @Get('{id}')
   public async getLanguageRecordByID(id: string): Promise<Language> {
     const langRecord = await this.languageService.getLangRecordByID(id);
-    let resultRec: Promise<Language> = null;
-
-    if (langRecord) {
-      resultRec = LanguagesConverter.fromDBToFront(langRecord);
-    }
-
+    const resultRec = (langRecord) ? LanguagesConverter.fromDBToFront(langRecord) : null;
     return resultRec;
   }
 
@@ -31,8 +26,9 @@ export class LanguagesController extends Controller {
     @Body() langRecord: Language
   ): Promise<string> {
     const newLangRec = await LanguagesConverter.fromFrontToDB(langRecord);
-    return await this.languageService.addLanguageRecord(newLangRec);
+    return this.languageService.addLanguageRecord(newLangRec);
   }
+
   @Put('{id}')
   public async updateLanguageRecords(
     id: string,

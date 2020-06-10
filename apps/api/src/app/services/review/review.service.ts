@@ -42,7 +42,7 @@ export class ReviewService {
       .doc(id);
     newReviewRec.id = id; //ID will never change
     await reviewRecRef.update(newReviewRec);
-    return await this.getReviewByID(id);
+    return this.getReviewByID(id);
   }
 
   public async deleteReviewByID(id: string): Promise<boolean> {

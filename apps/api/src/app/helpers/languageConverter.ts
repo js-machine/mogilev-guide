@@ -1,6 +1,8 @@
 import { Language } from '@mogilev-guide/models';
 import { LanguageModel } from '@mogilev-guide/api/models';
+import { Injectable } from '@mogilev-guide/api/ioc';
 
+@Injectable()
 export class LanguagesConverter {
   public static async fromDBToFront(langRec: LanguageModel): Promise<Language> {
     const frontLangRec: Language = {
@@ -31,7 +33,7 @@ export class LanguagesConverter {
       return langArr;
     }, []);
 
-    return await Promise.all(langRecArr);
+    return Promise.all(langRecArr);
   }
 
   public static async fromFrontToDBArray(
@@ -43,6 +45,6 @@ export class LanguagesConverter {
       return langArr;
     }, []);
 
-    return await Promise.all(langRecArr);
+    return Promise.all(langRecArr);
   }
 }

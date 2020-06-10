@@ -1,15 +1,12 @@
-import * as Moment from 'moment';
-import { Sight } from './sight';
-import { Language } from './language';
+ import * as Moment from 'moment';
 
-export interface Route {
+ export interface Route {
   id: string;
-  title: Language;
+  title: string;
   duration: Moment.Duration;
   distance: number;
   rating: number;
   reviews: number;
   places: number;
   image?: string;
-  sigthts?: Sight[];
 }

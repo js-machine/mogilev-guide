@@ -1,4 +1,4 @@
-import { Interest, Language } from '@mogilev-guide/models';
+import { InterestV2, Language } from '@mogilev-guide/models';
 import { InterestModel } from '@mogilev-guide/api/models';
 import { LanguagesConverter } from './languageConverter';
 import { LanguageService } from '@mogilev-guide/api/services/language';
@@ -8,7 +8,7 @@ import { Injectable, Inject } from '@mogilev-guide/api/ioc';
 export class InterestsConverter {
   @Inject() private languageService: LanguageService;
 
-  public async fromDBToFront(dbInterest: InterestModel): Promise<Interest> {
+  public async fromDBToFront(dbInterest: InterestModel): Promise<InterestV2> {
     const labelLang = await this.languageService.getLangRecordByID(
       dbInterest.labelID
     );
@@ -16,7 +16,7 @@ export class InterestsConverter {
       dbInterest.descriptionID
     );
 
-    const frontInterest: Interest = {
+    const frontInterest: InterestV2 = {
       id: dbInterest.id,
       label: labelLang,
       description: descrLang,
@@ -25,7 +25,7 @@ export class InterestsConverter {
     return frontInterest;
   }
 
-  public async fromFrontToDB(frontInterest: Interest): Promise<InterestModel> {
+  public async fromFrontToDB(frontInterest: InterestV2): Promise<InterestModel> {
     const labelLangID = await this.insertNewLangRecord(frontInterest.label);
     const descrLangID = await this.insertNewLangRecord(
       frontInterest.description
@@ -42,26 +42,26 @@ export class InterestsConverter {
 
   public async fromDBToFrontArray(
     dbInterest: InterestModel[]
-  ): Promise<Interest[]> {
-    const dbInterestArr = dbInterest.reduce((InterestArr, Interest) => {
-      const frontInterest = this.fromDBToFront(Interest);
-      InterestArr.push(frontInterest);
-      return InterestArr;
+  ): Promise<InterestV2[]> {
+    const dbInterestArr = dbInterest.reduce((interestArr, interest) => {
+      const frontInterest = this.fromDBToFront(interest);
+      interestArr.push(frontInterest);
+      return interestArr;
     }, []);
 
-    return await Promise.all(dbInterestArr);
+    return Promise.all(dbInterestArr);
   }
 
   public async fromFrontToDBArray(
-    frontInterest: Interest[]
+    frontInterest: InterestV2[]
   ): Promise<InterestModel[]> {
-    const dbInterestArr = frontInterest.reduce((InterestArr, langRec) => {
+    const dbInterestArr = frontInterest.reduce((interestArr, langRec) => {
       const dbInterest = this.fromFrontToDB(langRec);
-      InterestArr.push(dbInterest);
-      return InterestArr;
+      interestArr.push(dbInterest);
+      return interestArr;
     }, []);
 
-    return await Promise.all(dbInterestArr);
+    return Promise.all(dbInterestArr);
   }
 
   private async insertNewLangRecord(

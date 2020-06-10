@@ -32,13 +32,16 @@ export class SightsService {
     return newPlaceRef.id;
   }
 
-  public async updateSightByID(id: string, sight: SightModel): Promise<SightModel> {
+  public async updateSightByID(
+    id: string,
+    sight: SightModel
+  ): Promise<SightModel> {
     const sightsRef = this.firebaseService.firestore
       .collection(this.collectionName)
       .doc(id);
     sight.id = id; //ID will never change
     await sightsRef.update(sight);
-    return await this.getSightByID(id);
+    return this.getSightByID(id);
   }
 
   public async deleteSightByID(id: string): Promise<boolean> {
@@ -57,8 +60,10 @@ export class SightsService {
     return !!snapshot;
   }
 
-  public async getSightByCoordinates(coordinate: Coordinates): Promise<SightModel> {
-    return await this.getSightByField('coordinates', coordinate);
+  public async getSightByCoordinates(
+    coordinate: Coordinates
+  ): Promise<SightModel> {
+    return this.getSightByField('coordinates', coordinate);
   }
 
   private async getSightByField(

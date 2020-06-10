@@ -1,4 +1,4 @@
-import { Sight, Language } from '@mogilev-guide/models';
+import { SightV2, Language } from '@mogilev-guide/models';
 import { SightModel } from '@mogilev-guide/api/models';
 import { InterestsConverter } from './interestConverter';
 import { LanguageService } from '@mogilev-guide/api/services/language';
@@ -12,7 +12,7 @@ export class SightsConverter {
   @Inject() private interestsService: InterestsService;
   @Inject() private interestsConverter: InterestsConverter;
 
-  public async fromDBToFront(dbSight: SightModel): Promise<Sight> {
+  public async fromDBToFront(dbSight: SightModel): Promise<SightV2> {
     //prepare languages fields
     const nameLang = await this.languageService.getLangRecordByID(
       dbSight.nameID
@@ -25,10 +25,14 @@ export class SightsConverter {
     );
 
     //prepare another fields
-    const interestDB = await this.interestsService.getInterestByID(dbSight.interestID);
-    const interestFront = await this.interestsConverter.fromDBToFront(interestDB);
+    const interestDB = await this.interestsService.getInterestByID(
+      dbSight.interestID
+    );
+    const interestFront = await this.interestsConverter.fromDBToFront(
+      interestDB
+    );
 
-    const frontSight: Sight = {
+    const frontSight: SightV2 = {
       id: dbSight.id,
       name: nameLang,
       address: addressLang,
@@ -49,21 +53,14 @@ export class SightsConverter {
     return frontSight;
   }
 
-  public async fromFrontToDB(frontSight: Sight): Promise<SightModel> {
+  public async fromFrontToDB(frontSight: SightV2): Promise<SightModel> {
     //prepare languages fields
-    const nameLangID = await this.insertLangRecord(
-      frontSight.name
-    );
-    const addressLangID = await this.insertLangRecord(
-      frontSight.address
-    );
-    const historyLangID = await this.insertLangRecord(
-      frontSight.history
-    );
+    const nameLangID = await this.insertLangRecord(frontSight.name);
+    const addressLangID = await this.insertLangRecord(frontSight.address);
+    const historyLangID = await this.insertLangRecord(frontSight.history);
 
     //prepare another fields
     const interestDBID = frontSight.interest.id;
-
 
     const dbSight: SightModel = {
       id: frontSight.id,
@@ -84,33 +81,27 @@ export class SightsConverter {
     return dbSight;
   }
 
-  public async fromDBToFrontArray(
-    dbSight: SightModel[]
-  ): Promise<Sight[]> {
+  public async fromDBToFrontArray(dbSight: SightModel[]): Promise<SightV2[]> {
     const dbSightArr = dbSight.reduce((SightArr, Sight) => {
       const frontSight = this.fromDBToFront(Sight);
       SightArr.push(frontSight);
       return SightArr;
     }, []);
 
-    return await Promise.all(dbSightArr);
+    return Promise.all(dbSightArr);
   }
 
-  public async fromFrontToDBArray(
-    frontSight: Sight[]
-  ): Promise<SightModel[]> {
+  public async fromFrontToDBArray(frontSight: SightV2[]): Promise<SightModel[]> {
     const dbSightArr = frontSight.reduce((SightArr, langRec) => {
       const dbSight = this.fromFrontToDB(langRec);
       SightArr.push(dbSight);
       return SightArr;
     }, []);
 
-    return await Promise.all(dbSightArr);
+    return Promise.all(dbSightArr);
   }
 
-  private async insertLangRecord(
-    frontLangRecord: Language
-  ): Promise<string> {
+  private async insertLangRecord(frontLangRecord: Language): Promise<string> {
     const recLangDB = await LanguagesConverter.fromFrontToDB(frontLangRecord);
     const langRec = await this.languageService.getLangRecordByID(
       frontLangRecord.id
@@ -128,4 +119,3 @@ export class SightsConverter {
     return langRecID;
   }
 }
-

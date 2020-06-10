@@ -1,5 +1,5 @@
 import { Controller, Get, Route, Post, Body, Put, Delete } from 'tsoa';
-import { Sight } from '@mogilev-guide/models';
+import { SightV2 } from '@mogilev-guide/models';
 import { SightReview } from '@mogilev-guide/models';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { SightsService } from '@mogilev-guide/api/services/sights';
@@ -13,30 +13,27 @@ export class SightsController extends Controller {
   @Inject() private reviewsController!: ReviewsController;
 
   @Get()
-  public async getSights(): Promise<Sight[]> {
+  public async getSights(): Promise<SightV2[]> {
     const dbSights = await this.sightsService.getAllSights();
     return this.sightsConverter.fromDBToFrontArray(dbSights);
   }
 
   @Get('{id}')
-  public async getOneSight(id: string): Promise<Sight> {
+  public async getOneSight(id: string): Promise<SightV2> {
     const dbSight = await this.sightsService.getSightByID(id);
     return this.sightsConverter.fromDBToFront(dbSight);
   }
 
   @Post()
-  public async addSight(@Body() place: Sight): Promise<string> {
+  public async addSight(@Body() place: SightV2): Promise<string> {
     const dbSight = await this.sightsConverter.fromFrontToDB(place);
     return this.sightsService.addSight(dbSight);
   }
 
   @Put('{id}')
-  public async updateSights(id: string, @Body() place: Sight): Promise<Sight> {
+  public async updateSights(id: string, @Body() place: SightV2): Promise<SightV2> {
     const dbSight = await this.sightsConverter.fromFrontToDB(place);
-    const updatedSight = await this.sightsService.updateSightByID(
-      id,
-      dbSight
-    );
+    const updatedSight = await this.sightsService.updateSightByID(id, dbSight);
     return this.sightsConverter.fromDBToFront(updatedSight);
   }
 
@@ -57,12 +54,18 @@ export class SightsController extends Controller {
   }
 
   @Get('{id}/reviews/{reviewID}')
-  public async getSightReview(reviewID: string): Promise<SightReview> {
+  public async getSightReview(
+    id: string,
+    reviewID: string
+  ): Promise<SightReview> {
     return this.reviewsController.getReviewRecordByID(reviewID);
   }
 
   @Post('{id}/reviews')
-  public async addSightReview(id: string, @Body() review: SightReview): Promise<SightReview[]> {
+  public async addSightReview(
+    id: string,
+    @Body() review: SightReview
+  ): Promise<SightReview[]> {
     const reviewID = await this.reviewsController.addReviewRecord(review);
     const sight = await this.getOneSight(id);
     sight.reviews.push(reviewID);
@@ -71,18 +74,24 @@ export class SightsController extends Controller {
   }
 
   @Put('{id}/reviews/{reviewID}')
-  public async updateSightReview(reviewID: string, @Body() newReview: SightReview): Promise<SightReview> {
+  public async updateSightReview(
+    id: string,
+    reviewID: string,
+    @Body() newReview: SightReview
+  ): Promise<SightReview> {
     await this.reviewsController.updateReviewRecords(reviewID, newReview);
-    return this.getSightReview(reviewID);
+    return this.getSightReview(id, reviewID);
   }
 
-
   @Delete('{id}/reviews/{reviewID}')
-  public async deleteSightReview(id: string, reviewID: string): Promise<string> {
+  public async deleteSightReview(
+    id: string,
+    reviewID: string
+  ): Promise<string> {
     const sight = await this.getOneSight(id);
     const indexReview = sight.reviews.indexOf(reviewID);
     sight.reviews.splice(indexReview, 1);
     await this.updateSights(id, sight);
-    return await this.reviewsController.deleteReviewRecord(reviewID);
+    return this.reviewsController.deleteReviewRecord(reviewID);
   }
 }

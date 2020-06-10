@@ -1,6 +1,8 @@
 import { User } from '@mogilev-guide/models';
 import { UserModel } from '@mogilev-guide/api/models';
+import { Injectable } from '@mogilev-guide/api/ioc';
 
+@Injectable()
 export class UsersConverter {
   public static async fromDBToFront(dbUser: UserModel): Promise<User> {
     const frontUser: User = {
@@ -35,7 +37,7 @@ export class UsersConverter {
       return userArr;
     }, []);
 
-    return await Promise.all(dbUserArr);
+    return Promise.all(dbUserArr);
   }
 
   public static async fromFrontToDBArray(
@@ -47,6 +49,6 @@ export class UsersConverter {
       return userArr;
     }, []);
 
-    return await Promise.all(dbUserArr);
+    return Promise.all(dbUserArr);
   }
 }

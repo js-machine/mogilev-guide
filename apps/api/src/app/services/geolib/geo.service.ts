@@ -60,6 +60,6 @@ export class GeoService {
       return promises;
     }, []);
 
-    return await Promise.all(sightPromises);
+    return Promise.all(sightPromises);
   }
 }

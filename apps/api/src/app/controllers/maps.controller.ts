@@ -1,6 +1,5 @@
 import { Controller, Get, Route, Query } from 'tsoa';
-import { Sight } from '@mogilev-guide/models';
-import { SightModel } from '@mogilev-guide/api/models';
+import { SightV2 } from '@mogilev-guide/models';
 import { Coordinates } from '@mogilev-guide/api/models';
 import { Inject } from '@mogilev-guide/api/ioc';
 import { GeoService } from '@mogilev-guide/api/services/geolib';
@@ -15,7 +14,7 @@ export class MapController extends Controller {
   public async getNearestPlace(
     @Query() latit: number,
     @Query() longit: number
-  ): Promise<Sight> {
+  ): Promise<SightV2> {
     //point relative to which the nearest points are searched
     const startPoint: Coordinates = {
       latitude: latit,
@@ -32,7 +31,7 @@ export class MapController extends Controller {
     amount: number,
     @Query() latit: number,
     @Query() longit: number
-  ): Promise<Sight[]> {
+  ): Promise<SightV2[]> {
     //point relative to which the nearest points are searched
     const startPoint: Coordinates = {
       latitude: latit,
@@ -40,7 +39,10 @@ export class MapController extends Controller {
     };
 
     //find amount of the nearest point from array of points
-    const nearestSightsDB = await this.geoService.getSightsFromPoint(startPoint, amount);
+    const nearestSightsDB = await this.geoService.getSightsFromPoint(
+      startPoint,
+      amount
+    );
     return this.sightsConverter.fromDBToFrontArray(nearestSightsDB);
   }
 }
