@@ -66,7 +66,7 @@ export class LanguageService {
           .collection(this.collectionName)
           .doc(id)
           .delete();
-      })
+      });
 
       return !!allResults;
     } catch (error) {

@@ -9,13 +9,10 @@ export class InterestsConverter {
   @Inject() private languageService: LanguageService;
 
   public async fromDBToFront(dbInterest: InterestModel): Promise<InterestV2> {
-    const labelLang = await this.languageService.getLangRecordByID(
-      dbInterest.labelID
-    );
-    const descrLang = await this.languageService.getLangRecordByID(
-      dbInterest.descriptionID
-    );
-
+    const [labelLang, descrLang] = await Promise.all([
+      this.languageService.getLangRecordByID(dbInterest.labelID),
+      this.languageService.getLangRecordByID(dbInterest.descriptionID)
+    ]);
     const frontInterest: InterestV2 = {
       id: dbInterest.id,
       label: labelLang,
@@ -26,11 +23,10 @@ export class InterestsConverter {
   }
 
   public async fromFrontToDB(frontInterest: InterestV2): Promise<InterestModel> {
-    const labelLangID = await this.insertNewLangRecord(frontInterest.label);
-    const descrLangID = await this.insertNewLangRecord(
-      frontInterest.description
-    );
-
+    const [labelLangID, descrLangID] = await Promise.all([
+      this.insertNewLangRecord(frontInterest.label),
+      this.insertNewLangRecord(frontInterest.description)
+    ]);
     const dbInterest: InterestModel = {
       id: frontInterest.id,
       labelID: labelLangID,
@@ -67,10 +63,10 @@ export class InterestsConverter {
   private async insertNewLangRecord(
     frontLangRecord: Language
   ): Promise<string> {
-    const recLangDB = await LanguagesConverter.fromFrontToDB(frontLangRecord);
-    const langRec = await this.languageService.getLangRecordByID(
-      frontLangRecord.id
-    );
+    const [recLangDB, langRec] = await Promise.all([
+      LanguagesConverter.fromFrontToDB(frontLangRecord),
+      this.languageService.getLangRecordByID(frontLangRecord.id)
+    ]);
     let langRecID: string;
     if (langRec) {
       langRecID = langRec.id;

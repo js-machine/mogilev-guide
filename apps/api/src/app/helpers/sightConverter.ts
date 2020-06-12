@@ -14,15 +14,11 @@ export class SightsConverter {
 
   public async fromDBToFront(dbSight: SightModel): Promise<SightV2> {
     //prepare languages fields
-    const nameLang = await this.languageService.getLangRecordByID(
-      dbSight.nameID
-    );
-    const addressLang = await this.languageService.getLangRecordByID(
-      dbSight.addressID
-    );
-    const historyLang = await this.languageService.getLangRecordByID(
-      dbSight.historyID
-    );
+    const [nameLang, addressLang, historyLang] = await Promise.all([
+      this.languageService.getLangRecordByID(dbSight.nameID),
+      this.languageService.getLangRecordByID(dbSight.addressID),
+      this.languageService.getLangRecordByID(dbSight.historyID),
+    ]);
 
     //prepare another fields
     const interestDB = await this.interestsService.getInterestByID(
@@ -55,9 +51,11 @@ export class SightsConverter {
 
   public async fromFrontToDB(frontSight: SightV2): Promise<SightModel> {
     //prepare languages fields
-    const nameLangID = await this.insertLangRecord(frontSight.name);
-    const addressLangID = await this.insertLangRecord(frontSight.address);
-    const historyLangID = await this.insertLangRecord(frontSight.history);
+    const [nameLangID, addressLangID, historyLangID] = await Promise.all([
+      this.insertLangRecord(frontSight.name),
+      this.insertLangRecord(frontSight.address),
+      this.insertLangRecord(frontSight.history)
+    ]);
 
     //prepare another fields
     const interestDBID = frontSight.interest.id;
@@ -102,10 +100,10 @@ export class SightsConverter {
   }
 
   private async insertLangRecord(frontLangRecord: Language): Promise<string> {
-    const recLangDB = await LanguagesConverter.fromFrontToDB(frontLangRecord);
-    const langRec = await this.languageService.getLangRecordByID(
-      frontLangRecord.id
-    );
+    const [recLangDB, langRec] = await Promise.all([
+      LanguagesConverter.fromFrontToDB(frontLangRecord),
+      this.languageService.getLangRecordByID(frontLangRecord.id)
+    ]);
     let langRecID: string;
     if (langRec) {
       langRecID = langRec.id;
