@@ -28,7 +28,7 @@ export class SightsConverter {
       interestDB
     );
 
-    const frontSight: SightV2 = {
+    return {
       id: dbSight.id,
       name: nameLang,
       address: addressLang,
@@ -46,7 +46,6 @@ export class SightsConverter {
       reviewsTotalCount: dbSight.reviewsID.length,
       rating: dbSight.rating
     };
-    return frontSight;
   }
 
   public async fromFrontToDB(frontSight: SightV2): Promise<SightModel> {
@@ -60,7 +59,7 @@ export class SightsConverter {
     //prepare another fields
     const interestDBID = frontSight.interest.id;
 
-    const dbSight: SightModel = {
+    return {
       id: frontSight.id,
       nameID: nameLangID,
       addressID: addressLangID,
@@ -76,26 +75,15 @@ export class SightsConverter {
       reviewsID: frontSight.reviews,
       rating: frontSight.rating
     };
-    return dbSight;
   }
 
   public async fromDBToFrontArray(dbSight: SightModel[]): Promise<SightV2[]> {
-    const dbSightArr = dbSight.reduce((SightArr, Sight) => {
-      const frontSight = this.fromDBToFront(Sight);
-      SightArr.push(frontSight);
-      return SightArr;
-    }, []);
-
+    const dbSightArr = dbSight.map((Sight) => this.fromDBToFront(Sight));
     return Promise.all(dbSightArr);
   }
 
   public async fromFrontToDBArray(frontSight: SightV2[]): Promise<SightModel[]> {
-    const dbSightArr = frontSight.reduce((SightArr, langRec) => {
-      const dbSight = this.fromFrontToDB(langRec);
-      SightArr.push(dbSight);
-      return SightArr;
-    }, []);
-
+    const dbSightArr = frontSight.map((langRec) => this.fromFrontToDB(langRec));
     return Promise.all(dbSightArr);
   }
 

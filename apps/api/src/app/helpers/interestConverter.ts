@@ -13,13 +13,12 @@ export class InterestsConverter {
       this.languageService.getLangRecordByID(dbInterest.labelID),
       this.languageService.getLangRecordByID(dbInterest.descriptionID)
     ]);
-    const frontInterest: InterestV2 = {
+    return {
       id: dbInterest.id,
       label: labelLang,
       description: descrLang,
       size: dbInterest.size
     };
-    return frontInterest;
   }
 
   public async fromFrontToDB(frontInterest: InterestV2): Promise<InterestModel> {
@@ -27,36 +26,25 @@ export class InterestsConverter {
       this.insertNewLangRecord(frontInterest.label),
       this.insertNewLangRecord(frontInterest.description)
     ]);
-    const dbInterest: InterestModel = {
+    return {
       id: frontInterest.id,
       labelID: labelLangID,
       descriptionID: descrLangID,
       size: frontInterest.size
     };
-    return dbInterest;
   }
 
   public async fromDBToFrontArray(
     dbInterest: InterestModel[]
   ): Promise<InterestV2[]> {
-    const dbInterestArr = dbInterest.reduce((interestArr, interest) => {
-      const frontInterest = this.fromDBToFront(interest);
-      interestArr.push(frontInterest);
-      return interestArr;
-    }, []);
-
+    const dbInterestArr = dbInterest.map((interest) => this.fromDBToFront(interest));
     return Promise.all(dbInterestArr);
   }
 
   public async fromFrontToDBArray(
     frontInterest: InterestV2[]
   ): Promise<InterestModel[]> {
-    const dbInterestArr = frontInterest.reduce((interestArr, langRec) => {
-      const dbInterest = this.fromFrontToDB(langRec);
-      interestArr.push(dbInterest);
-      return interestArr;
-    }, []);
-
+    const dbInterestArr = frontInterest.map((langRec) => this.fromFrontToDB(langRec));
     return Promise.all(dbInterestArr);
   }
 
