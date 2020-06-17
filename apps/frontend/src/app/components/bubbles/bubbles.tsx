@@ -1,8 +1,4 @@
-import React, {
-  memo,
-  useRef,
-  useEffect
-} from 'react';
+import React, { memo, useRef, useEffect } from 'react';
 import { Interest } from '@mogilev-guide/models';
 import styled from 'styled-components';
 import { createBubbles } from './services';

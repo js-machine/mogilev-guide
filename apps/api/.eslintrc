@@ -1,1 +1,6 @@
-{ "extends": "../../.eslintrc", "rules": {} }
+{
+  "extends": "../../.eslintrc",
+  "rules": {
+    "no-return-await": "warn"
+  }
+}
