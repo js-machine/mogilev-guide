@@ -1,4 +1,4 @@
-import { InterestV2, Language } from '@mogilev-guide/models';
+import { InterestDto, Language } from '@mogilev-guide/models';
 import { InterestModel } from '@mogilev-guide/api/models';
 import { LanguagesConverter } from './languageConverter';
 import { LanguageService } from '@mogilev-guide/api/services/language';
@@ -8,7 +8,7 @@ import { Injectable, Inject } from '@mogilev-guide/api/ioc';
 export class InterestsConverter {
   @Inject() private languageService: LanguageService;
 
-  public async fromDBToFront(dbInterest: InterestModel): Promise<InterestV2> {
+  public async fromDBToFront(dbInterest: InterestModel): Promise<InterestDto> {
     const [labelLang, descrLang] = await Promise.all([
       this.languageService.getLangRecordByID(dbInterest.labelID),
       this.languageService.getLangRecordByID(dbInterest.descriptionID)
@@ -21,7 +21,9 @@ export class InterestsConverter {
     };
   }
 
-  public async fromFrontToDB(frontInterest: InterestV2): Promise<InterestModel> {
+  public async fromFrontToDB(
+    frontInterest: InterestDto
+  ): Promise<InterestModel> {
     const [labelLangID, descrLangID] = await Promise.all([
       this.insertNewLangRecord(frontInterest.label),
       this.insertNewLangRecord(frontInterest.description)
@@ -36,15 +38,19 @@ export class InterestsConverter {
 
   public async fromDBToFrontArray(
     dbInterest: InterestModel[]
-  ): Promise<InterestV2[]> {
-    const dbInterestArr = dbInterest.map((interest) => this.fromDBToFront(interest));
+  ): Promise<InterestDto[]> {
+    const dbInterestArr = dbInterest.map(interest =>
+      this.fromDBToFront(interest)
+    );
     return Promise.all(dbInterestArr);
   }
 
   public async fromFrontToDBArray(
-    frontInterest: InterestV2[]
+    frontInterest: InterestDto[]
   ): Promise<InterestModel[]> {
-    const dbInterestArr = frontInterest.map((langRec) => this.fromFrontToDB(langRec));
+    const dbInterestArr = frontInterest.map(langRec =>
+      this.fromFrontToDB(langRec)
+    );
     return Promise.all(dbInterestArr);
   }
 

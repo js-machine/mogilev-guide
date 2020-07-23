@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { Sight } from '@mogilev-guide/models';
 import { StarsRating } from '../starsRating';
 import {
   SightRatingContainer,
@@ -13,7 +12,7 @@ import {
 } from './styles';
 
 interface Props {
-  rating: Sight['rating'];
+  rating: number[];
 }
 
 const RATING_POINTS = [5, 4, 3, 2, 1];

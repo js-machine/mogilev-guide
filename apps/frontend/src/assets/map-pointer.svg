@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 61.2 (101010) - https://sketch.com -->
+    <title>164ADDBB-B078-4189-864F-89700D46D812</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <path d="M9,24 C15,16.7646325 18,11.5877719 18,8.46941824 C18,3.79188771 13.9705627,0 9,0 C4.02943725,0 0,3.79188771 0,8.46941824 C0,11.5877719 3,16.7646325 9,24 Z" id="path-1"></path>
+        <filter x="-108.3%" y="-68.8%" width="316.7%" height="262.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="6" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.178442029   0 0 0 0 0.178442029   0 0 0 0 0.178442029  0 0 0 0.301764642 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="map-pointer">
+            <g transform="translate(3.000000, 0.000000)" id="Oval">
+                <g>
+                    <g>
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#09DDDF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                    <circle fill="#FFFFFF" cx="9" cy="9" r="5"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

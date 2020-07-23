@@ -1,6 +1,6 @@
 import { action, observable, runInAction } from 'mobx';
 import { UiStore } from '@mogilev-guide/frontend/stores/ui.store';
-import { Interest, Route } from '@mogilev-guide/models';
+import { Interest, Route, InterestMapper } from '@mogilev-guide/models';
 import { getInterests, getRoutes } from '@mogilev-guide/data-service';
 
 export class MainStore {
@@ -14,7 +14,12 @@ export class MainStore {
 
     try {
       const interests = await getInterests();
-      runInAction(() => (this.interests = interests));
+      runInAction(
+        () =>
+          (this.interests = interests.map(interest =>
+            InterestMapper.mapToUi(interest, this.uiStore.activeLanguage)
+          ))
+      );
     } finally {
       this.uiStore.setIsLoading(false);
     }

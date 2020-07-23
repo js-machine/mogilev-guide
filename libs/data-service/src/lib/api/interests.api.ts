@@ -1,6 +1,6 @@
-import { Interest } from '@mogilev-guide/models';
+import { InterestDto } from '@mogilev-guide/models';
 
-export async function getInterests(): Promise<Interest[]> {
+export async function getInterests(): Promise<InterestDto[]> {
   return fetch('/api/interests', {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' }

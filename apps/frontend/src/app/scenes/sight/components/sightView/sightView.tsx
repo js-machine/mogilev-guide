@@ -71,6 +71,7 @@ export const SightView: React.FC<Props> = ({
           </SightTabs.Tab>
           <SightTabs.Tab id={Tabs.REVIEWS} title="Reviews">
             <SightReviews
+              sightId={sight.id}
               reviews={sight.reviews}
               reviewsTotalCount={sight.reviewsTotalCount}
               rating={sight.rating}

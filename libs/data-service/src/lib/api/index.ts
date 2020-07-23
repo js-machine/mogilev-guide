@@ -1,3 +1,3 @@
 export * from './interests.api';
-export { getSight } from './sight';
+export * from './sights'
 export * from './routes.api';

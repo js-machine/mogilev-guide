@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useStores } from '@mogilev-guide/frontend/stores';
 import { Loader } from '@mogilev-guide/frontend/components';
-import { SightView } from './sightView';
+import { SightView } from './components/sightView';
 
 interface Props {
   match: {
