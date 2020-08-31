@@ -1,4 +1,4 @@
-import * as Moment from 'moment';
+//import * as Moment from 'moment';
 import { Language } from '../language';
 
 export interface RouteDto {
@@ -17,7 +17,7 @@ export interface RouteDto {
 export interface Route {
   id: string;
   title: string;
-    //duration: Moment.Duration;
+  //duration: Moment.Duration;
   duration: string;
   distance: number;
   rating: number;

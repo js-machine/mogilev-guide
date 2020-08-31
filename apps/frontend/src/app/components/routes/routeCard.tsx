@@ -48,6 +48,7 @@ const CardStyle = styled.div`
   }
 `;
 
+// TODO Add <div>{route.duration.asHours()} h</div>
 export const RouteCard = memo(({ route }: Props) => {
   return (
     <CardStyle className={'route-card'}>
@@ -56,7 +57,7 @@ export const RouteCard = memo(({ route }: Props) => {
       </div>
       <div className={'route-card__title'}>
         <div>{route.title}</div>
-        <div>{route.duration.asHours()} h</div>
+        <div>{route.duration} h</div>
       </div>
       <div className={'route-card__info'}>
         <div className={'route-card__places'}>{route.places} places</div>

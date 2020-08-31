@@ -1,7 +1,7 @@
 import { Controller, Get, Route, Post, Body, Put, Delete } from 'tsoa';
 import { RouteDto } from '@mogilev-guide/models';
 import { Inject } from '@mogilev-guide/api/ioc';
-import { RoutesService } from '@mogilev-guide/api/services/Routes';
+import { RoutesService } from '@mogilev-guide/api/services/routes';
 import { RoutesConverter } from '@mogilev-guide/api/helpers';
 
 @Route('routes')

@@ -13,8 +13,7 @@ export class RoutesConverter {
     return {
       id: dbRoute.id,
       title: title,
-      //duration: dbRoute.duration,
-      duration: null,
+      duration: dbRoute.duration,
       distance: dbRoute.distance,
       rating: dbRoute.rating,
       reviews: dbRoute.reviews,
@@ -29,8 +28,7 @@ export class RoutesConverter {
     return {
       id: frontRoute.id,
       titleID: titleID,
-      //duration: frontRoute.duration,
-      duration: null,
+      duration: frontRoute.duration,
       distance: frontRoute.distance,
       rating: frontRoute.rating,
       reviews: frontRoute.reviews,

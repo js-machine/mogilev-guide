@@ -1,12 +1,13 @@
 import moment from 'moment';
 import { Route } from '@mogilev-guide/models';
 
+// TODO Return real duration if necessary
 export async function getRoutes(): Promise<Route[]> {
   const routes = [
     {
       id: '1',
       title: 'Historical Monuments',
-      duration: moment.duration({ hours: 1, minutes: 30 }),
+      duration: 'moment.duration({ hours: 1, minutes: 30 })',
       distance: 3000,
       rating: 4.5,
       reviews: 64,
@@ -17,7 +18,7 @@ export async function getRoutes(): Promise<Route[]> {
     {
       id: '2',
       title: 'Churches',
-      duration: moment.duration({ hours: 2 }),
+      duration: 'moment.duration({ hours: 2 })',
       distance: 4500,
       rating: 4.5,
       reviews: 43,
@@ -28,7 +29,7 @@ export async function getRoutes(): Promise<Route[]> {
     {
       id: '13',
       title: 'Monuments & Churches',
-      duration: moment.duration({ hours: 3, minutes: 30 }),
+      duration: 'moment.duration({ hours: 3, minutes: 30 })',
       distance: 2800,
       rating: 3.5,
       reviews: 14,
