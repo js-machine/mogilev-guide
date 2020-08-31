@@ -5,16 +5,14 @@ import { LanguageService } from '@mogilev-guide/api/services/language';
 import { InterestsService } from '@mogilev-guide/api/services/interests';
 import { LanguagesConverter } from './languageConverter';
 import { Inject, Injectable } from '@mogilev-guide/api/ioc';
-import { ReviewsConverter } from '@mogilev-guide/api/helpers/reviewConverter';
-import { ReviewService } from '@mogilev-guide/api/services/review';
+import { LanguageHelper } from './languageHelper';
 
 @Injectable()
 export class SightsConverter {
   @Inject() private languageService: LanguageService;
   @Inject() private interestsService: InterestsService;
   @Inject() private interestsConverter: InterestsConverter;
-  @Inject() private reviewService: ReviewService;
-  @Inject() private reviewsConverter: ReviewsConverter;
+  @Inject() private languageHelper: LanguageHelper;
 
   public async fromDBToFront(dbSight: SightModel): Promise<SightDto> {
     //prepare languages fields
@@ -55,9 +53,9 @@ export class SightsConverter {
   public async fromFrontToDB(frontSight: SightDto): Promise<SightModel> {
     //prepare languages fields
     const [nameLangID, addressLangID, historyLangID] = await Promise.all([
-      this.insertLangRecord(frontSight.name),
-      this.insertLangRecord(frontSight.address),
-      this.insertLangRecord(frontSight.history)
+      this.languageHelper.insertLangRecord(frontSight.name),
+      this.languageHelper.insertLangRecord(frontSight.address),
+      this.languageHelper.insertLangRecord(frontSight.history)
     ]);
 
     //prepare another fields
@@ -91,23 +89,5 @@ export class SightsConverter {
   ): Promise<SightModel[]> {
     const dbSightArr = frontSight.map(langRec => this.fromFrontToDB(langRec));
     return Promise.all(dbSightArr);
-  }
-
-  private async insertLangRecord(frontLangRecord: Language): Promise<string> {
-    const [recLangDB, langRec] = await Promise.all([
-      LanguagesConverter.fromFrontToDB(frontLangRecord),
-      this.languageService.getLangRecordByID(frontLangRecord.id)
-    ]);
-    let langRecID: string;
-    if (langRec) {
-      langRecID = langRec.id;
-      await this.languageService.updateLanguageRecord(
-        langRec.id,
-        frontLangRecord
-      );
-    } else {
-      langRecID = await this.languageService.addLanguageRecord(recLangDB);
-    }
-    return langRecID;
   }
 }
