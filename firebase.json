@@ -3,7 +3,11 @@
     {
       "target": "mogilev-guide",
       "public": "./dist/apps/frontend",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
       "rewrites": [
         {
           "source": "/api{,/**}",
@@ -17,7 +21,11 @@
     }
   ],
   "functions": {
-    "source": "/"
+    "source": "/",
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint",
+      "npm --prefix \"$RESOURCE_DIR\" run build"
+    ]
   },
   "emulators": {
     "functions": {

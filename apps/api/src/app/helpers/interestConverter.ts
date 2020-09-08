@@ -1,12 +1,13 @@
-import { InterestDto, Language } from '@mogilev-guide/models';
+import { InterestDto } from '@mogilev-guide/models';
 import { InterestModel } from '@mogilev-guide/api/models';
-import { LanguagesConverter } from './languageConverter';
 import { LanguageService } from '@mogilev-guide/api/services/language';
 import { Injectable, Inject } from '@mogilev-guide/api/ioc';
+import { LanguageHelper } from './languageHelper';
 
 @Injectable()
 export class InterestsConverter {
   @Inject() private languageService: LanguageService;
+  @Inject() private languageHelper: LanguageHelper;
 
   public async fromDBToFront(dbInterest: InterestModel): Promise<InterestDto> {
     const [labelLang, descrLang] = await Promise.all([
@@ -25,8 +26,8 @@ export class InterestsConverter {
     frontInterest: InterestDto
   ): Promise<InterestModel> {
     const [labelLangID, descrLangID] = await Promise.all([
-      this.insertNewLangRecord(frontInterest.label),
-      this.insertNewLangRecord(frontInterest.description)
+      this.languageHelper.insertLangRecord(frontInterest.label),
+      this.languageHelper.insertLangRecord(frontInterest.description)
     ]);
     return {
       id: frontInterest.id,
@@ -52,25 +53,5 @@ export class InterestsConverter {
       this.fromFrontToDB(langRec)
     );
     return Promise.all(dbInterestArr);
-  }
-
-  private async insertNewLangRecord(
-    frontLangRecord: Language
-  ): Promise<string> {
-    const [recLangDB, langRec] = await Promise.all([
-      LanguagesConverter.fromFrontToDB(frontLangRecord),
-      this.languageService.getLangRecordByID(frontLangRecord.id)
-    ]);
-    let langRecID: string;
-    if (langRec) {
-      langRecID = langRec.id;
-      await this.languageService.updateLanguageRecord(
-        langRec.id,
-        frontLangRecord
-      );
-    } else {
-      langRecID = await this.languageService.addLanguageRecord(recLangDB);
-    }
-    return langRecID;
   }
 }

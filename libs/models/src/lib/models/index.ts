@@ -7,5 +7,5 @@ export {
   Coordinates,
   SightMapper
 } from './sight';
-export { Route } from './route';
+export { Route, RouteDto, RouteMapper } from './route';
 export { Language, LanguageList } from './language';
