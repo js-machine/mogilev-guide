@@ -58,7 +58,7 @@ export class RoutesService {
       //delete language records which connect with route
       await this.languageService.deleteLanguageRecordsByID([route.titleID]);
 
-      //delete sigth
+      //delete sight
       const doc = t.delete(ref);
       return doc;
     });

@@ -6,25 +6,25 @@ import { RoutesConverter } from '@mogilev-guide/api/helpers';
 
 @Route('routes')
 export class RoutesController extends Controller {
-  @Inject() private RoutesService!: RoutesService;
-  @Inject() private RoutesConverter!: RoutesConverter;
+  @Inject() private routesService!: RoutesService;
+  @Inject() private routesConverter!: RoutesConverter;
 
   @Get()
   public async getRoutes(): Promise<RouteDto[]> {
-      const dbRoutes = await this.RoutesService.getAllRoutes();
-      return this.RoutesConverter.fromDBToFrontArray(dbRoutes);
+      const dbRoutes = await this.routesService.getAllRoutes();
+      return this.routesConverter.fromDBToFrontArray(dbRoutes);
   }
 
   @Get('{id}')
   public async getOneRoute(id: string): Promise<RouteDto> {
-    const dbRoute = await this.RoutesService.getRouteByID(id);
-    return this.RoutesConverter.fromDBToFront(dbRoute);
+    const dbRoute = await this.routesService.getRouteByID(id);
+    return this.routesConverter.fromDBToFront(dbRoute);
   }
 
   @Post()
   public async addRoute(@Body() place: RouteDto): Promise<string> {
-    const dbRoute = await this.RoutesConverter.fromFrontToDB(place);
-    return this.RoutesService.addRoute(dbRoute);
+    const dbRoute = await this.routesConverter.fromFrontToDB(place);
+    return this.routesService.addRoute(dbRoute);
   }
 
   @Put('{id}')
@@ -32,14 +32,14 @@ export class RoutesController extends Controller {
     id: string,
     @Body() place: RouteDto
   ): Promise<RouteDto> {
-    const dbRoute = await this.RoutesConverter.fromFrontToDB(place);
-    const updatedRoute = await this.RoutesService.updateRouteByID(id, dbRoute);
-    return this.RoutesConverter.fromDBToFront(updatedRoute);
+    const dbRoute = await this.routesConverter.fromFrontToDB(place);
+    const updatedRoute = await this.routesService.updateRouteByID(id, dbRoute);
+    return this.routesConverter.fromDBToFront(updatedRoute);
   }
 
   @Delete('{id}')
   public async deleteRoute(id: string): Promise<string> {
-    const deleteResult: boolean = await this.RoutesService.deleteRouteByID(id);
+    const deleteResult: boolean = await this.routesService.deleteRouteByID(id);
     return deleteResult
       ? `Success delete ${id}`
       : `Something went wrong with delete ${id}`;

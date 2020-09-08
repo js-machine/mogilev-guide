@@ -7,7 +7,7 @@ export async function getRoutes(): Promise<Route[]> {
     {
       id: '1',
       title: 'Historical Monuments',
-      duration: 'moment.duration({ hours: 1, minutes: 30 })',
+      duration: '1h 30m',
       distance: 3000,
       rating: 4.5,
       reviews: 64,
@@ -18,7 +18,7 @@ export async function getRoutes(): Promise<Route[]> {
     {
       id: '2',
       title: 'Churches',
-      duration: 'moment.duration({ hours: 2 })',
+      duration: '1h',
       distance: 4500,
       rating: 4.5,
       reviews: 43,
@@ -29,7 +29,7 @@ export async function getRoutes(): Promise<Route[]> {
     {
       id: '13',
       title: 'Monuments & Churches',
-      duration: 'moment.duration({ hours: 3, minutes: 30 })',
+      duration: '3h 30m',
       distance: 2800,
       rating: 3.5,
       reviews: 14,
