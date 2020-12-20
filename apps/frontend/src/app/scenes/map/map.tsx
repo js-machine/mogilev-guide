@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
+import React from 'react';
 
 import { observer } from 'mobx-react-lite';
 import { useStores } from '@mogilev-guide/frontend/stores';
-import { GoogleMap } from '@mogilev-guide/frontend/components/googleMap';
+import { OsmMap } from '@mogilev-guide/frontend/components/osmMap';
 import { Loader, ButtonPanel } from '@mogilev-guide/frontend/components';
 import styled, { css } from 'styled-components';
 
@@ -29,25 +29,14 @@ const ButtonPanelContainer = styled.div`
 `;
 
 export const Map: React.FC = observer(() => {
-  const { mapStore, uiStore } = useStores();
-
-  useEffect(() => {
-    mapStore.initStarted();
-  }, [mapStore]);
-
-  const onMapInit = useCallback(
-    (map, myPosition) => {
-      mapStore.initCompleted(map, myPosition);
-    },
-    [mapStore]
-  );
+  const { uiStore } = useStores();
 
   return (
     <MapComponent>
       {uiStore.isPageLoading && <Loader isLoading={uiStore.isPageLoading} />}
       <MapContent hidden={uiStore.isPageLoading}>
         <MapPanel>
-          <GoogleMap onInit={onMapInit} />
+          <OsmMap />
         </MapPanel>
         <ButtonPanelContainer>
           <ButtonPanel />
