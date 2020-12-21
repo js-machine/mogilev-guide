@@ -1,8 +1,17 @@
 import React, { useEffect, useState, memo } from 'react';
-import L, { MapOptions } from 'leaflet';
+import L from 'leaflet';
 import { MapContainer, Marker, useMap, TileLayer } from 'react-leaflet';
 import { useStores } from '@mogilev-guide/frontend/stores';
 import styled from 'styled-components';
+import 'leaflet/dist/leaflet.css';
+
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+L.Marker.prototype.options.icon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow
+});
 
 const MapStyle = styled.div`
   height: 100%;
@@ -17,10 +26,10 @@ const MapStyle = styled.div`
 export const OsmMap = memo(() => {
   const { uiStore } = useStores();
   const [center, setMapCenter] = useState<L.LatLng>(L.latLng(53.894548, 30.330654));
+  const [map, setMap] = useState<L.Map>();
 
-  const ChangeView = ({ center }: MapOptions) => {
-    const map = useMap();
-    if (center) map.setView(center, map.getZoom());
+  const MapView = () => {
+    setMap(useMap());
     return null;
   };
 
@@ -37,11 +46,15 @@ export const OsmMap = memo(() => {
     uiStore.setIsLoading(false);
   }, [uiStore]);
 
+  useEffect(() => {
+    if (center && map) map.setView(center, map.getZoom());
+  }, [center, map]);
+
 
   return (
     <MapStyle>
       <MapContainer center={center} zoom={18}>
-        <ChangeView center={center} />
+        <MapView />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
