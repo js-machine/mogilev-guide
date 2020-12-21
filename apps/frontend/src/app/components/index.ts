@@ -5,4 +5,4 @@ export * from './bubbles';
 export * from './icon';
 export * from './routes';
 
-export * from './googleMap';
+export * from './osmMap';

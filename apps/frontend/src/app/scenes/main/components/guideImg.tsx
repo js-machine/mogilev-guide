@@ -6,5 +6,6 @@ export const GuideImg = styled.div`
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  height: 300px;
+  height: 200px;
+  width: 200px;
 `;
