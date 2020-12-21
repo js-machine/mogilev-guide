@@ -50,7 +50,6 @@ export const OsmMap = memo(() => {
     if (center && map) map.setView(center, map.getZoom());
   }, [center, map]);
 
-
   return (
     <MapStyle>
       <MapContainer center={center} zoom={18}>

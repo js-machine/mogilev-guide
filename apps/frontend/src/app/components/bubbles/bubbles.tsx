@@ -9,8 +9,8 @@ interface Props {
 
 const StyledGroup = styled.svg`
   text-align: center;
-  width: 100%;
-  height: 400px;
+  width: 30%;
+  height: calc(100vh - 260px);
 `;
 
 export const Bubbles = memo(({ data }: Props) => {
